@@ -1,0 +1,417 @@
+"use client";
+
+import Link from "next/link";
+
+import { motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  Briefcase,
+  Building2,
+  Dumbbell,
+  GraduationCap,
+  Home,
+  Scissors,
+  ShieldCheck,
+  Stethoscope,
+  UtensilsCrossed,
+} from "lucide-react";
+
+import Container from "@/components/common/container";
+import SectionHeading from "@/components/common/section-heading";
+import SectionWrapper from "@/components/common/section-wrapper";
+import Footer from "@/components/layout/footer";
+import Navbar from "@/components/layout/navbar";
+import { Button } from "@/components/ui/button";
+
+const industries = [
+  {
+    name: "Clinics",
+    summary: "Reduce uncertainty with clearer choices and kinder intake flows.",
+    preview: "Calm language, clear next steps, and visible contact paths that build trust.",
+    focus: ["Appointment flow", "Intake clarity", "Trust signals"],
+    icon: Stethoscope,
+    accent: "from-blue-50 to-white",
+  },
+  {
+    name: "Gyms",
+    summary: "Move people into action quickly with frictionless sign-up pathways.",
+    preview: "Short flows, clear CTAs, and mobile-first momentum to reduce dropoff.",
+    focus: ["Signup flow", "Class visibility", "Mobile-first momentum"],
+    icon: Dumbbell,
+    accent: "from-slate-50 to-white",
+  },
+  {
+    name: "Restaurants",
+    summary: "Keep menus, ordering, and reservations instantly accessible for time-sensitive visits.",
+    preview: "Menus up front, clear ordering flows, and discovery tuned for speed.",
+    focus: ["Menus", "Ordering", "Reservations"],
+    icon: UtensilsCrossed,
+    accent: "from-amber-50 to-white",
+  },
+  {
+    name: "Salons",
+    summary: "Show work first, make availability obvious, and make booking feel effortless.",
+    preview: "Visual-first presentation, quick availability checks, and a short booking path.",
+    focus: ["Portfolio", "Availability", "Short booking"],
+    icon: Scissors,
+    accent: "from-pink-50 to-white",
+  },
+  {
+    name: "Real Estate",
+    summary: "Reduce noise around listings and surface inquiry actions where they matter most.",
+    preview: "Clear listing hierarchy, immediate contact prompts, and fewer distractions.",
+    focus: ["Listing clarity", "Inquiry flow", "Contact visibility"],
+    icon: Home,
+    accent: "from-emerald-50 to-white",
+  },
+  {
+    name: "Medical",
+    summary: "Make care pathways obvious with plain language and straightforward navigation.",
+    preview: "Accessible navigation, clear service grouping, and supportive pathways to care.",
+    focus: ["Service navigation", "Accessibility", "Care pathways"],
+    icon: Building2,
+    accent: "from-cyan-50 to-white",
+  },
+  {
+    name: "Coaching",
+    summary: "Frame offers simply and reduce friction in early onboarding moments.",
+    preview: "Clear offer framing, simple next steps, and fewer choices to slow the decision.",
+    focus: ["Offer framing", "Onboarding", "Program clarity"],
+    icon: GraduationCap,
+    accent: "from-violet-50 to-white",
+  },
+  {
+    name: "Business",
+    summary: "Sharper positioning and routing that surface the right team and next step quickly.",
+    preview: "Concise positioning, clearer inquiry routing, and prioritized decision paths.",
+    focus: ["Positioning", "Lead routing", "Decision hierarchy"],
+    icon: Briefcase,
+    accent: "from-slate-50 to-white",
+  },
+];
+
+export default function IndustriesPage() {
+  return (
+    <>
+      <Navbar />
+
+      <main className="bg-background text-foreground">
+        <SectionWrapper contained={false} className="relative overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28 lg:pt-40 lg:pb-36">
+          <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[44rem] bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.08),_transparent_50%)]" />
+          <Container>
+            <div className="mx-auto max-w-6xl text-center">
+              <h1 className="mx-auto mt-8 max-w-5xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-8xl">
+                Interfaces shaped around how businesses move.
+              </h1>
+              <p className="mx-auto mt-8 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-lg">
+                Different categories move differently; the interface should follow, not force.
+              </p>
+              <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button asChild size="lg" className="rounded-full px-6">
+                  <Link href="/contact">
+                    Discuss Your Industry
+                    <ArrowUpRight className="size-4" />
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="rounded-full border-slate-200 px-6 text-slate-700">
+                  <Link href="/portfolio">View Interface Studies</Link>
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper contained={false} className="pt-20 pb-16 lg:pt-28 lg:pb-24">
+          <Container>
+            <div className="mx-auto max-w-7xl">
+              <div className="mb-12 text-center">
+                <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Interaction Flow</h2>
+                <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-slate-600">A quiet, abstract preview of the operational layer — atmospheric fragments that imply interaction.</p>
+                  <div className="mt-8">
+                  <Button asChild size="lg" variant="outline" className="rounded-full px-4">
+                    <Link href="/services">Explore Operational Structures</Link>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="mx-auto max-w-6xl">
+                  <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_40px_120px_-70px_rgba(15,23,42,0.25)] lg:p-10">
+                    <div className="absolute -left-12 -top-12 hidden h-40 w-40 rounded-full bg-slate-950/5 blur-3xl lg:block" />
+                    <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+                      <div className="space-y-6">
+                        <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                          <div>
+                            <p className="text-sm font-medium text-slate-700">Operations fragments</p>
+                          </div>
+                          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                            <div className="rounded-2xl bg-slate-100/60 p-4">
+                              <div className="h-2 w-24 rounded-full bg-slate-200/60" />
+                              <div className="mt-3 h-12 rounded-lg bg-slate-100/40" />
+                            </div>
+                            <div className="rounded-2xl bg-slate-100/40 p-4">
+                              <div className="h-2 w-16 rounded-full bg-slate-200/60" />
+                              <div className="mt-3 h-12 rounded-lg bg-slate-100/30" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 flex gap-4 text-sm text-slate-500">
+                          <span className="opacity-80">Listings</span>
+                          <span className="opacity-80">Intake</span>
+                          <span className="opacity-80">Memberships</span>
+                        </div>
+                      </div>
+
+                      <div className="relative">
+                        <div className="rounded-[1.5rem] bg-white p-6">
+                          <div className="mt-6 space-y-4">
+                            <div className="rounded-2xl bg-slate-100/40 p-4">
+                              <div className="h-3 w-28 rounded-full bg-slate-200/50" />
+                              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                                <div className="h-20 rounded-lg bg-slate-100/30" />
+                                <div className="h-20 rounded-lg bg-slate-100/20" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="pointer-events-none absolute -right-10 bottom-6 hidden h-28 w-28 rounded-full bg-blue-50/40 blur-2xl lg:block" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper>
+          <SectionHeading
+            eyebrow="Industry Structures"
+            title="Different businesses fail in different places"
+            subtitle="The interface should reflect that operational reality."
+          />
+
+          <div className="mt-14 grid gap-8">
+            {industries.map((industry, index) => {
+              const Icon = industry.icon;
+              const reverse = index % 2 === 1;
+
+              return (
+                <motion.section
+                  key={industry.name}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.18 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10"
+                >
+                  <div className={`grid gap-8 lg:grid-cols-[1.05fr_0.95fr] ${reverse ? "lg:items-start" : "lg:items-start"}`}>
+                      <div className={reverse ? "lg:order-2" : ""}>
+                      <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">{industry.name}</h2>
+                      <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">{industry.summary}</p>
+                      <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-500">
+                        {industry.focus.map((item) => (
+                          <span key={item} className="opacity-80">{item}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className={reverse ? "lg:order-1" : ""}>
+                      <div className={`overflow-hidden rounded-[1.75rem] border border-slate-200 bg-gradient-to-br ${industry.accent}`}>
+                        <div className="p-6 sm:p-8">
+                          <div>
+                            <div className="mt-6 rounded-3xl bg-white/80 p-5 backdrop-blur-sm">
+                              <p className="mt-2 max-w-md text-base leading-7 text-slate-700">{industry.preview}</p>
+                            </div>
+                          </div>
+                          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                            <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                              <div className="h-3 w-20 rounded-full bg-slate-200" />
+                              <div className="mt-4 h-24 rounded-2xl bg-slate-50" />
+                            </div>
+                            <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                              <div className="h-3 w-16 rounded-full bg-slate-200" />
+                              <div className="mt-4 h-24 rounded-2xl bg-gradient-to-b from-slate-50 to-white" />
+                            </div>
+                            <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                              <div className="h-3 w-14 rounded-full bg-slate-200" />
+                              <div className="mt-4 h-24 rounded-2xl bg-slate-950/90" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.section>
+              );
+            })}
+          </div>
+        </SectionWrapper>
+
+        <SectionWrapper className="pt-12 sm:pt-16 lg:pt-20">
+          <Container>
+            <div className="mx-auto max-w-6xl">
+              <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+                <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+                  <div>
+                    <h3 className="mt-6 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Calm appointment-first systems</h3>
+                    <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">Designed to reduce uncertainty and make booking feel simple.</p>
+                    <div className="mt-8 flex gap-4 text-sm text-slate-500">
+                      <span className="opacity-80">Scheduling</span>
+                      <span className="opacity-80">Intake</span>
+                      <span className="opacity-80">Follow‑up</span>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.5rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,1))] p-6">
+                
+                    <div className="mt-6 grid gap-4">
+                      <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                        <div className="h-4 w-32 rounded-full bg-slate-100" />
+                        <div className="mt-4 h-36 rounded-2xl bg-slate-50" />
+                      </div>
+                      <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                        <p className="text-sm text-slate-600">Clear intake, fewer steps.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="pt-12 sm:pt-16 lg:pt-20">
+          <Container>
+            <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+              <div className="order-2 lg:order-1">
+                <h3 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Momentum-first layouts</h3>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">Short, action-focused flows designed for quick commitment.</p>
+              </div>
+              <div className="order-1 lg:order-2">
+                <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm lg:-translate-y-6">
+                  
+                  <div className="mt-6 grid gap-3">
+                    <div className="h-14 rounded-2xl bg-slate-50" />
+                    <div className="h-14 rounded-2xl bg-white shadow-inner" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="pt-12 sm:pt-16 lg:pt-20">
+          <Container>
+            <div className="mx-auto max-w-7xl">
+              <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+                <h3 className="mt-6 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Faster menu visibility and ordering flow</h3>
+                <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">Menus and ordering up front so decisions happen in seconds.</p>
+                <div className="mt-8 flex gap-6 text-sm text-slate-500">
+                  <span className="opacity-80">Menus</span>
+                  <span className="opacity-80">Ordering</span>
+                  <span className="opacity-80">Reservations</span>
+                  <span className="opacity-80">Maps</span>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="pt-12 sm:pt-16 lg:pt-20">
+          <Container>
+            <div className="mx-auto max-w-4xl text-center">
+              <SectionHeading
+                eyebrow="Operational Differences"
+                title="Operational Differences"
+                subtitle="The structure changes because behavior changes."
+              />
+              <div className="mt-10 space-y-4 text-base leading-8 text-slate-600">
+                <p>Clinics need trust before action.</p>
+                <p>Restaurants need speed before explanation.</p>
+                <p>Gyms need momentum before detail.</p>
+                <p>Real estate needs clarity before commitment.</p>
+                <p className="mt-6 font-semibold">The structure changes because behavior changes.</p>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="py-28">
+          <Container>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-medium uppercase tracking-[0.28em] text-slate-500">Editorial Interruption</p>
+              <h2 className="mt-8 text-[3.4rem] leading-[1.02] font-semibold text-slate-950 sm:text-[4rem] lg:text-[5rem]">Design for the moment that matters most.</h2>
+              <p className="mx-auto mt-8 max-w-2xl text-lg leading-9 text-slate-600">Different businesses encounter decision points at different moments — the right interface reduces friction exactly where it begins. This is not decoration; it is anticipation.</p>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="pt-12 sm:pt-16 lg:pt-20">
+          <Container>
+            <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2 lg:items-start">
+              <div className="rounded-[1.8rem] border border-slate-200 bg-white p-6">
+                
+                <h4 className="mt-4 text-2xl font-semibold text-slate-950">Cleaner listing hierarchy</h4>
+                <p className="mt-3 text-sm text-slate-600">Property pages with less noise, stronger contact paths, and room for the detail that matters.</p>
+                <div className="mt-6 space-y-3">
+                  <div className="text-sm text-slate-500">Listings · Inquiry</div>
+                </div>
+              </div>
+
+              <div className="rounded-[1.8rem] border border-slate-200 bg-white p-6">
+                <h4 className="mt-4 text-2xl font-semibold text-slate-950">Visual-first booking</h4>
+                <p className="mt-3 text-sm text-slate-600">A visual-first approach that makes availability obvious.</p>
+                <div className="mt-6 text-sm text-slate-500">Gallery · Booking</div>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="py-28">
+          <Container>
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-[2.4rem] sm:text-[3rem] lg:text-[3.6rem] font-semibold text-slate-950 leading-tight">Structure Before Style</h2>
+              <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-slate-600">Most business websites collapse because every section competes for attention equally. Better systems start with a clear hierarchy, fewer decisions, calmer navigation, and mobile-first pacing.</p>
+              <p className="mt-12 text-5xl font-extrabold tracking-tight text-slate-900">Less friction. Better flow.</p>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="pt-12 sm:pt-16 lg:pt-20">
+          <Container>
+            <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2">
+              <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6">
+                <h4 className="mt-4 text-2xl font-semibold text-slate-950">Structured onboarding and clearer offers</h4>
+                <p className="mt-3 text-sm text-slate-600">Simple framing and fewer choices in early moments.</p>
+              </div>
+              <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6">
+                <h4 className="mt-4 text-2xl font-semibold text-slate-950">Cleaner positioning and inquiry flow</h4>
+                <p className="mt-3 text-sm text-slate-600">Sharper front doors and prioritized inquiry paths.</p>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper contained={false} className="pb-28 pt-0 sm:pb-32 lg:pb-40">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-[2rem] border border-slate-200 bg-white/60 px-6 py-24 text-center sm:px-12 lg:px-20">
+              <h2 className="mx-auto max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-5xl">If the category is clear, the page should be too.</h2>
+              <p className="mx-auto mt-8 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+                We map the structure so decisions become quieter and more obvious.
+              </p>
+              <div className="mt-12 flex justify-center">
+                <Link href="/contact" className="inline-block rounded-full border border-slate-200 px-6 py-3 text-sm text-slate-900/90">
+                  Start the conversation
+                </Link>
+              </div>
+            </div>
+          </div>
+        </SectionWrapper>
+      </main>
+
+      <Footer />
+    </>
+  );
+}

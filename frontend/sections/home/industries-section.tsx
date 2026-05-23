@@ -1,0 +1,88 @@
+import Link from "next/link";
+
+import {
+  Briefcase,
+  Building2,
+  Dumbbell,
+  GraduationCap,
+  Home,
+  Scissors,
+  Stethoscope,
+  UtensilsCrossed,
+} from "lucide-react";
+
+import SectionHeading from "@/components/common/section-heading";
+import SectionWrapper from "@/components/common/section-wrapper";
+import { Button } from "@/components/ui/button";
+
+const industries = [
+  { label: "Gym", icon: Dumbbell },
+  { label: "Clinic", icon: Stethoscope },
+  { label: "Restaurant", icon: UtensilsCrossed },
+  { label: "Salon", icon: Scissors },
+  { label: "Real Estate", icon: Home },
+  { label: "Medical", icon: Building2 },
+  { label: "Coaching", icon: GraduationCap },
+  { label: "Business", icon: Briefcase },
+];
+
+export default function IndustriesSection() {
+  return (
+    <SectionWrapper id="industries" className="bg-slate-50/70">
+      <SectionHeading eyebrow="Built Around The Work" title="Built Around The Work" subtitle="Each industry has its own pressure points. These pages are written and structured to match them." />
+
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {industries.map((industry) => {
+          const Icon = industry.icon;
+          const liftClass = industry.label === "Clinic" || industry.label === "Real Estate" ? "lg:translate-y-4" : industry.label === "Salon" ? "lg:-translate-y-2" : "";
+
+          return (
+            <article
+              key={industry.label}
+              className={`group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_20px_45px_-30px_rgba(15,23,42,0.35)] ${liftClass}`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex size-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-blue-600 transition-transform duration-300 group-hover:scale-105">
+                  <Icon className="size-5" />
+                </div>
+                <div className="h-px flex-1 bg-gradient-to-r from-slate-200 to-transparent" />
+              </div>
+              <h3 className="mt-6 text-lg font-semibold tracking-tight text-slate-950">{industry.label}</h3>
+              {industry.label === "Gym" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Lead with energy. Make memberships easy to understand, and keep the first tap on mobile.</p>
+              ) : null}
+              {industry.label === "Clinic" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Keep the layout calm, the appointment flow obvious, and the service list easy to scan.</p>
+              ) : null}
+              {industry.label === "Restaurant" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Show the menu fast, make local discovery clear, and keep ordering within reach.</p>
+              ) : null}
+              {industry.label === "Salon" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Let the visuals breathe, then move visitors straight to booking and availability.</p>
+              ) : null}
+              {industry.label === "Real Estate" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Present listings with less noise and more room for property detail, trust, and contact paths.</p>
+              ) : null}
+              {industry.label === "Medical" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Use clear navigation, plain language, and a structure that helps people find the right service quickly.</p>
+              ) : null}
+              {industry.label === "Coaching" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Put the offer first, explain the process simply, and make the next step feel low-friction.</p>
+              ) : null}
+              {industry.label === "Business" ? (
+                <p className="mt-3 text-sm leading-6 text-slate-600">Anchor the message, clarify what you do, and remove the filler that slows decision-making.</p>
+              ) : null}
+            </article>
+          );
+        })}
+      </div>
+      <div className="mt-8 flex justify-end">
+        <Button asChild variant="outline" className="rounded-full border-slate-200 px-5 text-slate-700">
+          <Link href="/industries">
+            Explore Industries
+          </Link>
+        </Button>
+      </div>
+    </SectionWrapper>
+  );
+}
