@@ -9,19 +9,19 @@ import { Button } from "@/components/ui/button";
 const services = [
   {
     title: "Business Websites",
-    description: "A clear front door for your company. Fast pages, sharp hierarchy, and a structure people can use without hesitation.",
+    description: "A clear front door that explains your services, captures intent, and guides customers to book or message.",
     icon: MonitorSmartphone,
     emphasis: "lg:col-span-2",
   },
   {
     title: "Booking Systems",
-    description: "Scheduling, intake, and confirmations arranged so your team spends less time chasing replies.",
+    description: "Simple, reliable booking flows for appointments, classes and reservations that reduce drop-offs and no-shows.",
     icon: Workflow,
     emphasis: "",
   },
   {
-    title: "SEO + Site Structure",
-    description: "Performance, metadata, and page structure that keep the site easy to maintain and easy to find.",
+    title: "WhatsApp & Lead Routing",
+    description: "Fast handoffs, qualification workflows and reliable routing so leads get answered quickly and your team can convert more.",
     icon: ShieldCheck,
     emphasis: "",
   },
@@ -29,8 +29,8 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <SectionWrapper id="services">
-      <SectionHeading eyebrow="Core Offerings" title="Core Offerings" subtitle="The work stays focused on the parts that shape trust, speed, and day-to-day usability." />
+    <SectionWrapper id="services" density="compact">
+      <SectionHeading eyebrow="Core Services" title="Services that turn traffic into inquiries and bookings" subtitle="The work stays focused on the parts that drive revenue: the website, the booking path, and the handoff to WhatsApp or your team." />
 
       <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:auto-rows-[minmax(180px,auto)]">
         {services.map((service, index) => {
@@ -55,7 +55,7 @@ export default function ServicesSection() {
                 <div className="hidden rounded-2xl border border-slate-200 bg-slate-50 p-4 md:block">
                   <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
                     <ArrowUpRight className="size-4 text-blue-600" />
-                    {isFeatured ? "Lead page" : "Supporting layer"}
+                    {isFeatured ? "Primary growth layer" : "Supporting system"}
                   </div>
                   <div className="mt-8 h-24 w-36 rounded-2xl bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(219,234,254,0.55))] shadow-inner" />
                 </div>
@@ -65,10 +65,10 @@ export default function ServicesSection() {
         })}
       </div>
       <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-slate-500">Detailed service architecture lives on the dedicated page.</p>
+        <p className="text-sm text-slate-500">Focused on measurable outcomes: more leads, bookings, and faster responses.</p>
         <Button asChild variant="outline" className="rounded-full border-slate-200 px-5 text-slate-700">
           <Link href="/services">
-            View All Services
+            How these help your business
             <ArrowUpRight className="size-4" />
           </Link>
         </Button>

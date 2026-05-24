@@ -14,34 +14,43 @@ import { Button } from "@/components/ui/button";
 
 const studies = [
   {
-    title: "Clinic Booking Structure",
+    brand: "NovaCare Clinic",
+    title: "Clinic booking structure",
     summary: "Appointment-first interaction with calmer intake and visible next steps.",
-    focus: ["Scheduling", "Intake", "Follow-Up", "Contact"],
+    focus: ["Scheduling", "Intake", "WhatsApp follow-up", "Contact"],
     icon: MonitorSmartphone,
     accent: "from-blue-50 to-white",
-    note: "Quiet operational movement",
+    note: "Reduced inquiry friction",
+    outcome: "More appointment requests and fewer missed leads",
+    problem: "Patients were unsure where to start and the booking path was too hidden.",
   },
   {
-    title: "Restaurant Order Flow",
-    summary: "Menus and ordering designed to reduce interaction time before action.",
-    focus: ["Menus", "Ordering", "Maps"],
+    brand: "UrbanFit Gym",
+    title: "Membership and class flow",
+    summary: "Membership-first structure with clearer class visibility and trial signup entry points.",
+    focus: ["Memberships", "Classes", "Trial booking"],
     icon: UtensilsCrossed,
     accent: "from-amber-50 to-white",
-    note: "Fast interaction under pressure",
+    note: "Higher mobile conversion momentum",
+    outcome: "Trial bookings became easier to complete on mobile",
+    problem: "The offer was strong, but membership and class actions were diluted by too much filler.",
   },
   {
-    title: "Real Estate Interface",
-    summary: "Listing structures designed to surface inquiry and reduce exploration noise.",
-    focus: ["Listings", "Inquiry", "Contact Flow", "Detail"],
+    brand: "Elevate Salon",
+    title: "Salon booking and gallery flow",
+    summary: "Visual-first presentation with a shorter path from gallery to booking and WhatsApp inquiry.",
+    focus: ["Gallery", "Booking", "Availability"],
     icon: Home,
     accent: "from-emerald-50 to-white",
-    note: "Layered information flow",
+    note: "Cleaner booking decisions",
+    outcome: "Visitors could check availability and act faster",
+    problem: "The business looked premium, but the booking path was not obvious enough.",
   },
 ];
 
 const studiesGrid = [
-  { title: "Mobile Intake", text: "Reduced friction during onboarding" },
-  { title: "Booking Flow", text: "Simpler decision pacing" },
+  { title: "Mobile Intake", text: "Shorter onboarding and fewer abandoned starts" },
+  { title: "Booking Flow", text: "Simpler decision pacing and stronger completion" },
   { title: "Navigation Flow", text: "Clear hierarchy and quieter paths" },
 ];
 
@@ -49,14 +58,14 @@ const rhythmLines = ["Intake ─ Routing ─ Scheduling", "Contact ─ Decision 
 
 const explorationCards = [
   {
-    title: "Gym Membership Flow",
-    text: "Shorter onboarding designed around momentum and mobile conversion behavior.",
+    title: "Motion Fitness",
+    text: "A conversion-first gym flow for memberships, classes, and trial requests.",
     tags: ["Memberships", "Programs"],
   },
   {
-    title: "Salon Booking Flow",
-    text: "Visual-first interaction with calmer booking and availability flow.",
-    tags: ["Gallery", "Booking"],
+    title: "Prime Dental",
+    text: "A trust-first clinic structure for treatment pages, consultation requests, and WhatsApp handoff.",
+    tags: ["Consultation", "Trust"],
   },
 ];
 
@@ -72,20 +81,20 @@ export default function PortfolioPage() {
             <div className="mx-auto max-w-6xl text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">Portfolio</p>
               <h1 className="mx-auto mt-8 max-w-5xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-8xl">
-                Interfaces designed around operational flow.
+                Example systems built to drive leads, bookings, and trust.
               </h1>
               <p className="mx-auto mt-8 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-lg">
-                The work shown here focuses on quieter pacing, clearer movement, and calmer operational structure.
+                These are realistic demo brands and representative case studies. They show how the website can support customer action, business operations, and clearer decision-making.
               </p>
               <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Button asChild size="lg" className="rounded-full px-6">
                   <Link href="/contact">
-                    Explore Interface Studies
+                    Explore Example Systems
                     <ArrowUpRight className="size-4" />
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="rounded-full border-slate-200 px-6 text-slate-700">
-                  <Link href="/services">Review Service Structure</Link>
+                  <Link href="/services">Review Services</Link>
                 </Button>
               </div>
             </div>
@@ -98,7 +107,7 @@ export default function PortfolioPage() {
               <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
                 <div>
                   <h2 className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Operational Flow Layer</h2>
-                  <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">Atmospheric interaction fragments with floating panels and restrained geometry.</p>
+                  <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">Representative case-study previews with operational details, measurable outcomes, and industry-specific behavior patterns.</p>
                 </div>
                 <div className="lg:pt-12">
                   <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_40px_120px_-70px_rgba(15,23,42,0.25)] lg:p-10">
@@ -131,7 +140,7 @@ export default function PortfolioPage() {
         </SectionWrapper>
 
         <SectionWrapper>
-          <SectionHeading title="Curated interface explorations focused on operational clarity" />
+          <SectionHeading eyebrow="Case Studies" title="Curated interface explorations focused on operational clarity" subtitle="Each demo follows the same structure: problem, change, outcome, and the business behavior it improves." />
 
           <div className="mt-16 space-y-12">
             {/* Clinic Study — calm, appointment-first */}
@@ -144,8 +153,11 @@ export default function PortfolioPage() {
             >
               <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
                 <div>
-                  <h3 className="text-3xl font-extrabold text-slate-950">Clinic booking structure</h3>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-500 shadow-sm">NovaCare Clinic</div>
+                  <h3 className="mt-5 text-3xl font-extrabold text-slate-950">Clinic booking structure</h3>
                   <p className="mt-4 max-w-2xl text-base text-slate-600">Appointment-first interaction design that reduces hesitation through clear intake, visible availability, and quieter choices.</p>
+                  <p className="mt-4 text-sm text-slate-500">Problem: {studies[0].problem}</p>
+                  <p className="mt-2 text-sm text-slate-500">Outcome target: {studies[0].outcome}</p>
 
                   <div className="mt-6 grid gap-3 text-sm text-slate-600">
                     <div className="rounded-lg bg-slate-50 p-3">Intake: progressive reveal of required fields</div>
@@ -186,8 +198,11 @@ export default function PortfolioPage() {
             >
               <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
                 <div>
-                  <h3 className="text-3xl font-extrabold text-slate-950">Restaurant ordering flow</h3>
-                  <p className="mt-3 text-base text-slate-600">A compressed menu-first layout that encourages quick decisions and mobile ordering behavior.</p>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-500 shadow-sm">UrbanFit Gym</div>
+                  <h3 className="mt-5 text-3xl font-extrabold text-slate-950">Membership and class flow</h3>
+                  <p className="mt-3 text-base text-slate-600">A compressed membership-first layout that encourages quick decisions and mobile signup behavior.</p>
+                  <p className="mt-4 text-sm text-slate-500">Problem: {studies[1].problem}</p>
+                  <p className="mt-2 text-sm text-slate-500">Outcome target: {studies[1].outcome}</p>
 
                   <div className="mt-6 -ml-2 flex overflow-x-auto gap-3 pb-2">
                     {['Pizza', 'Burgers', 'Salads', 'Pasta', 'Dessert'].map((dish) => (
@@ -201,10 +216,10 @@ export default function PortfolioPage() {
 
                 <div>
                   <div className="rounded-xl border border-slate-200 bg-white p-4">
-                    <p className="text-sm font-semibold text-slate-800">Reservation shortcuts</p>
+                    <p className="text-sm font-semibold text-slate-800">Booking shortcuts</p>
                     <div className="mt-3 grid gap-2">
-                      <div className="flex items-center justify-between rounded-lg bg-slate-50 p-3"><span>Today • 7:00</span><span className="text-xs text-slate-500">Reserve</span></div>
-                      <div className="flex items-center justify-between rounded-lg bg-slate-50 p-3"><span>Today • 8:30</span><span className="text-xs text-slate-500">Reserve</span></div>
+                      <div className="flex items-center justify-between rounded-lg bg-slate-50 p-3"><span>Trial • Today</span><span className="text-xs text-slate-500">Start</span></div>
+                      <div className="flex items-center justify-between rounded-lg bg-slate-50 p-3"><span>Class • Today</span><span className="text-xs text-slate-500">Join</span></div>
                     </div>
                   </div>
                 </div>
@@ -226,8 +241,11 @@ export default function PortfolioPage() {
             >
               <div className="grid gap-6 lg:grid-cols-[1.3fr_0.9fr] items-start">
                 <div>
-                  <h3 className="text-3xl font-extrabold text-slate-950">Real estate interface study</h3>
-                  <p className="mt-4 max-w-2xl text-base text-slate-600">Layered listing previews with inquiry-first cues and larger visual zones for spatial context.</p>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-500 shadow-sm">Elevate Salon</div>
+                  <h3 className="mt-5 text-3xl font-extrabold text-slate-950">Salon booking and gallery flow</h3>
+                  <p className="mt-4 max-w-2xl text-base text-slate-600">Layered presentation with inquiry-first cues and larger visual zones for spatial context.</p>
+                  <p className="mt-4 text-sm text-slate-500">Problem: {studies[2].problem}</p>
+                  <p className="mt-2 text-sm text-slate-500">Outcome target: {studies[2].outcome}</p>
                   <div className="mt-6 rounded-lg overflow-hidden">
                     <div className="h-56 w-full rounded-2xl bg-slate-100" />
                   </div>
@@ -235,7 +253,7 @@ export default function PortfolioPage() {
 
                 <div>
                   <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">Featured listing</p>
+                    <p className="text-sm font-semibold text-slate-900">Featured service</p>
                     <div className="mt-3 h-28 rounded-lg bg-slate-50" />
                     <div className="mt-3 text-sm text-slate-500">Inquiry action is visible and prioritized.</div>
                   </div>
@@ -314,11 +332,11 @@ export default function PortfolioPage() {
         <SectionWrapper contained={false} className="pb-40 pt-0 sm:pb-44 lg:pb-56">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-[2rem] border border-slate-200 bg-white px-6 py-28 text-center shadow-[0_30px_120px_-80px_rgba(15,23,42,0.25)] sm:px-12 sm:py-32 lg:px-20 lg:py-36">
-              <h2 className="mx-auto mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                Quieter Decisions
+                <h2 className="mx-auto mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                Clearer Decisions
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                Better systems reduce hesitation before action. The goal is not more interface. The goal is clearer movement.
+                Better systems reduce hesitation before action. The goal is not more interface. The goal is clearer movement toward inquiry or booking.
               </p>
               <div className="mt-12 flex justify-center">
                 <Button asChild size="lg" variant="outline" className="rounded-full border-slate-200 px-6 text-slate-800">

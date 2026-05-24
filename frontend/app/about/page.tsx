@@ -4,7 +4,7 @@ import AboutPage from "@/sections/about/about-page";
 
 export const metadata: Metadata = {
   title: "Aurion Labs | About",
-  description: "Systems-focused philosophy for calm, usable, multi-page business websites.",
+  description: "Aurion Labs helps local businesses grow with clearer websites, stronger booking flows, and practical operational systems.",
 };
 
 export default function Page() {

@@ -4,7 +4,7 @@ import ServicesPage from "@/sections/services/services-page";
 
 export const metadata: Metadata = {
   title: "Aurion Labs | Services",
-  description: "Enterprise services for business websites, booking systems, and operational website structure.",
+  description: "Aurion Labs builds business websites, booking systems, WhatsApp handoff flows, and lightweight operational systems for local businesses.",
 };
 
 export default function Page() {

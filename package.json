@@ -4,5 +4,14 @@
     "framer-motion": "^12.40.0",
     "react-hook-form": "^7.76.1",
     "zod": "^4.4.3"
+  },
+  "scripts": {
+    "capture": "npm --prefix frontend run capture",
+    "capture:clean": "npm --prefix frontend run capture:clean",
+    "capture:archive": "npm --prefix frontend run capture:archive",
+    "capture:fresh": "npm --prefix frontend run capture:fresh",
+    "capture:desktop": "npm --prefix frontend run capture:desktop",
+    "capture:mobile": "npm --prefix frontend run capture:mobile",
+    "audit": "npm --prefix frontend run audit"
   }
 }

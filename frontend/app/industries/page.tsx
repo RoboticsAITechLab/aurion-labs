@@ -4,7 +4,7 @@ import IndustriesPage from "@/sections/industries/industries-page";
 
 export const metadata: Metadata = {
   title: "Aurion Labs | Industries",
-  description: "Industry-specific website structure for clinics, gyms, restaurants, salons, real estate, medical teams, coaching, and business services.",
+  description: "Industry-specific website messaging and conversion systems for clinics, gyms, restaurants, salons, real estate, coaching, and local service businesses.",
 };
 
 export default function Page() {

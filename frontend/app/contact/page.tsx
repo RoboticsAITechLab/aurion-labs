@@ -4,7 +4,7 @@ import ContactPage from "@/sections/contact/contact-page";
 
 export const metadata: Metadata = {
   title: "Aurion Labs | Contact",
-  description: "Consultation-focused contact page for project inquiries and scope reviews.",
+  description: "Contact Aurion Labs to discuss business websites, booking systems, WhatsApp integration, and operational support.",
 };
 
 export default function Page() {

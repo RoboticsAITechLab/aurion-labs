@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import Container from "@/components/common/container";
+import ProofStrip from "@/components/common/proof-strip";
 import SectionHeading from "@/components/common/section-heading";
 import SectionWrapper from "@/components/common/section-wrapper";
 import Footer from "@/components/layout/footer";
@@ -26,15 +27,15 @@ import { Button } from "@/components/ui/button";
 const industries = [
   {
     name: "Clinics",
-    summary: "Reduce uncertainty with clearer choices and kinder intake flows.",
-    preview: "Calm language, clear next steps, and visible contact paths that build trust.",
+    summary: "Reduce uncertainty with clearer appointment paths and stronger trust signals.",
+    preview: "Calm language, simple next steps, and visible contact paths that make booking easier.",
     focus: ["Appointment flow", "Intake clarity", "Trust signals"],
     icon: Stethoscope,
     accent: "from-blue-50 to-white",
   },
   {
     name: "Gyms",
-    summary: "Move people into action quickly with frictionless sign-up pathways.",
+    summary: "Move people into action quickly with frictionless sign-up and membership pathways.",
     preview: "Short flows, clear CTAs, and mobile-first momentum to reduce dropoff.",
     focus: ["Signup flow", "Class visibility", "Mobile-first momentum"],
     icon: Dumbbell,
@@ -101,20 +102,20 @@ export default function IndustriesPage() {
           <Container>
             <div className="mx-auto max-w-6xl text-center">
               <h1 className="mx-auto mt-8 max-w-5xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-8xl">
-                Interfaces shaped around how businesses move.
+                Websites shaped around how businesses get customers.
               </h1>
               <p className="mx-auto mt-8 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-lg">
-                Different categories move differently; the interface should follow, not force.
+                Different businesses convert in different ways. The page should guide that behavior, not fight it.
               </p>
               <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Button asChild size="lg" className="rounded-full px-6">
                   <Link href="/contact">
-                    Discuss Your Industry
+                    Discuss Your Business
                     <ArrowUpRight className="size-4" />
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="rounded-full border-slate-200 px-6 text-slate-700">
-                  <Link href="/portfolio">View Interface Studies</Link>
+                  <Link href="/portfolio">View Example Systems</Link>
                 </Button>
               </div>
             </div>
@@ -125,11 +126,11 @@ export default function IndustriesPage() {
           <Container>
             <div className="mx-auto max-w-7xl">
               <div className="mb-12 text-center">
-                <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Interaction Flow</h2>
-                <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-slate-600">A quiet, abstract preview of the operational layer — atmospheric fragments that imply interaction.</p>
+                <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">What the page needs to do</h2>
+                <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-slate-600">The structure should help customers understand the business, trust it faster, and take the next step without friction.</p>
                   <div className="mt-8">
                   <Button asChild size="lg" variant="outline" className="rounded-full px-4">
-                    <Link href="/services">Explore Operational Structures</Link>
+                    <Link href="/services">Explore Services</Link>
                   </Button>
                 </div>
               </div>
@@ -186,6 +187,20 @@ export default function IndustriesPage() {
         </SectionWrapper>
 
         <SectionWrapper>
+
+        <SectionWrapper density="compact" className="pt-0 pb-12">
+          <ProofStrip
+            eyebrow="Built For Business Flow"
+            title="Every category needs a different conversion rhythm."
+            subtitle="We adjust the structure to match how that business gets trust, action, and follow-up."
+            items={[
+              { label: "Clinics", value: "Trust-first", detail: "Clear intake and calmer booking" },
+              { label: "Gyms", value: "Momentum-first", detail: "Trial signup and membership paths" },
+              { label: "Salons", value: "Visual-first", detail: "Gallery to booking with fewer steps" },
+              { label: "Restaurants", value: "Speed-first", detail: "Menus, ordering, reservations" },
+            ]}
+          />
+        </SectionWrapper>
           <SectionHeading
             eyebrow="Industry Structures"
             title="Different businesses fail in different places"

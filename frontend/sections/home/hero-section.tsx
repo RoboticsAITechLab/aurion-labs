@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
   return (
-    <SectionWrapper contained={false} className="relative overflow-hidden pt-32 pb-28 sm:pt-36 sm:pb-32 lg:pt-44 lg:pb-40">
+    <SectionWrapper contained={false} density="compact" className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-white to-white/95" />
       <div className="absolute inset-0 -z-20 overflow-hidden">
         <motion.div
@@ -36,28 +36,37 @@ export default function HeroSection() {
         <div className="mx-auto max-w-7xl grid gap-12 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-7">
             <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
-              <div className="inline-flex items-center gap-3 rounded-full bg-white/90 px-4 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-100">Built for serious operations</div>
+              <div className="inline-flex items-center gap-3 rounded-full bg-white/90 px-4 py-1 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-100">Built for local business growth</div>
 
-              <h1 className="mt-10 text-[clamp(2.5rem,6vw,6.5rem)] leading-[0.95] font-extrabold text-slate-900">
-                Operational systems
-                <br />
-                designed with restraint.
+              <h1 className="mt-8 text-[clamp(2rem,5.2vw,4rem)] leading-[0.98] font-extrabold text-slate-900">
+                We build operational digital systems for local businesses.
               </h1>
 
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-600">
-                We design calm, composable systems — forms, flows, and infrastructure that move work forward without noise. Minimal surface, maximal operational clarity.
+              <p className="mt-6 max-w-2xl text-lg leading-7 text-slate-600">
+                Websites, booking flows and fast WhatsApp handoffs that turn interest into reliable leads and bookings — so your team spends time serving customers, not chasing them.
               </p>
 
-              <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+              <div className="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+                {/* CTA variant and tracking handled client-side */}
                 <Button asChild size="lg" className="rounded-full px-6">
-                  <Link href="/contact">
-                    Start Project
+                  <Link href="/contact?source=homepage" onClick={() => { if (typeof window !== 'undefined') window.localStorage && window.localStorage.setItem('ab_cta_click', (Number(window.localStorage.getItem('ab_cta_click')||'0')+1).toString()); }}>
+                    Book a 20‑minute Strategy Call
                     <ArrowUpRight className="ml-2" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="rounded-full border-slate-200 px-6 text-slate-700">
-                  <Link href="/services">Explore Services</Link>
-                </Button>
+
+                {(() => {
+                  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "");
+                  const href = whatsapp
+                    ? `https://wa.me/${whatsapp}?text=${encodeURIComponent("Hi Aurion Labs, I\'m interested in a website that drives more bookings and faster replies.")}`
+                    : "/contact";
+
+                  return (
+                    <Button asChild variant="outline" size="lg" className="rounded-full border-slate-200 px-6 text-slate-700">
+                      <a href={href} onClick={() => { if (typeof window !== 'undefined') window.localStorage && window.localStorage.setItem('whatsapp_clicks', (Number(window.localStorage.getItem('whatsapp_clicks')||'0')+1).toString()); }}>Quick WhatsApp Inquiry</a>
+                    </Button>
+                  );
+                })()}
               </div>
             </motion.div>
           </div>
@@ -70,10 +79,10 @@ export default function HeroSection() {
                 <div className="grid gap-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-slate-700">Operational preview</p>
-                      <p className="text-xs text-slate-500">a quiet, abstract workspace</p>
+                      <p className="text-sm font-medium text-slate-700">Growth system preview</p>
+                      <p className="text-xs text-slate-500">website, booking, and WhatsApp flow</p>
                     </div>
-                    <div className="hidden items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 sm:flex">Visual Shell</div>
+                    <div className="hidden items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 sm:flex">Business Front Door</div>
                   </div>
 
                   <div className="mt-2 grid gap-3">

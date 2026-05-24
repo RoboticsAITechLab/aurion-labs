@@ -4,7 +4,7 @@ import PricingPage from "@/sections/pricing/pricing-page";
 
 export const metadata: Metadata = {
   title: "Aurion Labs | Pricing",
-  description: "Scope-first pricing architecture for consultation-led website and systems work.",
+  description: "Scope-based pricing for business websites, booking systems, WhatsApp integration, and operational support.",
 };
 
 export default function Page() {

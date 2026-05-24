@@ -1,0 +1,75 @@
+name: Preview Capture & QA
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+  deployment:
+    types: [created]
+
+jobs:
+  capture-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NODE_ENV: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+          npx playwright install --with-deps
+
+      - name: Resolve preview URL from Vercel
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          GITHUB_SHA: ${{ github.sha }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          # Query Vercel deployments for this commit
+          if [ -z "$VERCEL_TOKEN" ]; then echo "No VERCEL_TOKEN provided, cannot resolve preview URL"; exit 1; fi
+          DEPLOYMENT=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" "https://api.vercel.com/v6/deployments?meta-githubCommitSha=$GITHUB_SHA&projectId=$VERCEL_PROJECT_ID" | jq -r '.deployments[0].url')
+          if [ "$DEPLOYMENT" = "null" ] || [ -z "$DEPLOYMENT" ]; then echo "No deployment found for commit"; exit 1; fi
+          echo "PREVIEW_URL=https://$DEPLOYMENT" >> $GITHUB_OUTPUT
+
+      - name: Run captures
+        env:
+          CAPTURE_BASE_URL: ${{ steps.vercel.outputs.PREVIEW_URL }}
+        run: |
+          cd frontend
+          npm run capture:all --silent || true
+
+      - name: Run Lighthouse audits
+        env:
+          CAPTURE_BASE_URL: ${{ steps.vercel.outputs.PREVIEW_URL }}
+        run: |
+          cd frontend
+          npm run audit --silent || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-capture-${{ github.sha }}
+          path: frontend/scripts/capture/screenshots/
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-reports-${{ github.sha }}
+          path: frontend/scripts/capture/screenshots/reports/
+
+      - name: Fail on critical issues
+        run: |
+          # If any failed metadata exists, fail the job
+          if [ -d frontend/scripts/capture/screenshots/failed ] && [ "$(ls -A frontend/scripts/capture/screenshots/failed)" ]; then
+            echo "Found failed captures"; exit 1
+          fi

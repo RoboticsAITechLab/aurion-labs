@@ -22,9 +22,12 @@ import {
 } from "lucide-react";
 
 import Container from "@/components/common/container";
+import ProofStrip from "@/components/common/proof-strip";
+import SectionHeading from "@/components/common/section-heading";
 import SectionWrapper from "@/components/common/section-wrapper";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 
 const deliverySteps = [
@@ -106,6 +109,29 @@ const systemEffects = [
   },
 ];
 
+const serviceFaqs = [
+  {
+    question: "How does the project start?",
+    answer: "We begin with a short consultation, then map the offer, the lead path, and the booking or WhatsApp handoff before any build work starts.",
+  },
+  {
+    question: "Can you connect WhatsApp and booking flows?",
+    answer: "Yes. The site can route people to WhatsApp, a booking flow, a contact form, or a combination of all three depending on how the business works.",
+  },
+  {
+    question: "Do you work only with one industry?",
+    answer: "No. The structure changes by industry, but the goal is the same: clearer inquiry paths, stronger trust, and fewer lost leads.",
+  },
+  {
+    question: "How quickly do you respond?",
+    answer: "Initial inquiries are usually reviewed within 24-48 hours, so the next conversation starts with context rather than a generic reply.",
+  },
+  {
+    question: "What do you need from me to begin?",
+    answer: "A clear business name, a short description of the goal, and any examples of the current website, booking process, or intake flow are enough to start.",
+  },
+];
+
 function SectionIntro({
   label,
   title,
@@ -140,6 +166,20 @@ export default function ServicesPage() {
 
           <Container>
             <div className="grid gap-16 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+
+        <SectionWrapper density="compact" className="pt-0 pb-12">
+          <ProofStrip
+            eyebrow="Designed For Business Flow"
+            title="The service layer is built around inquiry paths, booking paths, and handoff paths."
+            subtitle="This keeps the site practical: fewer competing actions, more obvious next steps, and clearer operational handoff."
+            items={[
+              { label: "Consultation", value: "Short scope call", detail: "Define the offer and customer flow" },
+              { label: "Routing", value: "WhatsApp + form", detail: "Give customers a direct way to act" },
+              { label: "Structure", value: "Clear sections", detail: "Explain services without clutter" },
+              { label: "Support", value: "Launch continuity", detail: "Post-launch maintenance and edits" },
+            ]}
+          />
+        </SectionWrapper>
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -148,21 +188,21 @@ export default function ServicesPage() {
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">Services</p>
                 <h1 className="mt-8 text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-[5.9rem] lg:leading-[0.98]">
-                  Systems designed to feel calm, precise, and operationally clear.
+                  Websites and growth systems built for local businesses.
                 </h1>
                 <p className="mt-8 max-w-xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-xl">
-                  The page is art-directed around one idea: a premium interface should read like infrastructure, not decoration.
+                  We build the digital front door, the booking flow, and the lead handoff that help your business get more inquiries with less friction.
                 </p>
 
                 <div className="mt-12 flex flex-col gap-3 sm:flex-row">
                   <Button asChild size="lg" className="rounded-full px-6">
                     <Link href="/contact">
-                      Discuss A Project
+                      Discuss Your Project
                       <ArrowUpRight className="size-4" />
                     </Link>
                   </Button>
                   <Button asChild size="lg" variant="outline" className="rounded-full border-slate-200 px-6 text-slate-700">
-                    <Link href="/pricing">View Pricing Structure</Link>
+                    <Link href="/pricing">View Pricing</Link>
                   </Button>
                 </div>
               </motion.div>
@@ -176,16 +216,16 @@ export default function ServicesPage() {
                 <div className="absolute -left-4 top-14 hidden h-56 w-56 rounded-full bg-slate-950/5 blur-3xl lg:block" />
                 <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_50px_180px_-90px_rgba(15,23,42,0.55)]">
                   <div className="border-b border-slate-200/80 px-7 py-5 sm:px-9">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Operations Interface</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Business Operations Interface</p>
                   </div>
 
-                  <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-8 lg:p-10">
+                  <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-8 lg:p-10">
                     <div className="space-y-6">
-                      <div className="grid gap-6 sm:grid-cols-[1.1fr_0.9fr]">
+                      <div className="grid gap-6 sm:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
                         <motion.div
                           whileHover={{ y: -4 }}
                           transition={{ duration: 0.2 }}
-                          className="rounded-[1.6rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,1))] p-5 shadow-sm"
+                          className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,1))] p-5 shadow-sm"
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div>
@@ -204,7 +244,7 @@ export default function ServicesPage() {
                         <motion.div
                           whileHover={{ y: -4 }}
                           transition={{ duration: 0.2 }}
-                          className="lg:translate-y-6 rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm"
+                          className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm lg:translate-y-6"
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div>
@@ -223,9 +263,9 @@ export default function ServicesPage() {
                       <motion.div
                         whileHover={{ y: -4 }}
                         transition={{ duration: 0.2 }}
-                        className="grid gap-6 sm:grid-cols-[0.88fr_1.12fr]"
+                        className="grid gap-6 sm:grid-cols-[0.92fr_1.08fr] lg:items-stretch"
                       >
-                        <div className="rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm">
+                        <div className="min-h-[11.5rem] rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm">
                           <div className="flex items-start justify-between gap-4">
                             <div>
                               <p className="text-sm font-semibold text-slate-950">Routing</p>
@@ -240,7 +280,7 @@ export default function ServicesPage() {
                           </div>
                         </div>
 
-                        <div className="rounded-[1.6rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_60px_-36px_rgba(15,23,42,0.45)]">
+                        <div className="min-h-[11.5rem] rounded-[1.6rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_60px_-36px_rgba(15,23,42,0.45)]">
                           <div className="flex items-start justify-between gap-4">
                             <div>
                               <p className="text-sm font-semibold">Follow-Up</p>
@@ -255,16 +295,16 @@ export default function ServicesPage() {
                         </div>
                       </motion.div>
 
-                      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-3">
-                        <div className="rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
+                      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-3 lg:gap-5">
+                        <div className="min-h-[8.5rem] rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
                           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">Workspace</p>
                           <div className="mt-4 h-20 rounded-2xl border border-slate-200 bg-slate-50" />
                         </div>
-                        <div className="rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
+                        <div className="min-h-[8.5rem] rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
                           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">Requests</p>
                           <div className="mt-4 h-20 rounded-2xl border border-slate-200 bg-slate-950/90" />
                         </div>
-                        <div className="rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
+                        <div className="min-h-[8.5rem] rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
                           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">Workflow</p>
                           <div className="mt-4 h-20 rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,rgba(248,250,252,1),rgba(255,255,255,1))]" />
                         </div>
@@ -275,7 +315,7 @@ export default function ServicesPage() {
                       <motion.div
                         whileHover={{ y: -4 }}
                         transition={{ duration: 0.2 }}
-                        className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm"
+                        className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm"
                       >
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">System Mapping</p>
                         <div className="mt-5 space-y-4 text-sm text-slate-600">
@@ -289,7 +329,7 @@ export default function ServicesPage() {
                       <motion.div
                         whileHover={{ y: -4 }}
                         transition={{ duration: 0.2 }}
-                        className="lg:translate-y-4 rounded-[1.6rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(15,23,42,1),rgba(30,41,59,1))] p-6 text-white shadow-[0_20px_70px_-40px_rgba(15,23,42,0.45)]"
+                        className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(15,23,42,1),rgba(30,41,59,1))] p-6 text-white shadow-[0_20px_70px_-40px_rgba(15,23,42,0.45)] lg:translate-y-4"
                       >
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">Interface Layer</p>
                         <div className="mt-5 space-y-3 text-sm text-slate-200">
@@ -306,11 +346,35 @@ export default function ServicesPage() {
           </Container>
         </SectionWrapper>
 
+        <SectionWrapper className="pt-0 pb-8">
+          <Container>
+            <div className="mx-auto grid max-w-6xl gap-4 lg:grid-cols-3">
+              <div className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Response Time</p>
+                <h3 className="mt-4 text-xl font-semibold text-slate-950">24-48 hour review window</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">We review incoming project details before moving into scope discussion, so the reply is relevant to the business.</p>
+              </div>
+
+              <div className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Social Proof</p>
+                <h3 className="mt-4 text-xl font-semibold text-slate-950">Built for local conversion</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">The patterns here are designed for clinics, gyms, salons, restaurants, coaches, and service businesses that need a clearer lead path.</p>
+              </div>
+
+              <div className="rounded-[1.8rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">Trust Layer</p>
+                <h3 className="mt-4 text-xl font-semibold">Offer clarity first</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-300">When the offer is easy to understand and the next step is obvious, inquiries improve without adding clutter.</p>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
         <SectionWrapper id="services" className="pt-0 sm:pt-0 lg:pt-0">
           <SectionIntro
             label="Interface Layer"
-            title="Core systems built to read cleanly at a glance"
-            subtitle="We treat each service as a connected layer — interface, operations, and infrastructure — not as isolated cards."
+            title="Services that improve inquiries, bookings, and customer response"
+            subtitle="We treat each service as part of one growth system: the website, the lead path, and the operations behind it."
           />
 
           <div className="mt-14 grid gap-10">
@@ -325,8 +389,8 @@ export default function ServicesPage() {
               <div className="grid gap-8 lg:grid-cols-[1.25fr_0.85fr] items-start">
                 <div>
                   <div className="inline-flex items-center gap-3 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-100">Business Websites</div>
-                  <h3 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Interface fragments that clarify intention.</h3>
-                  <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">Large editorial headings, selective content exposure, and a clear visual lead that prevents decision stall.</p>
+                  <h3 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">A clearer front door for your business.</h3>
+                  <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">We shape the homepage, service pages, and contact path so visitors understand your offer fast and know what to do next.</p>
 
                   <div className="mt-8 flex items-center gap-4">
                     <div className="rounded-lg bg-slate-50 p-4 shadow-sm">
@@ -352,7 +416,7 @@ export default function ServicesPage() {
 
             {/* Editorial interruption */}
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="mx-auto max-w-4xl text-center py-12">
-              <p className="text-xl font-semibold leading-tight text-slate-900">The interface is not decoration — it is operational infrastructure.</p>
+                  <p className="text-xl font-semibold leading-tight text-slate-900">The website is not decoration. It is your sales and booking infrastructure.</p>
             </motion.div>
 
             {/* Booking Systems — directional flow and sequencing */}
@@ -366,8 +430,8 @@ export default function ServicesPage() {
               <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">Booking Systems</div>
-                  <h3 className="mt-4 text-2xl font-semibold text-slate-950">Operational flow that guides action.</h3>
-                  <p className="mt-3 text-base text-slate-600">Directional fragments that suggest a sequence: Inquiry → Routing → Scheduling → Follow-up.</p>
+                  <h3 className="mt-4 text-2xl font-semibold text-slate-950">Booking flows that reduce drop-off.</h3>
+                  <p className="mt-3 text-base text-slate-600">Directional flows that take a customer from interest to inquiry, scheduling, and follow-up with less effort from your team.</p>
 
                   <div className="mt-6 flex gap-3 text-sm text-slate-500">
                     <div className="rounded-lg bg-slate-50 px-4 py-2">Inquiry</div>
@@ -409,8 +473,8 @@ export default function ServicesPage() {
               <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">SEO + Infrastructure</div>
-                  <h3 className="mt-4 text-2xl font-semibold text-slate-950">Topology that keeps systems fast and maintainable.</h3>
-                  <p className="mt-3 text-base text-slate-600">Structural overlays, metadata grids, and a clear prioritization of performance and maintainability.</p>
+                  <h3 className="mt-4 text-2xl font-semibold text-slate-950">Structure that supports visibility and performance.</h3>
+                  <p className="mt-3 text-base text-slate-600">Pages are built with cleaner metadata, faster load behavior, and a structure that is easier to maintain over time.</p>
                 </div>
 
                 <div>
@@ -433,13 +497,13 @@ export default function ServicesPage() {
             <div className="max-w-3xl">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">System Philosophy</p>
               <h2 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                Most business websites collapse under unnecessary noise.
+                Most business websites lose customers because the message is too vague.
               </h2>
               <div className="mt-10 max-w-2xl space-y-6 text-base leading-8 text-slate-600 sm:text-lg">
                 <p>
-                  Too many actions compete for attention, navigation becomes unclear, and the operational layer behind the site turns into friction.
+                  When the offer is unclear, people hesitate. When the booking path is buried, people leave. When the WhatsApp or inquiry route is weak, leads get lost.
                 </p>
-                <p>This section stays quiet on purpose. It needs room to breathe.</p>
+                <p>This section stays quiet on purpose because clarity should do the heavy lifting.</p>
               </div>
 
               <div className="mt-14 border-y border-slate-200 py-8">
@@ -466,7 +530,7 @@ export default function ServicesPage() {
           <SectionIntro
             label="Delivery Flow"
             title="A process that stays calm from first conversation to launch"
-            subtitle="The pacing changes here: the layout tightens, the rhythm becomes more linear, and the page slows down without feeling heavy."
+            subtitle="We keep the pacing simple: understand the business, map the flow, build the system, and launch it cleanly."
           />
 
           <div className="mt-14 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
@@ -522,7 +586,7 @@ export default function ServicesPage() {
         <SectionWrapper className="pt-0 sm:pt-2 lg:pt-4">
           <SectionIntro
             label="Industry Structures"
-            title="Different sectors, different pressure points"
+            title="Different sectors need different conversion paths"
             subtitle="The system adapts to the business model instead of forcing the same grid everywhere. One featured card leads; the others stay quieter."
           />
 
@@ -616,10 +680,10 @@ export default function ServicesPage() {
             >
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Final Decision Point</p>
               <h2 className="mx-auto mt-5 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                Cleaner systems. Better pacing. A calmer interface for the work underneath.
+                Cleaner systems. Better pacing. More inquiries from the same traffic.
               </h2>
               <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                If the site needs to feel more deliberate, this is the point where the structure gets mapped with care.
+                If the site needs to sell, book, or route leads more clearly, this is the point where the structure gets mapped with care.
               </p>
               <div className="mt-12 flex justify-center">
                 <Button asChild size="lg" className="rounded-full px-6">
@@ -631,6 +695,25 @@ export default function ServicesPage() {
               </div>
             </motion.div>
           </div>
+        </SectionWrapper>
+
+        <SectionWrapper className="pt-0 pb-28">
+          <Container>
+            <div className="mx-auto max-w-4xl">
+              <SectionHeading eyebrow="FAQ" title="Common questions before we start" subtitle="A short list of the questions that usually come up before a project is scoped." />
+
+              <div className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <Accordion type="single" collapsible className="w-full">
+                  {serviceFaqs.map((faq) => (
+                    <AccordionItem key={faq.question} value={faq.question}>
+                      <AccordionTrigger className="py-4 text-left text-base font-semibold text-slate-900">{faq.question}</AccordionTrigger>
+                      <AccordionContent className="pb-4 text-sm leading-7 text-slate-600">{faq.answer}</AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </div>
+          </Container>
         </SectionWrapper>
       </main>
 

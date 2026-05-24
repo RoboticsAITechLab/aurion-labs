@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { MapPinned, Users, Smartphone, Sparkles, CalendarClock, Server, ArrowUpRight } from "lucide-react";
 
 import Container from "@/components/common/container";
+import ProofStrip from "@/components/common/proof-strip";
 import SectionWrapper from "@/components/common/section-wrapper";
 import SectionHeading from "@/components/common/section-heading";
 import Navbar from "@/components/layout/navbar";
@@ -19,16 +20,16 @@ function Hero() {
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">ABOUT</p>
             <h1 id="about-hero-title" className="mx-auto mt-8 max-w-3xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-[4.2rem]">
-              Systems designed around clarity, movement, and use.
+              We build websites and systems that help local businesses grow.
             </h1>
             <p className="mx-auto mt-8 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-xl">
-              Aurion Labs focuses on building quieter digital systems for local businesses that need structure, trust, and operational clarity.
+              Aurion Labs focuses on the practical side of digital growth: clearer websites, stronger booking flows, better WhatsApp handoff, and simpler operational systems.
             </p>
 
             <div className="mt-12 flex items-center justify-center gap-4">
               <Button asChild size="lg" className="rounded-full px-6">
                 <Link href="#approach" aria-label="Review Operational Approach">
-                  Review Operational Approach
+                  See Our Approach
                   <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
@@ -47,8 +48,8 @@ function OperationalPhilosophy() {
         <div className="mx-auto max-w-6xl">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-12 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Operational Philosophy</p>
-            <h2 id="operational-philosophy-title" className="mt-6 text-3xl font-semibold text-slate-900">Clarity · Structure · Movement</h2>
-            <p className="mt-4 text-base text-slate-600">Interfaces should reduce friction, not introduce more of it.</p>
+            <h2 id="operational-philosophy-title" className="mt-6 text-3xl font-semibold text-slate-900">Clarity · Conversion · Reliability</h2>
+            <p className="mt-4 text-base text-slate-600">Interfaces should help people understand the offer, take action faster, and stay easy for the business to run.</p>
             <div className="mt-8 grid gap-6 sm:grid-cols-3 lg:grid-cols-3">
               <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">Clarity</motion.div>
               <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.04 }} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">Structure</motion.div>
@@ -117,6 +118,28 @@ function WhatWeFocusOn() {
   );
 }
 
+function FounderAndAfterLaunch() {
+  return (
+    <SectionWrapper className="pt-6 pb-6">
+      <Container>
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-2">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Founder Credibility</p>
+            <h3 className="mt-4 text-2xl font-semibold text-slate-950">Senior-led delivery with direct communication.</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-600">Projects are handled like business infrastructure, not a creative experiment. The work stays focused on clarity, conversion, and supportability.</p>
+          </div>
+
+          <div className="rounded-[2rem] border border-slate-200 bg-slate-950 p-8 text-white shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">What Happens After Launch</p>
+            <h3 className="mt-4 text-2xl font-semibold">Monitoring, updates, and operational continuity.</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-300">The relationship does not end at handoff. Support can continue through updates, maintenance, content changes, and workflow refinement.</p>
+          </div>
+        </div>
+      </Container>
+    </SectionWrapper>
+  );
+}
+
 function BuiltForLocalBusinesses() {
   const labels = ["Clinics", "Gyms", "Restaurants", "Salons", "Coaches", "Local Brands"];
   return (
@@ -154,8 +177,8 @@ function HowWeApproachWork() {
       <Container>
         <div className="mx-auto max-w-3xl text-center" id="approach">
           <h4 className="text-sm font-semibold text-slate-500">How We Approach Work</h4>
-          <p className="mt-8 text-lg font-semibold text-slate-900">Consultation — Structure — Build — Support</p>
-          <p className="mt-6 text-sm text-slate-600">Every project begins with understanding how the business actually operates day to day.</p>
+            <p className="mt-8 text-lg font-semibold text-slate-900">Discover — Plan — Build — Support</p>
+          <p className="mt-6 text-sm text-slate-600">Every project begins with understanding how the business actually gets leads, bookings, and repeat customers.</p>
         </div>
       </Container>
     </SectionWrapper>
@@ -167,8 +190,8 @@ function FinalCTA() {
     <SectionWrapper className="pt-12 pb-24">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <h3 className="text-3xl font-semibold text-slate-900">Quieter Systems</h3>
-          <p className="mt-4 text-base text-slate-600">The goal is not more digital noise. The goal is calmer operational movement.</p>
+          <h3 className="text-3xl font-semibold text-slate-900">Clearer Growth</h3>
+          <p className="mt-4 text-base text-slate-600">The goal is not more digital noise. The goal is more leads, better bookings, and easier customer movement.</p>
           <div className="mt-8">
             <Button asChild size="lg" className="rounded-full px-6">
               <Link href="/contact" aria-label="Start a project with Aurion Labs">Start A Project</Link>
@@ -190,6 +213,20 @@ export default function AboutPage() {
         <WhyAurionLabs />
         <WhatWeFocusOn />
         <BuiltForLocalBusinesses />
+        <SectionWrapper density="compact" className="pt-0 pb-12">
+          <ProofStrip
+            eyebrow="Why Businesses Choose Aurion Labs"
+            title="Delivery stays direct, structured, and supportable."
+            subtitle="The work is handled like operational infrastructure, with clear communication and a post-launch support mindset."
+            items={[
+              { label: "Delivery", value: "Senior-led", detail: "Direct communication, no hidden process" },
+              { label: "Approach", value: "Clarity first", detail: "Reduce friction before adding complexity" },
+              { label: "After launch", value: "Supported", detail: "Maintenance, edits, and continuity" },
+              { label: "Audience", value: "Local business", detail: "Built for inquiries, bookings, and lead flow" },
+            ]}
+          />
+        </SectionWrapper>
+        <FounderAndAfterLaunch />
         <TypographyInterruption />
         <HowWeApproachWork />
         <FinalCTA />

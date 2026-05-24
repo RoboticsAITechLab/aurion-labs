@@ -1,11 +1,18 @@
 import Link from "next/link";
 
 import Container from "@/components/common/container";
+import { Button } from "@/components/ui/button";
+
+const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "");
+const whatsappHref = whatsappNumber
+	? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hi Aurion Labs, I\'m interested in a website that drives more bookings and faster replies.")}`
+	: "/contact";
 
 const footerLinks = [
 	{ href: "/services", label: "Services" },
 	{ href: "/industries", label: "Industries" },
 	{ href: "/portfolio", label: "Portfolio" },
+	{ href: "/support", label: "Support & SLA" },
 	{ href: "/pricing", label: "Pricing" },
 	{ href: "/about", label: "About" },
 	{ href: "/contact", label: "Contact" },
@@ -21,8 +28,16 @@ export default function Footer() {
 							Aurion Labs
 						</Link>
 						<p className="mt-4 max-w-md text-sm leading-6 text-slate-600">
-							We build websites and business systems that are straightforward to run and easy to trust.
+							We help local businesses get more leads, bookings, and faster responses with clear websites, booking flows and WhatsApp handoffs.
 						</p>
+						<div className="mt-6 flex flex-col gap-3 sm:flex-row">
+							<Button asChild size="sm" className="rounded-full px-4">
+								<Link href="/contact?source=footer">Book Consultation</Link>
+							</Button>
+							<Button asChild variant="outline" size="sm" className="rounded-full border-slate-200 px-4 text-slate-700">
+								<Link href={whatsappHref}>WhatsApp Inquiry</Link>
+							</Button>
+						</div>
 					</div>
 
 					<div>
@@ -48,7 +63,7 @@ export default function Footer() {
 
 				<div className="flex flex-col gap-3 border-t border-slate-200 py-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
 					<p>© {new Date().getFullYear()} Aurion Labs. All rights reserved.</p>
-					<p>Built for teams that care about clarity.</p>
+					<p>Built for local businesses that want clearer growth.</p>
 				</div>
 			</Container>
 		</footer>

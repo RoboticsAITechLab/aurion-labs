@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import ActionRail from "@/components/layout/action-rail";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aurion Labs | Enterprise Digital Infrastructure",
-  description: "Aurion Labs builds premium websites and digital systems for modern businesses.",
+  title: "Aurion Labs | Websites, Booking, and Growth Systems",
+  description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
 };
 
 export default function RootLayout({
@@ -27,7 +29,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full bg-background text-foreground">{children}</body>
+      <body className="min-h-full bg-background text-foreground">
+        {children}
+        <ActionRail />
+      </body>
     </html>
   );
 }

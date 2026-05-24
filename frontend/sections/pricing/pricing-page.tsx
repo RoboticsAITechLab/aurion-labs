@@ -5,11 +5,36 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Globe, Mail, Server, ShieldCheck, CheckCircle2 } from "lucide-react";
 
 import Container from "@/components/common/container";
+import ProofStrip from "@/components/common/proof-strip";
 import SectionWrapper from "@/components/common/section-wrapper";
 import SectionHeading from "@/components/common/section-heading";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+
+const pricingFaqs = [
+  {
+    question: "Why does the price change from project to project?",
+    answer: "The price changes with scope: more pages, more workflows, more integrations, more support, and more content structure all increase build effort.",
+  },
+  {
+    question: "Are domain and hosting included?",
+    answer: "Core builds include the website itself. Domain, hosting, email, and recurring support are handled separately when the project needs them.",
+  },
+  {
+    question: "Can I start small and expand later?",
+    answer: "Yes. Many projects begin with a lean foundation and grow into booking flows, WhatsApp handoff, or CMS-backed sections later.",
+  },
+  {
+    question: "How quickly do you respond to inquiries?",
+    answer: "Initial inquiries are usually reviewed within 24-48 hours so the next step is scoped with context.",
+  },
+  {
+    question: "What if I need support after launch?",
+    answer: "Optional maintenance and support layers can cover monitoring, updates, edits, backups, and light operational help after launch.",
+  },
+];
 
 function Hero() {
   return (
@@ -19,21 +44,21 @@ function Hero() {
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">PRICING</p>
           <h1 className="mx-auto mt-8 max-w-4xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-[4.5rem]">
-            Digital systems structured around operational need.
+            Pricing based on the system your business actually needs.
           </h1>
           <p className="mx-auto mt-8 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-xl">
-            Pricing depends on workflow depth, interaction structure, infrastructure requirements, and the level of operational support involved.
+            Pricing depends on how much the website needs to do: explain the offer, collect leads, handle bookings, route WhatsApp inquiries, and support your team day to day.
           </p>
 
           <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="rounded-full px-6">
               <Link href="#scope">
-                Review Operational Scope
+                Review Scope
                 <ArrowUpRight className="size-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-full border-slate-200 px-6 text-slate-700">
-              <Link href="/contact">Discuss A Project</Link>
+              <Link href="/contact">Discuss Your Project</Link>
             </Button>
           </div>
         </div>
@@ -51,8 +76,8 @@ function OperationalSupportLayer() {
             <div className="grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-center">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Operational Support Layer</p>
-                <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950">Hosting, monitoring, and maintenance as part of the system.</h2>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">Infrastructure remains part of the operational system itself.</p>
+                <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950">Hosting, monitoring, and maintenance built into the system.</h2>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">Good pricing includes the support required to keep the website stable, visible, and easy to run.</p>
               </div>
 
               <div className="flex items-start justify-end">
@@ -74,6 +99,24 @@ function OperationalSupportLayer() {
           </div>
         </div>
       </Container>
+    </SectionWrapper>
+  );
+}
+
+function PricingTrustStrip() {
+  return (
+    <SectionWrapper density="compact" className="pt-2 pb-8">
+      <ProofStrip
+        eyebrow="Designed For Operational Clarity"
+        title="Pricing becomes easier to trust when scope is explained first."
+        subtitle="This page keeps the cost discussion practical: what the system does, how it behaves, and what support comes after launch."
+        items={[
+          { label: "Response", value: "24-48 hrs", detail: "Scope reviewed before quoting" },
+          { label: "Fit", value: "Lead-driven", detail: "Built for bookings, inquiry routing, and trust" },
+          { label: "Clarity", value: "Scope-first", detail: "The quote follows the brief, not the other way around" },
+          { label: "Support", value: "Post-launch", detail: "Maintenance and operational continuity" },
+        ]}
+      />
     </SectionWrapper>
   );
 }
@@ -114,14 +157,14 @@ function InterfaceFoundation() {
         <div className="mx-auto max-w-4xl">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-12 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Interface Foundation</p>
-            <h3 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950">Simple business websites for local brands and shops.</h3>
-            <p className="mt-4 text-base leading-7 text-slate-600">Targeted at local businesses — shops, gyms, salons, clinics, restaurants, coaches, and small service brands. Includes a responsive website with homepage, about/services page, contact/WhatsApp integration, mobile optimization, basic SEO setup, and deployment.</p>
+            <h3 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950">Simple business websites for local brands and service companies.</h3>
+            <p className="mt-4 text-base leading-7 text-slate-600">For businesses that need a modern front door: a responsive site, clear service pages, contact or WhatsApp integration, mobile optimization, basic SEO, and deployment.</p>
 
             <div className="mt-8 flex flex-col items-start gap-3">
               <div className="text-2xl font-semibold text-slate-900">₹4K ─ ₹12K+</div>
               <div className="text-sm text-slate-500">1–2 pages start at the lower range — additional pages and features increase cost.</div>
             </div>
-            <p className="mt-6 text-sm text-slate-500">Cleaner digital foundations for local businesses.</p>
+            <p className="mt-6 text-sm text-slate-500">Clearer digital foundations for local businesses.</p>
           </div>
         </div>
       </Container>
@@ -136,8 +179,8 @@ function OperationalLayerBlock() {
         <div className="mx-auto max-w-6xl">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-12 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Operational Layer</p>
-            <h3 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950">Structured systems for booking, intake, and admin workflows.</h3>
-            <p className="mt-4 text-base leading-7 text-slate-600">For businesses that require booking systems, inquiry routing, CMS/admin structure, and operational mapping. Pricing scales with workflow complexity, booking logic, admin needs, integrations, and page count.</p>
+            <h3 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950">Structured systems for booking, intake, and lead routing.</h3>
+            <p className="mt-4 text-base leading-7 text-slate-600">For businesses that need the website to do more than look good: booking logic, inquiry routing, CMS/admin structure, and workflow mapping. Pricing scales with complexity and integrations.</p>
 
             <div className="mt-8 flex items-baseline gap-6">
               <div className="text-2xl font-semibold text-slate-900">₹15K ─ ₹60K+</div>
@@ -158,7 +201,7 @@ function CustomInfrastructure() {
           <div className="rounded-[2rem] border border-slate-200 bg-white p-12 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Custom Infrastructure</p>
             <h3 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950">Advanced systems for scalable workflows, integrations, and custom logic.</h3>
-            <p className="mt-4 text-base leading-7 text-slate-600">Consultation based — infrastructure-first architecture for businesses that require layered operational logic and bespoke integrations.</p>
+            <p className="mt-4 text-base leading-7 text-slate-600">Consultation-based scope for businesses that need layered operational logic, custom workflows, or more involved integrations.</p>
             <div className="mt-8 text-sm text-slate-500">Consultation Based — Infrastructure-first architecture</div>
           </div>
         </div>
@@ -306,6 +349,29 @@ function FinalCTA() {
   );
 }
 
+function PricingFaq() {
+  return (
+    <SectionWrapper className="pt-0 pb-24">
+      <Container>
+        <div className="mx-auto max-w-4xl">
+          <SectionHeading eyebrow="FAQ" title="Questions that usually come up before pricing" subtitle="Clear answers help keep the discussion practical." />
+
+          <div className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <Accordion type="single" collapsible className="w-full">
+              {pricingFaqs.map((faq) => (
+                <AccordionItem key={faq.question} value={faq.question}>
+                  <AccordionTrigger className="py-4 text-left text-base font-semibold text-slate-900">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="pb-4 text-sm leading-7 text-slate-600">{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </Container>
+    </SectionWrapper>
+  );
+}
+
 export default function PricingPage() {
   return (
     <>
@@ -313,6 +379,7 @@ export default function PricingPage() {
 
       <main className="bg-background text-foreground">
         <Hero />
+        <PricingTrustStrip />
         <OperationalSupportLayer />
         <IncludedInEveryBuild />
         <InterfaceFoundation />
@@ -323,6 +390,7 @@ export default function PricingPage() {
         <WhatShapesCost />
         <DeliveryFlow />
         <TypographyInterruption />
+        <PricingFaq />
         <FinalCTA />
       </main>
 

@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, MapPinned } from "lucide-react";
 
 import Container from "@/components/common/container";
+import ProofStrip from "@/components/common/proof-strip";
 import SectionHeading from "@/components/common/section-heading";
 import SectionWrapper from "@/components/common/section-wrapper";
 import Footer from "@/components/layout/footer";
@@ -58,6 +59,7 @@ const SUPPORT_OPTIONS = ["Monthly Maintenance", "Quarterly Support", "Half-Yearl
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [step, setStep] = useState<1 | 2>(1);
 
   const {
     register,
@@ -97,6 +99,12 @@ export default function ContactPage() {
     return { total, label, range, meter };
   }, [watched.pages, watched.features, watched.infrastructure, watched.support, watched.customRequests, watched.businessType, watched.operationalGoal, watched.currentWebsite]);
 
+  const continueToScope = handleSubmit(() => {
+    setStep(2);
+  });
+
+  const submitInquiry = handleSubmit(onSubmit);
+
   function onSubmit(data: FormValues) {
     setSubmitted(true);
     // In a real app you'd send `data` to your backend here.
@@ -115,15 +123,15 @@ export default function ContactPage() {
               <div className="text-center">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">CONTACT</p>
                 <h1 className="mx-auto mt-8 max-w-4xl text-[clamp(2.5rem,6vw,5.5rem)] leading-tight font-semibold tracking-tight text-slate-950">
-                  Start with operational clarity.
+                  Start with a clearer path to leads and bookings.
                 </h1>
                 <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-slate-600">
-                  Every project begins with understanding workflow, structure, operational movement, scalability, and support requirements.
+                  Every project begins with understanding how your business gets inquiries, converts them, and follows up without losing momentum.
                 </p>
                 <div className="mt-12 flex justify-center">
                   <Button asChild size="lg" className="rounded-full px-6">
                     <Link href="#configuration">
-                      Review Scope
+                      Review Your Scope
                       <ArrowUpRight className="ml-3" />
                     </Link>
                   </Button>
@@ -146,9 +154,9 @@ export default function ContactPage() {
                 <div className="grid gap-6 lg:grid-cols-3 lg:items-start">
                   <div className="lg:col-span-2">
                     <div className="rounded-2xl border border-slate-200 bg-white p-8">
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">OPERATIONAL INTAKE SYSTEM</p>
-                      <h3 className="mt-4 text-2xl font-semibold text-slate-900">Inquiry — Workflow — Structure</h3>
-                      <p className="mt-3 text-sm text-slate-600">Better systems begin with operational clarity.</p>
+                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">PROJECT INTAKE</p>
+                      <h3 className="mt-4 text-2xl font-semibold text-slate-900">Inquiry — Booking — Follow-up</h3>
+                      <p className="mt-3 text-sm text-slate-600">Better systems begin with clear business goals.</p>
 
                       <div className="mt-6 grid gap-4 sm:grid-cols-3">
                         <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Inquiry</div>
@@ -160,13 +168,13 @@ export default function ContactPage() {
 
                   <div className="space-y-4">
                     <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Ambient Preview</p>
-                      <p className="mt-3 text-sm text-slate-600">A spatial, restrained operational layer with floating interface fragments.</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Project Preview</p>
+                      <p className="mt-3 text-sm text-slate-600">A calm preview of the business system we will shape around your goals.</p>
                     </div>
 
                     <div className="rounded-2xl border border-slate-200 bg-slate-950 p-6 text-white">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">Composition</p>
-                      <p className="mt-3 text-sm text-slate-200">Layered fragments, restrained geometry, and premium spacing.</p>
+                      <p className="mt-3 text-sm text-slate-200">Clear offer, clear flow, clear action.</p>
                     </div>
                   </div>
                 </div>
@@ -175,195 +183,260 @@ export default function ContactPage() {
           </Container>
         </SectionWrapper>
 
+        <SectionWrapper density="compact" className="pt-0 pb-12">
+          <ProofStrip
+            eyebrow="What Happens Next"
+            title="A clearer consultation process reduces hesitation."
+            subtitle="You share the basics, we scope the workflow, and then we respond with a practical next step."
+            items={[
+              { label: "Review", value: "24-48 hrs", detail: "Initial inquiry review window" },
+              { label: "Flow", value: "2-step form", detail: "Keep the first step short and the second step detailed" },
+              { label: "Contact", value: "WhatsApp + email", detail: "Direct paths for follow-up and updates" },
+              { label: "Support", value: "Launch continuity", detail: "Maintenance and iteration after go-live" },
+            ]}
+          />
+        </SectionWrapper>
+
         <SectionWrapper id="configuration" className="pt-6 pb-28">
           <Container>
             <div className="mx-auto max-w-7xl">
               <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-                <motion.form onSubmit={handleSubmit(onSubmit)} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm">
-                  <SectionHeading eyebrow="Project Configuration" title="Business Information" subtitle="Provide the core information so we can shape an operational estimate." />
+                <motion.form
+                  onSubmit={step === 1 ? continueToScope : submitInquiry}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm"
+                >
+                  <SectionHeading eyebrow="Project Configuration" title="Tell us about your business" subtitle="Share the core details so we can shape the right website, booking flow, or operational system." />
 
-                  <div className="mt-8 grid gap-5 sm:grid-cols-2">
-                    <div className="grid gap-2">
-                      <label className="text-sm font-medium text-slate-700">Full Name</label>
-                      <Input {...register("name")} className="rounded-2xl border-slate-200" placeholder="Your full name" />
-                      {errors.name && <p className="mt-1 text-xs text-red-600">{String(errors.name.message)}</p>}
-                    </div>
-                    <div className="grid gap-2">
-                      <label className="text-sm font-medium text-slate-700">Business Name</label>
-                      <Input {...register("businessName")} className="rounded-2xl border-slate-200" placeholder="Company or brand" />
+                  <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="font-semibold text-slate-900">Step {step} of 2</p>
+                        <p className="mt-1">Step 1 captures your contact details. Step 2 scopes the work.</p>
+                      </div>
+                      <div className="text-right text-xs uppercase tracking-[0.18em] text-slate-500">
+                        Typical response time
+                        <div className="mt-1 text-sm font-semibold text-slate-900">24-48 hours</div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="mt-5 grid gap-5 sm:grid-cols-2">
-                    <div className="grid gap-2">
-                      <label className="text-sm font-medium text-slate-700">Email Address</label>
-                      <Input {...register("email")} type="email" className="rounded-2xl border-slate-200" placeholder="you@company.com" />
-                      {errors.email && <p className="mt-1 text-xs text-red-600">{String(errors.email.message)}</p>}
-                    </div>
-                    <div className="grid gap-2">
-                      <label className="text-sm font-medium text-slate-700">Phone / WhatsApp</label>
-                      <Input {...register("phone")} className="rounded-2xl border-slate-200" placeholder="+91 9xx xxx xxxx" />
-                    </div>
-                  </div>
-
-                  <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">Business Type</label>
-                      <div className="mt-3 grid gap-3">
-                        {BUSINESS_TYPES.map((t) => {
-                          const selected = (watched.businessType || []).includes(t);
-                          return (
-                            <motion.button
-                              key={t}
-                              type="button"
-                              onClick={() => {
-                                const current = Array.isArray(watched.businessType) ? watched.businessType : [];
-                                if (current.includes(t)) setValue("businessType", current.filter((x: string) => x !== t) as any);
-                                else setValue("businessType", [...current, t] as any);
-                              }}
-                              whileHover={{ y: -3 }}
-                              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                              className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm shadow-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
-                            >
-                              <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-emerald-400 shadow-[0_6px_18px_-8px_rgba(56,189,248,0.28)]" : "bg-slate-200"}`} />
-                              <span>{t}</span>
-                            </motion.button>
-                          );
-                        })}
+                  {step === 1 ? (
+                    <>
+                      <div className="mt-8 grid gap-5 sm:grid-cols-2">
+                        <div className="grid gap-2">
+                          <label className="text-sm font-medium text-slate-700">Full Name</label>
+                          <Input {...register("name")} className="rounded-2xl border-slate-200" placeholder="Your full name" />
+                          {errors.name && <p className="mt-1 text-xs text-red-600">{String(errors.name.message)}</p>}
+                        </div>
+                        <div className="grid gap-2">
+                          <label className="text-sm font-medium text-slate-700">Business Name</label>
+                          <Input {...register("businessName")} className="rounded-2xl border-slate-200" placeholder="Company or brand" />
+                        </div>
                       </div>
-                    </div>
 
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">Operational Goal</label>
-                      <div className="mt-3 grid gap-3">
-                        {GOAL_OPTIONS.map((g) => {
-                          const selected = (watched.operationalGoal || []).includes(g);
-                          return (
-                            <motion.button
-                              key={g}
-                              type="button"
-                              onClick={() => {
-                                const current = Array.isArray(watched.operationalGoal) ? watched.operationalGoal : [];
-                                if (current.includes(g)) setValue("operationalGoal", current.filter((x: string) => x !== g) as any);
-                                else setValue("operationalGoal", [...current, g] as any);
-                              }}
-                              whileHover={{ y: -3 }}
-                              transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                              className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm shadow-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
-                            >
-                              <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-sky-400 shadow-[0_6px_18px_-8px_rgba(59,130,246,0.22)]" : "bg-slate-200"}`} />
-                              <span>{g}</span>
-                            </motion.button>
-                          );
-                        })}
+                      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                        <div className="grid gap-2">
+                          <label className="text-sm font-medium text-slate-700">Email Address</label>
+                          <Input {...register("email")} type="email" className="rounded-2xl border-slate-200" placeholder="you@company.com" />
+                          {errors.email && <p className="mt-1 text-xs text-red-600">{String(errors.email.message)}</p>}
+                        </div>
+                        <div className="grid gap-2">
+                          <label className="text-sm font-medium text-slate-700">Phone / WhatsApp</label>
+                          <Input {...register("phone")} className="rounded-2xl border-slate-200" placeholder="+91 9xx xxx xxxx" />
+                        </div>
                       </div>
-                    </div>
+
+                      <div className="mt-6 rounded-2xl border border-slate-100 bg-slate-50 p-5">
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">What happens next</p>
+                        <div className="mt-4 grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
+                          <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">We review your contact details</div>
+                          <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">We map the lead and booking path</div>
+                          <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">We reply with the right scope</div>
+                        </div>
+                      </div>
+
+                      <div className="mt-8 flex items-center justify-between gap-4">
+                        <div className="text-sm text-slate-500">Most replies happen within 24-48 hours.</div>
+                        <Button type="submit" size="lg" className="rounded-full px-6">
+                          Continue to Scope
+                          <ArrowUpRight className="ml-3" />
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">We start with the offer</div>
+                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Then we map conversion</div>
+                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Then we shape support</div>
+                      </div>
+
+                      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                        <div>
+                          <label className="text-sm font-medium text-slate-700">Business Type</label>
+                          <div className="mt-3 grid gap-3">
+                            {BUSINESS_TYPES.map((t) => {
+                              const selected = (watched.businessType || []).includes(t);
+                              return (
+                                <motion.button
+                                  key={t}
+                                  type="button"
+                                  onClick={() => {
+                                    const current = Array.isArray(watched.businessType) ? watched.businessType : [];
+                                    if (current.includes(t)) setValue("businessType", current.filter((x: string) => x !== t) as any);
+                                    else setValue("businessType", [...current, t] as any);
+                                  }}
+                                  whileHover={{ y: -3 }}
+                                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                  className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm shadow-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
+                                >
+                                  <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-emerald-400 shadow-[0_6px_18px_-8px_rgba(56,189,248,0.28)]" : "bg-slate-200"}`} />
+                                  <span>{t}</span>
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-sm font-medium text-slate-700">Operational Goal</label>
+                          <div className="mt-3 grid gap-3">
+                            {GOAL_OPTIONS.map((g) => {
+                              const selected = (watched.operationalGoal || []).includes(g);
+                              return (
+                                <motion.button
+                                  key={g}
+                                  type="button"
+                                  onClick={() => {
+                                    const current = Array.isArray(watched.operationalGoal) ? watched.operationalGoal : [];
+                                    if (current.includes(g)) setValue("operationalGoal", current.filter((x: string) => x !== g) as any);
+                                    else setValue("operationalGoal", [...current, g] as any);
+                                  }}
+                                  whileHover={{ y: -3 }}
+                                  transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                                  className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm shadow-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
+                                >
+                                  <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-sky-400 shadow-[0_6px_18px_-8px_rgba(59,130,246,0.22)]" : "bg-slate-200"}`} />
+                                  <span>{g}</span>
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
                               
-                    <div>
-                      <label className="text-sm font-medium text-slate-700">Current Website</label>
-                      <div className="mt-3 grid gap-3">
-                        {WEBSITE_OPTIONS.map((w) => {
-                          const selected = (watched.currentWebsite || []).includes(w);
-                          const disabledNoWebsite = w !== "No website" && (watched.currentWebsite || []).includes("No website");
-                          return (
-                            <motion.button
-                              key={w}
-                              type="button"
-                              onClick={() => {
-                                const current = Array.isArray(watched.currentWebsite) ? watched.currentWebsite : [];
-                                if (w === "No website") {
-                                  if (current.includes("No website")) setValue("currentWebsite", [] as any);
-                                  else setValue("currentWebsite", ["No website"] as any);
-                                } else {
-                                  let base = current.filter((x: string) => x !== "No website");
-                                  if (base.includes(w)) base = base.filter((x: string) => x !== w);
-                                  else base = [...base, w];
-                                  setValue("currentWebsite", base as any);
-                                }
-                              }}
-                              whileHover={{ y: -2 }}
-                              transition={{ type: "spring", stiffness: 260, damping: 24 }}
-                              disabled={disabledNoWebsite}
-                              className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"} ${disabledNoWebsite ? "opacity-60 cursor-not-allowed" : ""}`}
-                            >
-                              <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-violet-400 shadow-[0_6px_18px_-8px_rgba(167,139,250,0.2)]" : "bg-slate-200"}`} />
-                              <span>{w}</span>
-                            </motion.button>
-                          );
-                        })}
+                        <div>
+                          <label className="text-sm font-medium text-slate-700">Current Website</label>
+                          <div className="mt-3 grid gap-3">
+                            {WEBSITE_OPTIONS.map((w) => {
+                              const selected = (watched.currentWebsite || []).includes(w);
+                              const disabledNoWebsite = w !== "No website" && (watched.currentWebsite || []).includes("No website");
+                              return (
+                                <motion.button
+                                  key={w}
+                                  type="button"
+                                  onClick={() => {
+                                    const current = Array.isArray(watched.currentWebsite) ? watched.currentWebsite : [];
+                                    if (w === "No website") {
+                                      if (current.includes("No website")) setValue("currentWebsite", [] as any);
+                                      else setValue("currentWebsite", ["No website"] as any);
+                                    } else {
+                                      let base = current.filter((x: string) => x !== "No website");
+                                      if (base.includes(w)) base = base.filter((x: string) => x !== w);
+                                      else base = [...base, w];
+                                      setValue("currentWebsite", base as any);
+                                    }
+                                  }}
+                                  whileHover={{ y: -2 }}
+                                  transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                                  disabled={disabledNoWebsite}
+                                  className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"} ${disabledNoWebsite ? "opacity-60 cursor-not-allowed" : ""}`}
+                                >
+                                  <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-violet-400 shadow-[0_6px_18px_-8px_rgba(167,139,250,0.2)]" : "bg-slate-200"}`} />
+                                  <span>{w}</span>
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <Separator className="my-6" />
+                      <Separator className="my-6" />
 
-                  <div className="grid gap-6 lg:grid-cols-2">
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Website Structure</p>
-                      <div className="mt-4 grid gap-3">
-                        {PAGE_OPTIONS.map((p) => (
-                          <label key={p} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
-                            <input type="checkbox" value={p} {...register("pages")} className="h-4 w-4" />
-                            <span className="text-sm text-slate-700">{p}</span>
-                          </label>
-                        ))}
+                      <div className="grid gap-6 lg:grid-cols-2">
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Website Structure</p>
+                          <div className="mt-4 grid gap-3">
+                            {PAGE_OPTIONS.map((p) => (
+                              <label key={p} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
+                                <input type="checkbox" value={p} {...register("pages")} className="h-4 w-4" />
+                                <span className="text-sm text-slate-700">{p}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Operational Features</p>
+                          <div className="mt-4 grid gap-3">
+                            {FEATURE_OPTIONS.map((f) => (
+                              <label key={f} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
+                                <input type="checkbox" value={f} {...register("features")} className="h-4 w-4" />
+                                <span className="text-sm text-slate-700">{f}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
 
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Operational Features</p>
-                      <div className="mt-4 grid gap-3">
-                        {FEATURE_OPTIONS.map((f) => (
-                          <label key={f} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
-                            <input type="checkbox" value={f} {...register("features")} className="h-4 w-4" />
-                            <span className="text-sm text-slate-700">{f}</span>
-                          </label>
-                        ))}
+                      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Infrastructure Layer</p>
+                          <div className="mt-4 grid gap-3">
+                            {INFRA_OPTIONS.map((i) => (
+                              <label key={i} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
+                                <input type="checkbox" value={i} {...register("infrastructure")} className="h-4 w-4" />
+                                <span className="text-sm text-slate-700">{i}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Support Layer</p>
+                          <div className="mt-4 grid gap-3">
+                            {SUPPORT_OPTIONS.map((s) => (
+                              <label key={s} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
+                                <input type="radio" value={s} {...register("support")} name="support" className="h-4 w-4" />
+                                <span className="text-sm text-slate-700">{s}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="mt-6 grid gap-6 lg:grid-cols-2">
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Infrastructure Layer</p>
-                      <div className="mt-4 grid gap-3">
-                        {INFRA_OPTIONS.map((i) => (
-                          <label key={i} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
-                            <input type="checkbox" value={i} {...register("infrastructure")} className="h-4 w-4" />
-                            <span className="text-sm text-slate-700">{i}</span>
-                          </label>
-                        ))}
+                      <div className="mt-6">
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Custom Requirements</p>
+                        <p className="mt-2 text-sm text-slate-600">Tell us about any custom workflow, automation, WhatsApp integration, or booking logic.</p>
+                        <Textarea {...register("customRequests")} className="mt-4 min-h-[120px] rounded-2xl border-slate-200" placeholder="What should the website or system do for your business?" />
                       </div>
-                    </div>
 
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Support Layer</p>
-                      <div className="mt-4 grid gap-3">
-                        {SUPPORT_OPTIONS.map((s) => (
-                          <label key={s} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
-                            <input type="radio" value={s} {...register("support")} name="support" className="h-4 w-4" />
-                            <span className="text-sm text-slate-700">{s}</span>
-                          </label>
-                        ))}
+                      <div className="mt-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+                        <div className="text-sm text-slate-500">Pricing depends on scope, complexity, and support needs.</div>
+                        <div className="flex items-center gap-3">
+                          <Button type="button" variant="outline" size="lg" className="rounded-full px-6" onClick={() => setStep(1)}>
+                            Back
+                          </Button>
+                          <Button type="submit" size="lg" className="rounded-full px-6">
+                            Send Inquiry
+                            <ArrowUpRight className="ml-3" />
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Custom Request Layer</p>
-                    <p className="mt-2 text-sm text-slate-600">Describe any custom workflow, automation, integrations, or tooling.</p>
-                    <Textarea {...register("customRequests")} className="mt-4 min-h-[120px] rounded-2xl border-slate-200" placeholder="Describe advanced operational requirements" />
-                  </div>
-
-                  <div className="mt-8 flex items-center justify-between gap-4">
-                    <div className="text-sm text-slate-500">Pricing depends on operational complexity.</div>
-                    <div className="flex items-center gap-3">
-                      <Button type="submit" size="lg" className="rounded-full px-6">
-                        Send Inquiry
-                        <ArrowUpRight className="ml-3" />
-                      </Button>
-                    </div>
-                  </div>
+                    </>
+                  )}
                 </motion.form>
 
                 <motion.aside initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6 relative">
@@ -375,8 +448,8 @@ export default function ContactPage() {
                   </div>
 
                   <div className="rounded-2xl border border-slate-100 bg-white p-6">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Live Operational Estimate</p>
-                    <h4 className="mt-3 text-lg font-semibold">Estimated Operational Scope</h4>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Live Estimate</p>
+                    <h4 className="mt-3 text-lg font-semibold">Estimated Project Scope</h4>
                     <p className="mt-1 text-sm text-slate-600">{estimate.label} • {estimate.range}</p>
 
                     <div className="mt-6">
@@ -418,7 +491,7 @@ export default function ContactPage() {
 
                   <div className="rounded-2xl border border-slate-100 bg-white p-6">
                     <p className="text-sm font-semibold">Estimated Project Range</p>
-                    <p className="mt-2 text-sm text-slate-600">{estimate.range} — pricing adapts dynamically with complexity.</p>
+                    <p className="mt-2 text-sm text-slate-600">{estimate.range} — pricing adapts with scope and complexity.</p>
                   </div>
                 </motion.aside>
               </div>
@@ -426,7 +499,33 @@ export default function ContactPage() {
           </Container>
         </SectionWrapper>
 
-        <SectionWrapper className="py-28">
+        <SectionWrapper className="py-24">
+          <Container>
+            <div className="mx-auto max-w-6xl">
+              <div className="grid gap-6 lg:grid-cols-3">
+                <div className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Response Time</p>
+                  <h2 className="mt-4 text-2xl font-semibold text-slate-900">24-48 hour review window</h2>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">Initial inquiries are reviewed before project discussion begins so the reply is useful, not generic.</p>
+                </div>
+
+                <div className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Social Proof</p>
+                  <h2 className="mt-4 text-2xl font-semibold text-slate-900">Built for local businesses</h2>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">Clinics, gyms, salons, restaurants, coaching brands, and service businesses all need the same thing: a cleaner path to inquiry and booking.</p>
+                </div>
+
+                <div className="rounded-2xl border border-slate-100 bg-slate-950 p-8 text-white shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">What we protect</p>
+                  <h2 className="mt-4 text-2xl font-semibold">Clarity, pace, and follow-through.</h2>
+                  <p className="mt-3 text-sm leading-6 text-slate-300">The process stays narrow so your business gets a practical website or system instead of extra noise.</p>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </SectionWrapper>
+
+        <SectionWrapper className="py-20">
           <Container>
             <div className="mx-auto max-w-4xl text-center">
               <h2 className="text-5xl font-semibold text-slate-900">Better systems begin with clearer structure.</h2>

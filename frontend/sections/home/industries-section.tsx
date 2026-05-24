@@ -29,7 +29,7 @@ const industries = [
 export default function IndustriesSection() {
   return (
     <SectionWrapper id="industries" className="bg-slate-50/70">
-      <SectionHeading eyebrow="Built Around The Work" title="Built Around The Work" subtitle="Each industry has its own pressure points. These pages are written and structured to match them." />
+      <SectionHeading eyebrow="Built Around The Business" title="Pages tailored to how each business actually gets customers" subtitle="Each category needs a different path to trust, action, and follow-up. The messaging changes to match that behavior." />
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {industries.map((industry) => {
@@ -49,28 +49,28 @@ export default function IndustriesSection() {
               </div>
               <h3 className="mt-6 text-lg font-semibold tracking-tight text-slate-950">{industry.label}</h3>
               {industry.label === "Gym" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Lead with energy. Make memberships easy to understand, and keep the first tap on mobile.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Lead with energy, simplify sign-ups, and make class or membership action easy on mobile.</p>
               ) : null}
               {industry.label === "Clinic" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Keep the layout calm, the appointment flow obvious, and the service list easy to scan.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Keep the layout calm, explain the services clearly, and make appointments easy to request.</p>
               ) : null}
               {industry.label === "Restaurant" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Show the menu fast, make local discovery clear, and keep ordering within reach.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Show the menu fast, make reservations obvious, and keep ordering or calling within reach.</p>
               ) : null}
               {industry.label === "Salon" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Let the visuals breathe, then move visitors straight to booking and availability.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Let the visuals breathe, then move visitors straight to booking, availability, and WhatsApp.</p>
               ) : null}
               {industry.label === "Real Estate" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Present listings with less noise and more room for property detail, trust, and contact paths.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Present listings with less noise and more room for detail, trust, and inquiry paths.</p>
               ) : null}
               {industry.label === "Medical" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Use clear navigation, plain language, and a structure that helps people find the right service quickly.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Use clear navigation, plain language, and a structure that helps people find care quickly.</p>
               ) : null}
               {industry.label === "Coaching" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Put the offer first, explain the process simply, and make the next step feel low-friction.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Put the offer first, explain the process simply, and make the next step feel obvious.</p>
               ) : null}
               {industry.label === "Business" ? (
-                <p className="mt-3 text-sm leading-6 text-slate-600">Anchor the message, clarify what you do, and remove the filler that slows decision-making.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">Anchor the message, clarify the offer, and remove the filler that slows decisions.</p>
               ) : null}
             </article>
           );
@@ -79,7 +79,7 @@ export default function IndustriesSection() {
       <div className="mt-8 flex justify-end">
         <Button asChild variant="outline" className="rounded-full border-slate-200 px-5 text-slate-700">
           <Link href="/industries">
-            Explore Industries
+            See Industry Pages
           </Link>
         </Button>
       </div>
