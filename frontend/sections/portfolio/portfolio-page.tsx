@@ -133,52 +133,115 @@ export default function PortfolioPage() {
         <SectionWrapper>
           <SectionHeading title="Curated interface explorations focused on operational clarity" />
 
-          <div className="mt-16 grid gap-8">
-            {studies.map((study, index) => {
-              const Icon = study.icon;
-              const reverse = index % 2 === 1;
+          <div className="mt-16 space-y-12">
+            {/* Clinic Study — calm, appointment-first */}
+            <motion.section
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.16 }}
+              transition={{ duration: 0.7 }}
+              className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm"
+            >
+              <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
+                <div>
+                  <h3 className="text-3xl font-extrabold text-slate-950">Clinic booking structure</h3>
+                  <p className="mt-4 max-w-2xl text-base text-slate-600">Appointment-first interaction design that reduces hesitation through clear intake, visible availability, and quieter choices.</p>
 
-              return (
-                <motion.section
-                  key={study.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.18 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10"
-                >
-                  <div className={`grid gap-8 lg:grid-cols-[1.05fr_0.95fr] ${reverse ? "lg:items-start" : "lg:items-start"}`}>
-                    <div className={reverse ? "lg:order-2" : ""}>
-                      <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">{study.title}</h2>
-                      <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">{study.summary}</p>
-                      <div className="mt-8 flex flex-wrap gap-4 text-sm text-slate-500 opacity-80">
-                        {study.focus.slice(0, 2).map((item) => (
-                          <span key={item}>{item}</span>
-                        ))}
-                      </div>
-                    </div>
+                  <div className="mt-6 grid gap-3 text-sm text-slate-600">
+                    <div className="rounded-lg bg-slate-50 p-3">Intake: progressive reveal of required fields</div>
+                    <div className="rounded-lg bg-white p-3 shadow-sm">Scheduling: visible availability with soft affordances</div>
+                    <div className="rounded-lg bg-slate-50 p-3">Follow-up: clear next steps and confirmation</div>
+                  </div>
+                </div>
 
-                    <div className={reverse ? "lg:order-1" : ""}>
-                      <div className={`overflow-hidden rounded-[1.75rem] border border-slate-200 bg-gradient-to-br ${study.accent}`}>
-                        <div className="p-6 sm:p-8">
-                          <div className="rounded-[1.5rem] bg-white/75 p-6 backdrop-blur-sm">
-                            <div className="flex items-center justify-between">
-                              <Icon className="size-5 text-blue-600" />
-                              <span className="text-sm text-slate-500">{study.note}</span>
-                            </div>
-                          </div>
-                          <div className="mt-6 flex gap-3 text-sm text-slate-500 opacity-75">
-                            {study.focus.slice(0, 2).map((item) => (
-                              <span key={item}>{item}</span>
-                            ))}
-                          </div>
+                <div>
+                  <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-4">
+                    <p className="text-sm font-medium text-slate-800">Availability preview</p>
+                    <div className="mt-4 grid gap-2">
+                      {['Mon 09:00', 'Mon 11:00', 'Tue 14:00'].map((t) => (
+                        <div key={t} className="flex items-center justify-between rounded-lg bg-slate-50 p-3">
+                          <div className="text-sm text-slate-700">{t}</div>
+                          <div className="text-xs text-slate-500">Book</div>
                         </div>
+                      ))}
+                    </div>
+                    <p className="mt-3 text-xs text-slate-500">Calm motion, slow reveal, reduced friction.</p>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.section>
+
+            {/* Editorial interruption */}
+            <div className="mx-auto max-w-4xl text-center py-8">
+              <p className="text-lg font-semibold text-slate-900">Design studies focused on reducing hesitation before action.</p>
+            </div>
+
+            {/* Restaurant Study — condensed, mobile-first */}
+            <motion.section
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.16 }}
+              transition={{ duration: 0.6 }}
+              className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
+                <div>
+                  <h3 className="text-3xl font-extrabold text-slate-950">Restaurant ordering flow</h3>
+                  <p className="mt-3 text-base text-slate-600">A compressed menu-first layout that encourages quick decisions and mobile ordering behavior.</p>
+
+                  <div className="mt-6 -ml-2 flex overflow-x-auto gap-3 pb-2">
+                    {['Pizza', 'Burgers', 'Salads', 'Pasta', 'Dessert'].map((dish) => (
+                      <div key={dish} className="min-w-[9rem] rounded-xl border border-slate-200 bg-white p-3 text-sm shadow-sm">
+                        <div className="font-medium">{dish}</div>
+                        <div className="mt-2 text-xs text-slate-500">Quick order</div>
                       </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="rounded-xl border border-slate-200 bg-white p-4">
+                    <p className="text-sm font-semibold text-slate-800">Reservation shortcuts</p>
+                    <div className="mt-3 grid gap-2">
+                      <div className="flex items-center justify-between rounded-lg bg-slate-50 p-3"><span>Today • 7:00</span><span className="text-xs text-slate-500">Reserve</span></div>
+                      <div className="flex items-center justify-between rounded-lg bg-slate-50 p-3"><span>Today • 8:30</span><span className="text-xs text-slate-500">Reserve</span></div>
                     </div>
                   </div>
-                </motion.section>
-              );
-            })}
+                </div>
+              </div>
+            </motion.section>
+
+            {/* Editorial interruption */}
+            <div className="mx-auto max-w-4xl text-center py-8">
+              <p className="text-lg font-semibold text-slate-900">Operational studies, not project thumbnails.</p>
+            </div>
+
+            {/* Real Estate Study — immersive, spatial */}
+            <motion.section
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.16 }}
+              transition={{ duration: 0.8 }}
+              className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm overflow-hidden"
+            >
+              <div className="grid gap-6 lg:grid-cols-[1.3fr_0.9fr] items-start">
+                <div>
+                  <h3 className="text-3xl font-extrabold text-slate-950">Real estate interface study</h3>
+                  <p className="mt-4 max-w-2xl text-base text-slate-600">Layered listing previews with inquiry-first cues and larger visual zones for spatial context.</p>
+                  <div className="mt-6 rounded-lg overflow-hidden">
+                    <div className="h-56 w-full rounded-2xl bg-slate-100" />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                    <p className="text-sm font-semibold text-slate-900">Featured listing</p>
+                    <div className="mt-3 h-28 rounded-lg bg-slate-50" />
+                    <div className="mt-3 text-sm text-slate-500">Inquiry action is visible and prioritized.</div>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
           </div>
         </SectionWrapper>
 

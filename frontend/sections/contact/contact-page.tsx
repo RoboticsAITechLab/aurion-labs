@@ -136,7 +136,13 @@ export default function ContactPage() {
         <SectionWrapper id="preview" className="pt-8 pb-20">
           <Container>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mx-auto max-w-6xl">
-              <div className="rounded-3xl border border-slate-100 bg-gradient-to-b from-white to-slate-50 p-10 shadow-[0_30px_80px_-40px_rgba(2,6,23,0.08)]">
+              <div className="rounded-3xl border border-slate-100 bg-gradient-to-b from-white to-slate-50 p-10 shadow-[0_30px_80px_-40px_rgba(2,6,23,0.08)] relative overflow-visible">
+                {/* ambient fragments reflect selected configuration */}
+                <div className="pointer-events-none absolute -right-6 top-6 hidden w-44 lg:block">
+                  {Array.from({ length: Math.min(3, Math.max(1, (watched.businessType?.length ?? 0))) }).map((_, i) => (
+                    <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 0.06 + i * 0.06, y: -6 - i * 6 }} transition={{ duration: 1.2 + i * 0.4 }} className="mb-3 h-10 w-full rounded-xl bg-white/60 blur-sm" />
+                  ))}
+                </div>
                 <div className="grid gap-6 lg:grid-cols-3 lg:items-start">
                   <div className="lg:col-span-2">
                     <div className="rounded-2xl border border-slate-200 bg-white p-8">
@@ -207,21 +213,21 @@ export default function ContactPage() {
                         {BUSINESS_TYPES.map((t) => {
                           const selected = (watched.businessType || []).includes(t);
                           return (
-                            <button
+                            <motion.button
                               key={t}
                               type="button"
                               onClick={() => {
                                 const current = Array.isArray(watched.businessType) ? watched.businessType : [];
-                                if (current.includes(t)) {
-                                  setValue("businessType", current.filter((x: string) => x !== t) as any);
-                                } else {
-                                  setValue("businessType", [...current, t] as any);
-                                }
+                                if (current.includes(t)) setValue("businessType", current.filter((x: string) => x !== t) as any);
+                                else setValue("businessType", [...current, t] as any);
                               }}
-                              className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm transition-shadow ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
+                              whileHover={{ y: -3 }}
+                              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                              className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm shadow-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
                             >
-                              {selected ? "☑" : "○"} {t}
-                            </button>
+                              <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-emerald-400 shadow-[0_6px_18px_-8px_rgba(56,189,248,0.28)]" : "bg-slate-200"}`} />
+                              <span>{t}</span>
+                            </motion.button>
                           );
                         })}
                       </div>
@@ -233,26 +239,26 @@ export default function ContactPage() {
                         {GOAL_OPTIONS.map((g) => {
                           const selected = (watched.operationalGoal || []).includes(g);
                           return (
-                            <button
+                            <motion.button
                               key={g}
                               type="button"
                               onClick={() => {
                                 const current = Array.isArray(watched.operationalGoal) ? watched.operationalGoal : [];
-                                if (current.includes(g)) {
-                                  setValue("operationalGoal", current.filter((x: string) => x !== g) as any);
-                                } else {
-                                  setValue("operationalGoal", [...current, g] as any);
-                                }
+                                if (current.includes(g)) setValue("operationalGoal", current.filter((x: string) => x !== g) as any);
+                                else setValue("operationalGoal", [...current, g] as any);
                               }}
-                              className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm transition-shadow ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
+                              whileHover={{ y: -3 }}
+                              transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                              className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm shadow-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"}`}
                             >
-                              {selected ? "☑" : "○"} {g}
-                            </button>
+                              <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-sky-400 shadow-[0_6px_18px_-8px_rgba(59,130,246,0.22)]" : "bg-slate-200"}`} />
+                              <span>{g}</span>
+                            </motion.button>
                           );
                         })}
                       </div>
                     </div>
-
+                              
                     <div>
                       <label className="text-sm font-medium text-slate-700">Current Website</label>
                       <div className="mt-3 grid gap-3">
@@ -260,31 +266,29 @@ export default function ContactPage() {
                           const selected = (watched.currentWebsite || []).includes(w);
                           const disabledNoWebsite = w !== "No website" && (watched.currentWebsite || []).includes("No website");
                           return (
-                            <button
+                            <motion.button
                               key={w}
                               type="button"
                               onClick={() => {
                                 const current = Array.isArray(watched.currentWebsite) ? watched.currentWebsite : [];
                                 if (w === "No website") {
-                                  // selecting No website replaces others
-                                  if (current.includes("No website")) {
-                                    setValue("currentWebsite", [] as any);
-                                  } else {
-                                    setValue("currentWebsite", ["No website"] as any);
-                                  }
+                                  if (current.includes("No website")) setValue("currentWebsite", [] as any);
+                                  else setValue("currentWebsite", ["No website"] as any);
                                 } else {
-                                  // toggle other options; if No website is present, remove it
                                   let base = current.filter((x: string) => x !== "No website");
                                   if (base.includes(w)) base = base.filter((x: string) => x !== w);
                                   else base = [...base, w];
                                   setValue("currentWebsite", base as any);
                                 }
                               }}
+                              whileHover={{ y: -2 }}
+                              transition={{ type: "spring", stiffness: 260, damping: 24 }}
                               disabled={disabledNoWebsite}
-                              className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm transition-shadow ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"} ${disabledNoWebsite ? "opacity-60 cursor-not-allowed" : ""}`}
+                              className={`inline-flex items-center gap-3 rounded-2xl px-4 py-2 text-sm transform-gpu transition-all ${selected ? "bg-slate-900 text-white shadow-lg ring-1 ring-sky-400" : "bg-white text-slate-700 border border-slate-100"} ${disabledNoWebsite ? "opacity-60 cursor-not-allowed" : ""}`}
                             >
-                              {selected ? "☑" : "○"} {w}
-                            </button>
+                              <span className={`inline-block h-3 w-3 rounded-full ${selected ? "bg-violet-400 shadow-[0_6px_18px_-8px_rgba(167,139,250,0.2)]" : "bg-slate-200"}`} />
+                              <span>{w}</span>
+                            </motion.button>
                           );
                         })}
                       </div>
@@ -362,7 +366,14 @@ export default function ContactPage() {
                   </div>
                 </motion.form>
 
-                <motion.aside initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
+                <motion.aside initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6 relative">
+                  {/* ambient topology fragments — reflect selection intensity */}
+                  <div className="pointer-events-none absolute -right-6 -top-12 hidden w-48 transform-gpu lg:block">
+                    {Array.from({ length: Math.min(4, Math.max(1, (watched.businessType?.length ?? 0) + (watched.operationalGoal?.length ?? 0))) }).map((_, i) => (
+                      <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 0.08 + i * 0.05, y: -6 - i * 6 }} transition={{ duration: 1.6 + i * 0.4 }} className="mb-3 h-12 w-full rounded-xl bg-gradient-to-r from-white to-slate-50" />
+                    ))}
+                  </div>
+
                   <div className="rounded-2xl border border-slate-100 bg-white p-6">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Live Operational Estimate</p>
                     <h4 className="mt-3 text-lg font-semibold">Estimated Operational Scope</h4>
@@ -370,8 +381,8 @@ export default function ContactPage() {
 
                     <div className="mt-6">
                       <p className="text-xs font-medium text-slate-500">Structure Layer</p>
-                      <div className="mt-3 h-3 w-full rounded-full bg-slate-100">
-                        <div className="h-3 rounded-full bg-blue-600" style={{ width: `${estimate.meter}%` }} />
+                      <div className="mt-3 h-3 w-full rounded-full bg-slate-100 overflow-hidden">
+                        <motion.div className="h-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600" animate={{ width: `${estimate.meter}%` }} transition={{ duration: 0.9 }} style={{ width: `${estimate.meter}%` }} />
                       </div>
                       <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
                         <span>Foundational</span>
@@ -383,9 +394,9 @@ export default function ContactPage() {
                     <div className="mt-6">
                       <p className="text-xs font-medium text-slate-500">Operational Complexity</p>
                       <div className="mt-2 flex items-center gap-3 text-sm">
-                        <div className="rounded-full bg-slate-100 px-3 py-1 text-slate-700">Pages: {watched.pages?.length ?? 0}</div>
-                        <div className="rounded-full bg-slate-100 px-3 py-1 text-slate-700">Features: {watched.features?.length ?? 0}</div>
-                        <div className="rounded-full bg-slate-100 px-3 py-1 text-slate-700">Infra: {watched.infrastructure?.length ?? 0}</div>
+                        <motion.div className="rounded-full bg-slate-100 px-3 py-1 text-slate-700" animate={{ y: [0, -4, 0] }} transition={{ duration: 4, repeat: Infinity }}>{`Pages: ${watched.pages?.length ?? 0}`}</motion.div>
+                        <motion.div className="rounded-full bg-slate-100 px-3 py-1 text-slate-700" animate={{ y: [0, -3, 0] }} transition={{ duration: 3.6, repeat: Infinity, delay: 0.3 }}>{`Features: ${watched.features?.length ?? 0}`}</motion.div>
+                        <motion.div className="rounded-full bg-slate-100 px-3 py-1 text-slate-700" animate={{ y: [0, -2, 0] }} transition={{ duration: 3.2, repeat: Infinity, delay: 0.6 }}>{`Infra: ${watched.infrastructure?.length ?? 0}`}</motion.div>
                       </div>
                     </div>
                   </div>
@@ -393,13 +404,9 @@ export default function ContactPage() {
                   <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Complexity Meter</p>
                     <div className="mt-4">
-                      <div className="relative h-3 w-full rounded-full bg-white/60">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="h-3 w-full rounded-full bg-gradient-to-r from-emerald-400 via-sky-500 to-indigo-600" style={{ width: `${estimate.meter}%`, opacity: 0.95 }} />
-                        </div>
-                        <div className="absolute left-[calc(var(--meter,50)%_-_8px)] top-[-8px]">{/* marker */}
-                          <div className="h-5 w-5 rounded-full border-2 border-white bg-slate-900 shadow-md" style={{ transform: `translateX(${estimate.meter - 50}%)` }} />
-                        </div>
+                      <div className="relative h-3 w-full rounded-full bg-white/60 overflow-hidden">
+                        <motion.div className="absolute left-0 top-0 h-3 rounded-full bg-gradient-to-r from-emerald-400 via-sky-500 to-indigo-600" animate={{ width: `${estimate.meter}%` }} transition={{ duration: 0.9 }} style={{ width: `${estimate.meter}%` }} />
+                        <motion.div className="absolute top-[-8px] h-5 w-5 rounded-full border-2 border-white bg-slate-900 shadow-md" animate={{ left: `${estimate.meter}%`, translateX: '-50%' }} transition={{ duration: 0.9 }} />
                       </div>
                       <div className="mt-3 flex justify-between text-xs text-slate-600">
                         <span>Foundational</span>

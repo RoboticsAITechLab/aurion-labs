@@ -310,94 +310,121 @@ export default function ServicesPage() {
           <SectionIntro
             label="Interface Layer"
             title="Core systems built to read cleanly at a glance"
-            subtitle="The structure is deliberate: one dominant section, supporting layers around it, and enough contrast to keep the page from feeling flat."
+            subtitle="We treat each service as a connected layer — interface, operations, and infrastructure — not as isolated cards."
           />
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-12 lg:auto-rows-[minmax(220px,auto)]">
-            <motion.article
-              initial={{ opacity: 0, y: 12 }}
+          <div className="mt-14 grid gap-10">
+            {/* Business Websites — Asymmetrical editorial composition */}
+            <motion.section
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, ease: "easeOut" }}
-              className="group lg:col-span-12 rounded-[2.2rem] border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_-40px_rgba(15,23,42,0.35)]"
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="rounded-[2.2rem] border border-slate-200 bg-white p-8 shadow-sm overflow-hidden"
             >
-              <div className="grid gap-8 lg:grid-cols-[1.18fr_0.82fr]">
+              <div className="grid gap-8 lg:grid-cols-[1.25fr_0.85fr] items-start">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">
-                    <ShieldCheck className="size-3.5 text-blue-600" />
-                    Business Websites
-                  </div>
-                  <h3 className="mt-6 max-w-xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                    Clear entry points, stronger hierarchy, fewer decision stalls.
-                  </h3>
-                  <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
-                    This layer is for the site itself: a cleaner route through content, more believable pacing, and a calmer interface that still feels premium.
-                  </p>
-                  <div className="mt-8 flex flex-wrap gap-3 text-sm text-slate-500">
-                    <span className="rounded-full border border-slate-200 px-4 py-2">Clear entry points</span>
-                    <span className="rounded-full border border-slate-200 px-4 py-2">Readable flow</span>
-                    <span className="rounded-full border border-slate-200 px-4 py-2">Less noise</span>
+                  <div className="inline-flex items-center gap-3 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-100">Business Websites</div>
+                  <h3 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Interface fragments that clarify intention.</h3>
+                  <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">Large editorial headings, selective content exposure, and a clear visual lead that prevents decision stall.</p>
+
+                  <div className="mt-8 flex items-center gap-4">
+                    <div className="rounded-lg bg-slate-50 p-4 shadow-sm">
+                      <div className="h-3 w-24 rounded-full bg-slate-200" />
+                      <div className="mt-3 h-12 w-48 rounded-lg bg-white/60" />
+                    </div>
+                    <div className="text-sm text-slate-600">Editorial rhythm with selective previews.</div>
                   </div>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:pt-2">
-                  <div className="rounded-[1.5rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,1))] p-5 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">Scheduling</p>
-                    <div className="mt-4 h-28 rounded-2xl border border-slate-200 bg-white" />
-                  </div>
-                  <div className="lg:translate-y-6 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">Intake</p>
-                    <div className="mt-4 h-28 rounded-2xl border border-slate-200 bg-slate-950/90" />
+                <div className="relative">
+                  <div className="absolute -right-8 -top-8 h-32 w-40 rounded-xl bg-slate-100/40 blur-sm" />
+                  <div className="rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-5 shadow-sm">
+                    <p className="text-sm font-semibold text-slate-900">Navigation rhythm</p>
+                    <div className="mt-4 space-y-3">
+                      <div className="h-3 w-3/4 rounded-full bg-slate-200" />
+                      <div className="h-3 w-2/3 rounded-full bg-slate-100" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </motion.section>
 
-            <motion.article
-              initial={{ opacity: 0, y: 12 }}
+            {/* Editorial interruption */}
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="mx-auto max-w-4xl text-center py-12">
+              <p className="text-xl font-semibold leading-tight text-slate-900">The interface is not decoration — it is operational infrastructure.</p>
+            </motion.div>
+
+            {/* Booking Systems — directional flow and sequencing */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, ease: "easeOut", delay: 0.05 }}
-              className="lg:col-span-7 rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-36px_rgba(15,23,42,0.3)]"
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ duration: 0.6 }}
+              className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"
             >
-              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">
-                <Clock3 className="size-3.5 text-blue-600" />
-                Operations Layer
-              </div>
-              <h3 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950">Booking Systems</h3>
-              <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
-                Scheduling and intake flows that reduce operational drag while staying visually quiet.
-              </p>
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">Booking</div>
-                <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">Requests</div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">Follow-up</div>
-              </div>
-            </motion.article>
+              <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">Booking Systems</div>
+                  <h3 className="mt-4 text-2xl font-semibold text-slate-950">Operational flow that guides action.</h3>
+                  <p className="mt-3 text-base text-slate-600">Directional fragments that suggest a sequence: Inquiry → Routing → Scheduling → Follow-up.</p>
 
-            <motion.article
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, ease: "easeOut", delay: 0.08 }}
-              className="lg:col-span-5 rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-36px_rgba(15,23,42,0.3)]"
-            >
-              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">
-                <MoveRight className="size-3.5 text-blue-600" />
-                Interface Layer
-              </div>
-              <h3 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950">SEO + Site Structure</h3>
-              <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
-                Faster loading, cleaner metadata, and a structure that stays maintainable over time.
-              </p>
-              <div className="mt-8 rounded-[1.5rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(248,250,252,1),rgba(255,255,255,1))] p-5">
-                <div className="space-y-3">
-                  <div className="h-3 w-3/4 rounded-full bg-slate-200" />
-                  <div className="h-3 w-2/3 rounded-full bg-slate-100" />
-                  <div className="h-3 w-1/2 rounded-full bg-slate-100" />
+                  <div className="mt-6 flex gap-3 text-sm text-slate-500">
+                    <div className="rounded-lg bg-slate-50 px-4 py-2">Inquiry</div>
+                    <div className="rounded-lg bg-white px-4 py-2 shadow-sm">Routing</div>
+                    <div className="rounded-lg bg-slate-50 px-4 py-2">Scheduling</div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="rounded-xl border border-slate-200 bg-white p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center"> <CalendarClock className="size-4 text-blue-600" /> </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900">Schedule preview</p>
+                        <p className="text-xs text-slate-500">A quick glance at availability reduces hesitation.</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 grid gap-2">
+                      {["10:00", "11:30", "14:00"].map((t) => (
+                        <motion.div key={t} whileHover={{ scale: 1.02 }} transition={{ duration: 0.18 }} className="flex items-center justify-between rounded-lg bg-slate-50 p-3">
+                          <div className="text-sm text-slate-700">{t}</div>
+                          <div className="text-xs text-slate-500">Book</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </motion.article>
+            </motion.section>
+
+            {/* Infrastructure Layer — topology and metadata rhythm */}
+            <motion.section
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">SEO + Infrastructure</div>
+                  <h3 className="mt-4 text-2xl font-semibold text-slate-950">Topology that keeps systems fast and maintainable.</h3>
+                  <p className="mt-3 text-base text-slate-600">Structural overlays, metadata grids, and a clear prioritization of performance and maintainability.</p>
+                </div>
+
+                <div>
+                  <div className="rounded-xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-4">
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="rounded-md bg-slate-100 p-3 text-sm">Meta</div>
+                      <div className="rounded-md bg-white p-3 text-sm shadow-sm">Sitemap</div>
+                      <div className="rounded-md bg-slate-100 p-3 text-sm">Perf</div>
+                    </div>
+                    <div className="mt-4 h-24 rounded-lg bg-slate-50" />
+                  </div>
+                </div>
+              </div>
+            </motion.section>
           </div>
         </SectionWrapper>
 

@@ -192,57 +192,175 @@ export default function IndustriesPage() {
             subtitle="The interface should reflect that operational reality."
           />
 
-          <div className="mt-14 grid gap-8">
+            <div className="mt-14 grid gap-8">
             {industries.map((industry, index) => {
               const Icon = industry.icon;
               const reverse = index % 2 === 1;
+              const name = industry.name;
+
+              const isClinic = name === "Clinics" || name === "Medical";
+              const isRestaurant = name === "Restaurants";
+              const isRealEstate = name === "Real Estate";
+              const isSalon = name === "Salons";
+              const isGym = name === "Gyms";
+              const isCoaching = name === "Coaching";
 
               return (
                 <motion.section
                   key={industry.name}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.18 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  transition={{ duration: isRestaurant || isGym ? 0.36 : isSalon ? 1.1 : 0.6, ease: "easeOut" }}
                   className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10"
                 >
-                  <div className={`grid gap-8 lg:grid-cols-[1.05fr_0.95fr] ${reverse ? "lg:items-start" : "lg:items-start"}`}>
-                      <div className={reverse ? "lg:order-2" : ""}>
-                      <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">{industry.name}</h2>
-                      <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">{industry.summary}</p>
-                      <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-500">
-                        {industry.focus.map((item) => (
-                          <span key={item} className="opacity-80">{item}</span>
-                        ))}
+                  {/* Clinic — appointment-first, calm rhythm */}
+                  {isClinic && (
+                    <div className={`grid gap-8 lg:grid-cols-[1fr_0.9fr] ${reverse ? "lg:items-start" : "lg:items-start"}`}>
+                      <div>
+                        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{industry.name}</h2>
+                        <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">{industry.summary}</p>
+                        <div className="mt-6 flex flex-col gap-3 text-sm text-slate-600">
+                          {industry.focus.map((item) => (
+                            <div key={item} className="rounded-lg bg-slate-50 p-3">{item}</div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                          <p className="text-sm font-medium text-slate-700">Appointment availability</p>
+                          <div className="mt-4 grid gap-3">
+                            {['Mon 9:00', 'Mon 11:00', 'Tue 14:00'].map((t) => (
+                              <div key={t} className="flex items-center justify-between rounded-lg bg-slate-50 p-3">
+                                <div className="text-sm text-slate-700">{t}</div>
+                                <div className="text-xs text-slate-500">Book</div>
+                              </div>
+                            ))}
+                          </div>
+                          <p className="mt-4 text-xs text-slate-500">Calmer pacing, clearer intake, reduced hesitation.</p>
+                        </div>
                       </div>
                     </div>
+                  )}
 
-                    <div className={reverse ? "lg:order-1" : ""}>
-                      <div className={`overflow-hidden rounded-[1.75rem] border border-slate-200 bg-gradient-to-br ${industry.accent}`}>
-                        <div className="p-6 sm:p-8">
-                          <div>
-                            <div className="mt-6 rounded-3xl bg-white/80 p-5 backdrop-blur-sm">
-                              <p className="mt-2 max-w-md text-base leading-7 text-slate-700">{industry.preview}</p>
+                  {/* Restaurant — menu-first, fast rhythm */}
+                  {isRestaurant && (
+                    <div className="grid gap-6 lg:grid-cols-[0.95fr_1fr] items-start">
+                      <div>
+                        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{industry.name}</h2>
+                        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">{industry.summary}</p>
+                        <div className="mt-6 -ml-2 flex overflow-x-auto gap-3 pb-2">
+                          {['Pizza', 'Burgers', 'Salads', 'Pasta'].map((dish) => (
+                            <div key={dish} className="min-w-[9rem] rounded-xl border border-slate-200 bg-white p-3 text-sm shadow-sm">
+                              <div className="font-medium">{dish}</div>
+                              <div className="mt-2 text-xs text-slate-500">Quick order</div>
                             </div>
-                          </div>
-                          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                            <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                              <div className="h-3 w-20 rounded-full bg-slate-200" />
-                              <div className="mt-4 h-24 rounded-2xl bg-slate-50" />
-                            </div>
-                            <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                              <div className="h-3 w-16 rounded-full bg-slate-200" />
-                              <div className="mt-4 h-24 rounded-2xl bg-gradient-to-b from-slate-50 to-white" />
-                            </div>
-                            <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                              <div className="h-3 w-14 rounded-full bg-slate-200" />
-                              <div className="mt-4 h-24 rounded-2xl bg-slate-950/90" />
-                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-amber-50 to-white p-4">
+                          <p className="text-sm text-slate-700">Reservations & ordering</p>
+                          <div className="mt-3 flex items-center justify-between">
+                            <div className="text-lg font-semibold">Reserve a table</div>
+                            <div className="text-sm text-slate-500">2–4 people</div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
+
+                  {/* Real Estate — immersive, spatial */}
+                  {isRealEstate && (
+                    <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] items-start">
+                      <div>
+                        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{industry.name}</h2>
+                        <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">{industry.summary}</p>
+                        <div className="mt-6 space-y-4">
+                          <div className="rounded-lg overflow-hidden">
+                            <div className="h-56 w-full rounded-2xl bg-slate-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                          <p className="text-sm text-slate-700">Featured listing</p>
+                          <div className="mt-3">
+                            <div className="h-36 rounded-lg bg-slate-50" />
+                          </div>
+                          <div className="mt-3 text-sm text-slate-500">Inquiry visible and prioritized.</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Salon — gallery-first, elegant */}
+                  {isSalon && (
+                    <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
+                      <div>
+                        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{industry.name}</h2>
+                        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">{industry.summary}</p>
+                        <div className="mt-6 grid grid-cols-3 gap-3">
+                          {[0,1,2].map((i)=> (
+                            <div key={i} className="h-24 rounded-xl bg-slate-100" />
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="rounded-xl border border-slate-200 bg-white p-4">
+                          <p className="text-sm text-slate-700">Portfolio preview</p>
+                          <div className="mt-3 h-40 rounded-lg bg-slate-50" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Gym — energetic, conversion-focused */}
+                  {isGym && (
+                    <div className="grid gap-4 lg:grid-cols-[0.95fr_1fr] items-start">
+                      <div>
+                        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{industry.name}</h2>
+                        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">{industry.summary}</p>
+                        <div className="mt-4 flex gap-3">
+                          <div className="rounded-lg bg-slate-100 p-3">Join</div>
+                          <div className="rounded-lg bg-slate-100 p-3">Classes</div>
+                          <div className="rounded-lg bg-slate-100 p-3">Offers</div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="rounded-xl border border-slate-200 bg-white p-4">
+                          <p className="text-sm text-slate-700">Membership CTA</p>
+                          <div className="mt-3 flex items-center justify-between">
+                            <div className="text-lg font-semibold">Start today</div>
+                            <div className="text-sm text-slate-500">1-click signup</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Coaching — guided, simple */}
+                  {isCoaching && (
+                    <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr] items-start">
+                      <div>
+                        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{industry.name}</h2>
+                        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">{industry.summary}</p>
+                        <ol className="mt-6 space-y-3 text-sm text-slate-600">
+                          <li>01 · Offer framing</li>
+                          <li>02 · Clear onboarding</li>
+                          <li>03 · Simple next step</li>
+                        </ol>
+                      </div>
+                      <div>
+                        <div className="rounded-xl border border-slate-200 bg-white p-4">
+                          <p className="text-sm text-slate-700">Program snapshot</p>
+                          <div className="mt-3 h-28 rounded-lg bg-slate-50" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </motion.section>
               );
             })}
