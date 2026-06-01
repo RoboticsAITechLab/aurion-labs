@@ -40,9 +40,6 @@ export default function Navbar() {
 						</Link>
 
 						<div className="flex items-center gap-2 lg:hidden">
-							<Button variant="outline" size="sm" className="h-10 rounded-full border-slate-200 px-3 text-sm text-slate-700 shadow-sm" onClick={openSignIn}>
-								Sign In
-							</Button>
 							<Sheet>
 								<SheetTrigger asChild>
 									<Button variant="outline" size="icon-sm" className="size-10 rounded-full border-slate-200 bg-white/90 shadow-sm">
@@ -65,12 +62,11 @@ export default function Navbar() {
 									</div>
 									<div className="mt-auto pt-6">
 										<div className="grid gap-3">
-											<Button variant="outline" className="h-11 w-full rounded-full border-slate-200 px-4 text-slate-700 shadow-sm" onClick={openSignIn}>
-												Sign In
-											</Button>
-											<Button className="h-11 w-full rounded-full shadow-sm" onClick={openSignUp}>
-												Get Started
-												<ArrowUpRight className="size-4" />
+											<Button className="h-11 w-full rounded-full shadow-sm" asChild>
+												<Link href="/contact">
+													Get Started
+													<ArrowUpRight className="size-4" />
+												</Link>
 											</Button>
 										</div>
 									</div>
@@ -88,12 +84,11 @@ export default function Navbar() {
 					</div>
 
 					<div className="hidden items-center gap-3 lg:flex">
-						<Button variant="outline" size="sm" className="h-10 rounded-full border-slate-200 px-4 text-slate-700 shadow-sm" onClick={openSignIn}>
-							Sign In
-						</Button>
-						<Button size="sm" className="h-10 rounded-full px-4 shadow-sm" onClick={openSignUp}>
-							Get Started
-							<ArrowUpRight className="size-4" />
+						<Button size="sm" className="h-10 rounded-full px-4 shadow-sm" asChild>
+							<Link href="/contact">
+								Get Started
+								<ArrowUpRight className="size-4" />
+							</Link>
 						</Button>
 					</div>
 				</nav>

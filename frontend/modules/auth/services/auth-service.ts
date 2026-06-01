@@ -16,7 +16,7 @@ import type {
 } from "@/lib/api/auth";
 
 export const authService = {
-	bootstrapSession: fetchSession,
+	bootstrapSession: () => Promise.resolve(null),
 	signIn: (input: SignInInput) => signIn(input),
 	signUp: (input: SignUpInput) => signUp(input),
 	requestPasswordReset: (input: ForgotPasswordInput) => requestPasswordReset(input),

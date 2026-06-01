@@ -1,13 +1,14 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { PrismaNeon } from '@prisma/adapter-neon';
-import { Pool } from '@neondatabase/serverless';
+import { neonConfig } from '@neondatabase/serverless';
+import ws = require('ws');
 import 'dotenv/config';
+
+neonConfig.webSocketConstructor = ws;
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleDestroy {
-  private pool: Pool | null = null;
-
   constructor() {
     const rawConnectionString = process.env.DATABASE_URL;
     if (!rawConnectionString) {
@@ -16,16 +17,11 @@ export class PrismaService extends PrismaClient implements OnModuleDestroy {
     // Strip any outer double quotes and trailing carriage returns (\r) in Windows environments
     const connectionString = rawConnectionString.replace(/^"|"$/g, '').trim();
     process.env.DATABASE_URL = connectionString; // Overwrite globally to clean it for all database libraries
-    const pool = new Pool({ connectionString });
-    const adapter = new PrismaNeon(pool);
+    const adapter = new PrismaNeon({ connectionString });
     super({ adapter });
-    this.pool = pool;
   }
 
   async onModuleDestroy() {
     await this.$disconnect();
-    if (this.pool) {
-      await this.pool.end();
-    }
   }
 }
