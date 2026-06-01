@@ -8,7 +8,9 @@
     "start:aurion-core": "ts-node-dev --respawn --transpile-only apps/aurion-core/src/main.ts",
     "prisma:generate:aurion-core": "prisma generate --config=prisma.config.ts",
     "prisma:push:aurion-core": "prisma db push --config=prisma.config.ts",
-    "test:aurion-core": "node apps/aurion-core/scripts/test-auth-node.js"
+    "test:aurion-core": "node apps/aurion-core/scripts/test-auth-node.js",
+    "build:aurion-core": "npm run prisma:generate:aurion-core && tsc",
+    "start:prod:aurion-core": "node dist/apps/aurion-core/src/main.js"
   },
   "keywords": [],
   "author": "",
