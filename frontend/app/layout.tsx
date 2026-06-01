@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import ActionRail from "@/components/layout/action-rail";
+import AppProviders from "@/providers/app-providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +31,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
-        {children}
-        <ActionRail />
+        <AppProviders>
+          {children}
+          <ActionRail />
+        </AppProviders>
       </body>
     </html>
   );

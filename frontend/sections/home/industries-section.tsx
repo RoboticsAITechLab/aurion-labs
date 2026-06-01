@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import SectionHeading from "@/components/common/section-heading";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionWrapper from "@/components/common/section-wrapper";
 import { Button } from "@/components/ui/button";
 
@@ -30,6 +31,26 @@ export default function IndustriesSection() {
   return (
     <SectionWrapper id="industries" className="bg-slate-50/70">
       <SectionHeading eyebrow="Built Around The Business" title="Pages tailored to how each business actually gets customers" subtitle="Each category needs a different path to trust, action, and follow-up. The messaging changes to match that behavior." />
+
+      <div className="mt-10">
+        <OperationalVisual
+          eyebrow="Industry behavior"
+          title="The visual system stays calm while the workflow changes by category."
+          subtitle="A clinic, gym, restaurant, or salon should not feel like the same page with different labels. The route to action needs to match how people decide in that business."
+          statusLabel="Core pattern"
+          status="Trust → action → follow-up"
+          steps={[
+            "Clinics need a calmer path to appointments and intake.",
+            "Gyms need quicker momentum from interest to trial or membership.",
+            "Restaurants, salons, and coaches need faster access to the right action.",
+          ]}
+          highlights={[
+            { label: "Clinic", value: "Trust-first" },
+            { label: "Gym", value: "Momentum-first" },
+            { label: "Salon", value: "Visual-first" },
+          ]}
+        />
+      </div>
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {industries.map((industry) => {

@@ -50,10 +50,14 @@ function SheetContent({
   children,
   side = "right",
   showCloseButton = true,
+  title = "Sheet panel",
+  description,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
+  title?: React.ReactNode
+  description?: React.ReactNode
 }) {
   return (
     <SheetPortal>
@@ -67,6 +71,8 @@ function SheetContent({
         )}
         {...props}
       >
+        <SheetPrimitive.Title className="sr-only">{title}</SheetPrimitive.Title>
+        {description ? <SheetPrimitive.Description className="sr-only">{description}</SheetPrimitive.Description> : null}
         {children}
         {showCloseButton && (
           <SheetPrimitive.Close data-slot="sheet-close" asChild>

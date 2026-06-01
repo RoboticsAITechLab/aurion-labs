@@ -7,6 +7,7 @@ import { ArrowUpRight, Home, MonitorSmartphone, UtensilsCrossed } from "lucide-r
 
 import Container from "@/components/common/container";
 import SectionHeading from "@/components/common/section-heading";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionWrapper from "@/components/common/section-wrapper";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
@@ -110,29 +111,23 @@ export default function PortfolioPage() {
                   <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">Representative case-study previews with operational details, measurable outcomes, and industry-specific behavior patterns.</p>
                 </div>
                 <div className="lg:pt-12">
-                  <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_40px_120px_-70px_rgba(15,23,42,0.25)] lg:p-10">
-                    <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-                      <div className="rounded-[1.5rem] bg-slate-50/80 p-6">
-                        <div className="grid gap-4 sm:grid-cols-2">
-                          <div className="rounded-2xl bg-white/80 p-4 shadow-sm">
-                            <div className="h-3 w-28 rounded-full bg-slate-200" />
-                            <div className="mt-4 h-16 rounded-2xl bg-slate-50" />
-                          </div>
-                          <div className="rounded-2xl bg-white/70 p-4 shadow-sm">
-                            <div className="h-3 w-20 rounded-full bg-slate-200" />
-                            <div className="mt-4 h-16 rounded-2xl bg-slate-50" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="rounded-[1.5rem] bg-white/70 p-6">
-                        <div className="space-y-4 text-sm text-slate-500 opacity-80">
-                          <div className="flex justify-between"><span>Scheduling</span><span>—</span></div>
-                          <div className="flex justify-between"><span>Intake</span><span>—</span></div>
-                          <div className="flex justify-between"><span>Routing</span><span>—</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <OperationalVisual
+                    eyebrow="Representative case study preview"
+                    title="Real businesses need clear systems, not just polished screens."
+                    subtitle="These previews show how the interface supports action, follow-up, and the operational rhythm behind the brand."
+                    statusLabel="Preview"
+                    status="Lead flow and trust"
+                    steps={[
+                      "The homepage sets the right expectation before a visitor scrolls deeper.",
+                      "The booking or inquiry path stays visible so the next step is never buried.",
+                      "The staff handoff stays easy to read after launch and during updates.",
+                    ]}
+                    highlights={[
+                      { label: "Clinic", value: "Appointment-first" },
+                      { label: "Gym", value: "Membership flow" },
+                      { label: "Salon", value: "Gallery to booking" },
+                    ]}
+                  />
                 </div>
               </div>
             </div>

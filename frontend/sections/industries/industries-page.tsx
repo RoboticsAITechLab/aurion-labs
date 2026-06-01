@@ -18,6 +18,7 @@ import {
 
 import Container from "@/components/common/container";
 import ProofStrip from "@/components/common/proof-strip";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionHeading from "@/components/common/section-heading";
 import SectionWrapper from "@/components/common/section-wrapper";
 import Footer from "@/components/layout/footer";
@@ -135,53 +136,23 @@ export default function IndustriesPage() {
                 </div>
               </div>
 
-              <div className="relative">
-                <div className="mx-auto max-w-6xl">
-                  <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_40px_120px_-70px_rgba(15,23,42,0.25)] lg:p-10">
-                    <div className="absolute -left-12 -top-12 hidden h-40 w-40 rounded-full bg-slate-950/5 blur-3xl lg:block" />
-                    <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-                      <div className="space-y-6">
-                        <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
-                          <div>
-                            <p className="text-sm font-medium text-slate-700">Operations fragments</p>
-                          </div>
-                          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                            <div className="rounded-2xl bg-slate-100/60 p-4">
-                              <div className="h-2 w-24 rounded-full bg-slate-200/60" />
-                              <div className="mt-3 h-12 rounded-lg bg-slate-100/40" />
-                            </div>
-                            <div className="rounded-2xl bg-slate-100/40 p-4">
-                              <div className="h-2 w-16 rounded-full bg-slate-200/60" />
-                              <div className="mt-3 h-12 rounded-lg bg-slate-100/30" />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="mt-4 flex gap-4 text-sm text-slate-500">
-                          <span className="opacity-80">Listings</span>
-                          <span className="opacity-80">Intake</span>
-                          <span className="opacity-80">Memberships</span>
-                        </div>
-                      </div>
-
-                      <div className="relative">
-                        <div className="rounded-[1.5rem] bg-white p-6">
-                          <div className="mt-6 space-y-4">
-                            <div className="rounded-2xl bg-slate-100/40 p-4">
-                              <div className="h-3 w-28 rounded-full bg-slate-200/50" />
-                              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                                <div className="h-20 rounded-lg bg-slate-100/30" />
-                                <div className="h-20 rounded-lg bg-slate-100/20" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="pointer-events-none absolute -right-10 bottom-6 hidden h-28 w-28 rounded-full bg-blue-50/40 blur-2xl lg:block" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <OperationalVisual
+                eyebrow="Operational category layer"
+                title="Different businesses need different conversion rhythms."
+                subtitle="The visual system stays calm, but the workflow story changes by industry so customers understand the right next step faster."
+                statusLabel="Category focus"
+                status="Trust, booking, and follow-up"
+                steps={[
+                  "Clinics need calmer intake and obvious appointment paths.",
+                  "Gyms need quicker mobile momentum and stronger trial conversion.",
+                  "Salons, restaurants, and coaches need visible action and simpler decisions.",
+                ]}
+                highlights={[
+                  { label: "Clinics", value: "Trust-first" },
+                  { label: "Gyms", value: "Momentum-first" },
+                  { label: "Salons", value: "Visual-first" },
+                ]}
+              />
             </div>
           </Container>
         </SectionWrapper>

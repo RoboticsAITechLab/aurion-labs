@@ -23,10 +23,12 @@ import {
 
 import Container from "@/components/common/container";
 import ProofStrip from "@/components/common/proof-strip";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionHeading from "@/components/common/section-heading";
 import SectionWrapper from "@/components/common/section-wrapper";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
+import Box from "@/components/ui/box";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 
@@ -213,134 +215,23 @@ export default function ServicesPage() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.08 }}
                 className="relative"
               >
-                <div className="absolute -left-4 top-14 hidden h-56 w-56 rounded-full bg-slate-950/5 blur-3xl lg:block" />
-                <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_50px_180px_-90px_rgba(15,23,42,0.55)]">
-                  <div className="border-b border-slate-200/80 px-7 py-5 sm:px-9">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Business Operations Interface</p>
-                  </div>
-
-                  <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-8 lg:p-10">
-                    <div className="space-y-6">
-                      <div className="grid gap-6 sm:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-                        <motion.div
-                          whileHover={{ y: -4 }}
-                          transition={{ duration: 0.2 }}
-                          className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,1))] p-5 shadow-sm"
-                        >
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <p className="text-sm font-semibold text-slate-950">Scheduling</p>
-                              <p className="mt-1 text-xs text-slate-500">Appointments and booking handoff</p>
-                            </div>
-                            <CalendarClock className="size-5 text-blue-600" />
-                          </div>
-                          <div className="mt-6 space-y-3">
-                            <div className="h-3 w-3/4 rounded-full bg-slate-200" />
-                            <div className="h-3 w-2/3 rounded-full bg-slate-100" />
-                            <div className="h-3 w-1/2 rounded-full bg-slate-100" />
-                          </div>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ y: -4 }}
-                          transition={{ duration: 0.2 }}
-                          className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm lg:translate-y-6"
-                        >
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <p className="text-sm font-semibold text-slate-950">Intake</p>
-                              <p className="mt-1 text-xs text-slate-500">Forms and first contact</p>
-                            </div>
-                            <CircleDot className="size-5 text-blue-600" />
-                          </div>
-                          <div className="mt-6 grid gap-3">
-                            <div className="h-10 rounded-xl border border-slate-100 bg-slate-50" />
-                            <div className="h-10 rounded-xl border border-slate-100 bg-slate-50" />
-                          </div>
-                        </motion.div>
-                      </div>
-
-                      <motion.div
-                        whileHover={{ y: -4 }}
-                        transition={{ duration: 0.2 }}
-                        className="grid gap-6 sm:grid-cols-[0.92fr_1.08fr] lg:items-stretch"
-                      >
-                        <div className="min-h-[11.5rem] rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm">
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <p className="text-sm font-semibold text-slate-950">Routing</p>
-                              <p className="mt-1 text-xs text-slate-500">Direction and follow-through</p>
-                            </div>
-                            <Route className="size-5 text-blue-600" />
-                          </div>
-                          <div className="mt-6 space-y-3">
-                            <div className="h-2 rounded-full bg-slate-100" />
-                            <div className="h-2 w-4/5 rounded-full bg-slate-100" />
-                            <div className="h-2 w-1/2 rounded-full bg-slate-100" />
-                          </div>
-                        </div>
-
-                        <div className="min-h-[11.5rem] rounded-[1.6rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_60px_-36px_rgba(15,23,42,0.45)]">
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <p className="text-sm font-semibold">Follow-Up</p>
-                              <p className="mt-1 text-xs text-slate-300">Return visits and reminders</p>
-                            </div>
-                            <MoveRight className="size-5 text-slate-200" />
-                          </div>
-                          <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
-                            <div className="h-3 w-28 rounded-full bg-white/20" />
-                            <div className="mt-4 h-24 rounded-2xl bg-white/10" />
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-3 lg:gap-5">
-                        <div className="min-h-[8.5rem] rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
-                          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">Workspace</p>
-                          <div className="mt-4 h-20 rounded-2xl border border-slate-200 bg-slate-50" />
-                        </div>
-                        <div className="min-h-[8.5rem] rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
-                          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">Requests</p>
-                          <div className="mt-4 h-20 rounded-2xl border border-slate-200 bg-slate-950/90" />
-                        </div>
-                        <div className="min-h-[8.5rem] rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
-                          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">Workflow</p>
-                          <div className="mt-4 h-20 rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,rgba(248,250,252,1),rgba(255,255,255,1))]" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="grid gap-4 content-start lg:pt-6">
-                      <motion.div
-                        whileHover={{ y: -4 }}
-                        transition={{ duration: 0.2 }}
-                        className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm"
-                      >
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">System Mapping</p>
-                        <div className="mt-5 space-y-4 text-sm text-slate-600">
-                          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">Booking</div>
-                          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">Intake</div>
-                          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">Navigation</div>
-                          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">Customer flow</div>
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        whileHover={{ y: -4 }}
-                        transition={{ duration: 0.2 }}
-                        className="min-h-[12rem] rounded-[1.6rem] border border-slate-200 bg-[linear-gradient(180deg,rgba(15,23,42,1),rgba(30,41,59,1))] p-6 text-white shadow-[0_20px_70px_-40px_rgba(15,23,42,0.45)] lg:translate-y-4"
-                      >
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">Interface Layer</p>
-                        <div className="mt-5 space-y-3 text-sm text-slate-200">
-                          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">Fewer steps for the user</div>
-                          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">Cleaner handoff for staff</div>
-                          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">Less friction across devices</div>
-                        </div>
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
+                <OperationalVisual
+                  eyebrow="Business operations interface"
+                  title="Clear inquiry paths, cleaner booking flow, quieter handoff."
+                  subtitle="A controlled visual layer that shows how the site supports real business operations without turning the page into a busy dashboard."
+                  statusLabel="Live flow"
+                  status="Inquiry → Booking → Follow-up"
+                  steps={[
+                    "The visitor finds the next step fast, whether that is inquiry, booking, or WhatsApp.",
+                    "The interface keeps routing and scheduling readable across desktop and mobile.",
+                    "The business gets a cleaner lead handoff and a calmer daily workflow.",
+                  ]}
+                  highlights={[
+                    { label: "Scheduling", value: "Appointments" },
+                    { label: "Routing", value: "WhatsApp + form" },
+                    { label: "Support", value: "Launch continuity" },
+                  ]}
+                />
               </motion.div>
             </div>
           </Container>
@@ -349,23 +240,23 @@ export default function ServicesPage() {
         <SectionWrapper className="pt-0 pb-8">
           <Container>
             <div className="mx-auto grid max-w-6xl gap-4 lg:grid-cols-3">
-              <div className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-sm">
+              <Box className="rounded-[1.8rem]" variant="card">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Response Time</p>
                 <h3 className="mt-4 text-xl font-semibold text-slate-950">24-48 hour review window</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600">We review incoming project details before moving into scope discussion, so the reply is relevant to the business.</p>
-              </div>
+              </Box>
 
-              <div className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-sm">
+              <Box className="rounded-[1.8rem]" variant="card">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Social Proof</p>
                 <h3 className="mt-4 text-xl font-semibold text-slate-950">Built for local conversion</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600">The patterns here are designed for clinics, gyms, salons, restaurants, coaches, and service businesses that need a clearer lead path.</p>
-              </div>
+              </Box>
 
-              <div className="rounded-[1.8rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
+              <Box className="rounded-[1.8rem]" variant="card">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">Trust Layer</p>
                 <h3 className="mt-4 text-xl font-semibold">Offer clarity first</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-300">When the offer is easy to understand and the next step is obvious, inquiries improve without adding clutter.</p>
-              </div>
+              </Box>
             </div>
           </Container>
         </SectionWrapper>
@@ -384,34 +275,35 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.18 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="rounded-[2.2rem] border border-slate-200 bg-white p-8 shadow-sm overflow-hidden"
             >
-              <div className="grid gap-8 lg:grid-cols-[1.25fr_0.85fr] items-start">
-                <div>
-                  <div className="inline-flex items-center gap-3 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-100">Business Websites</div>
-                  <h3 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">A clearer front door for your business.</h3>
-                  <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">We shape the homepage, service pages, and contact path so visitors understand your offer fast and know what to do next.</p>
+              <Box variant="card" className="overflow-hidden p-8">
+                <div className="grid gap-8 lg:grid-cols-[1.25fr_0.85fr] items-start">
+                  <div>
+                    <div className="inline-flex items-center gap-3 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-100">Business Websites</div>
+                    <h3 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">A clearer front door for your business.</h3>
+                    <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">We shape the homepage, service pages, and contact path so visitors understand your offer fast and know what to do next.</p>
 
-                  <div className="mt-8 flex items-center gap-4">
-                    <div className="rounded-lg bg-slate-50 p-4 shadow-sm">
-                      <div className="h-3 w-24 rounded-full bg-slate-200" />
-                      <div className="mt-3 h-12 w-48 rounded-lg bg-white/60" />
-                    </div>
-                    <div className="text-sm text-slate-600">Editorial rhythm with selective previews.</div>
-                  </div>
-                </div>
-
-                <div className="relative">
-                  <div className="absolute -right-8 -top-8 h-32 w-40 rounded-xl bg-slate-100/40 blur-sm" />
-                  <div className="rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-5 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">Navigation rhythm</p>
-                    <div className="mt-4 space-y-3">
-                      <div className="h-3 w-3/4 rounded-full bg-slate-200" />
-                      <div className="h-3 w-2/3 rounded-full bg-slate-100" />
+                    <div className="mt-8 flex items-center gap-4">
+                      <div className="rounded-lg bg-slate-50 p-4 shadow-sm">
+                        <div className="h-3 w-24 rounded-full bg-slate-200" />
+                        <div className="mt-3 h-12 w-48 rounded-lg bg-white/60" />
+                      </div>
+                      <div className="text-sm text-slate-600">Editorial rhythm with selective previews.</div>
                     </div>
                   </div>
+
+                  <div className="relative">
+                    <div className="absolute -right-8 -top-8 h-32 w-40 rounded-xl bg-slate-100/40 blur-sm" />
+                    <Box className="rounded-2xl p-5 bg-gradient-to-b from-white to-slate-50">
+                      <p className="text-sm font-semibold text-slate-900">Navigation rhythm</p>
+                      <div className="mt-4 space-y-3">
+                        <div className="h-3 w-3/4 rounded-full bg-slate-200" />
+                        <div className="h-3 w-2/3 rounded-full bg-slate-100" />
+                      </div>
+                    </Box>
+                  </div>
                 </div>
-              </div>
+              </Box>
             </motion.section>
 
             {/* Editorial interruption */}
@@ -425,9 +317,9 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.18 }}
               transition={{ duration: 0.6 }}
-              className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"
             >
-              <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
+              <Box variant="card" className="p-6">
+                <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">Booking Systems</div>
                   <h3 className="mt-4 text-2xl font-semibold text-slate-950">Booking flows that reduce drop-off.</h3>
@@ -460,6 +352,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
               </div>
+              </Box>
             </motion.section>
 
             {/* Infrastructure Layer — topology and metadata rhythm */}
@@ -468,9 +361,9 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"
             >
-              <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
+              <Box variant="card" className="p-6">
+                <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] items-start">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">SEO + Infrastructure</div>
                   <h3 className="mt-4 text-2xl font-semibold text-slate-950">Structure that supports visibility and performance.</h3>
@@ -488,6 +381,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
               </div>
+              </Box>
             </motion.section>
           </div>
         </SectionWrapper>

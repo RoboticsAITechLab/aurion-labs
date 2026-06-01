@@ -5,11 +5,13 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, MapPinned } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Mail, MapPinned, Sparkles } from "lucide-react";
+import { apiRequest } from "@/lib/api/client";
 
 import Container from "@/components/common/container";
 import ProofStrip from "@/components/common/proof-strip";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionHeading from "@/components/common/section-heading";
 import SectionWrapper from "@/components/common/section-wrapper";
 import Footer from "@/components/layout/footer";
@@ -18,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
+import Box from "@/components/ui/box";
 
 type FormValues = {
   name: string;
@@ -59,6 +62,8 @@ const SUPPORT_OPTIONS = ["Monthly Maintenance", "Quarterly Support", "Half-Yearl
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
 
   const {
@@ -103,12 +108,30 @@ export default function ContactPage() {
     setStep(2);
   });
 
-  const submitInquiry = handleSubmit(onSubmit);
+  const submitInquiry = handleSubmit(onSubmit, (errs) => {
+    console.error("Zod Validation Errors:", errs);
+    const errList = Object.keys(errs).map((k) => {
+      const fieldError = errs[k as keyof typeof errs];
+      return `${k} (${fieldError?.message || 'invalid'})`;
+    });
+    setError("Validation failed. Please check the following fields: " + errList.join(", "));
+  });
 
-  function onSubmit(data: FormValues) {
-    setSubmitted(true);
-    // In a real app you'd send `data` to your backend here.
-    console.log("Inquiry submitted:", data, estimate);
+  async function onSubmit(data: FormValues) {
+    setSubmitting(true);
+    setError(null);
+    try {
+      await apiRequest("/inquiries", {
+        method: "POST",
+        json: data,
+      });
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error("Error submitting inquiry:", err);
+      setError(err?.message || "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -144,41 +167,23 @@ export default function ContactPage() {
         <SectionWrapper id="preview" className="pt-8 pb-20">
           <Container>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mx-auto max-w-6xl">
-              <div className="rounded-3xl border border-slate-100 bg-gradient-to-b from-white to-slate-50 p-10 shadow-[0_30px_80px_-40px_rgba(2,6,23,0.08)] relative overflow-visible">
-                {/* ambient fragments reflect selected configuration */}
-                <div className="pointer-events-none absolute -right-6 top-6 hidden w-44 lg:block">
-                  {Array.from({ length: Math.min(3, Math.max(1, (watched.businessType?.length ?? 0))) }).map((_, i) => (
-                    <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 0.06 + i * 0.06, y: -6 - i * 6 }} transition={{ duration: 1.2 + i * 0.4 }} className="mb-3 h-10 w-full rounded-xl bg-white/60 blur-sm" />
-                  ))}
-                </div>
-                <div className="grid gap-6 lg:grid-cols-3 lg:items-start">
-                  <div className="lg:col-span-2">
-                    <div className="rounded-2xl border border-slate-200 bg-white p-8">
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">PROJECT INTAKE</p>
-                      <h3 className="mt-4 text-2xl font-semibold text-slate-900">Inquiry — Booking — Follow-up</h3>
-                      <p className="mt-3 text-sm text-slate-600">Better systems begin with clear business goals.</p>
-
-                      <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Inquiry</div>
-                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Workflow</div>
-                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Structure</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Project Preview</p>
-                      <p className="mt-3 text-sm text-slate-600">A calm preview of the business system we will shape around your goals.</p>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200 bg-slate-950 p-6 text-white">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">Composition</p>
-                      <p className="mt-3 text-sm text-slate-200">Clear offer, clear flow, clear action.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <OperationalVisual
+                eyebrow="Project intake preview"
+                title="A consultation should feel like a clean operational handoff."
+                subtitle="The preview below reflects the tone of the form: practical, structured, and focused on what the business actually needs to run better."
+                statusLabel="Consultation"
+                status="2-step intake"
+                steps={[
+                  "Step one collects the contact details and the overall business context.",
+                  "Step two scopes the pages, features, and support the system needs.",
+                  "The reply comes back with a practical next step rather than a vague promise.",
+                ]}
+                highlights={[
+                  { label: "Review", value: "24-48 hrs" },
+                  { label: "Contact", value: "WhatsApp + email" },
+                  { label: "Support", value: "Launch continuity" },
+                ]}
+              />
             </motion.div>
           </Container>
         </SectionWrapper>
@@ -206,7 +211,7 @@ export default function ContactPage() {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm"
+                  className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm relative overflow-hidden"
                 >
                   <SectionHeading eyebrow="Project Configuration" title="Tell us about your business" subtitle="Share the core details so we can shape the right website, booking flow, or operational system." />
 
@@ -249,14 +254,14 @@ export default function ContactPage() {
                         </div>
                       </div>
 
-                      <div className="mt-6 rounded-2xl border border-slate-100 bg-slate-50 p-5">
+                      <Box className="mt-6 rounded-2xl" variant="card">
                         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">What happens next</p>
                         <div className="mt-4 grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
                           <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">We review your contact details</div>
                           <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">We map the lead and booking path</div>
                           <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">We reply with the right scope</div>
                         </div>
-                      </div>
+                      </Box>
 
                       <div className="mt-8 flex items-center justify-between gap-4">
                         <div className="text-sm text-slate-500">Most replies happen within 24-48 hours.</div>
@@ -269,9 +274,9 @@ export default function ContactPage() {
                   ) : (
                     <>
                       <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">We start with the offer</div>
-                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Then we map conversion</div>
-                        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">Then we shape support</div>
+                        <Box className="rounded-2xl" variant="card">We start with the offer</Box>
+                        <Box className="rounded-2xl" variant="card">Then we map conversion</Box>
+                        <Box className="rounded-2xl" variant="card">Then we shape support</Box>
                       </div>
 
                       <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -426,15 +431,47 @@ export default function ContactPage() {
                       <div className="mt-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
                         <div className="text-sm text-slate-500">Pricing depends on scope, complexity, and support needs.</div>
                         <div className="flex items-center gap-3">
-                          <Button type="button" variant="outline" size="lg" className="rounded-full px-6" onClick={() => setStep(1)}>
+                          <Button type="button" variant="outline" size="lg" className="rounded-full px-6" onClick={() => setStep(1)} disabled={submitting}>
                             Back
                           </Button>
-                          <Button type="submit" size="lg" className="rounded-full px-6">
-                            Send Inquiry
+                          <Button type="submit" size="lg" className="rounded-full px-6" disabled={submitting}>
+                            {submitting ? "Sending..." : "Send Inquiry"}
                             <ArrowUpRight className="ml-3" />
                           </Button>
                         </div>
                       </div>
+                      {error && (
+                        <p className="mt-4 text-sm text-red-500 font-medium bg-red-50 border border-red-100 rounded-xl px-4 py-2 text-center">
+                          {error}
+                        </p>
+                      )}
+
+                      <AnimatePresence>
+                        {submitting && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md"
+                          >
+                            <div className="relative flex items-center justify-center">
+                              {/* Glowing aura */}
+                              <div className="absolute h-24 w-24 animate-ping rounded-full bg-indigo-400/20" />
+                              <div className="absolute h-16 w-16 animate-pulse rounded-full bg-sky-400/30" />
+                              
+                              {/* Pulsing visual core */}
+                              <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 shadow-xl text-white">
+                                <Sparkles className="h-8 w-8 animate-spin-slow" />
+                              </div>
+                            </div>
+                            
+                            <h3 className="mt-8 text-xl font-semibold tracking-tight text-slate-950 animate-pulse">Shaping Your System</h3>
+                            <p className="mt-3 text-sm text-slate-500 max-w-[320px] text-center leading-relaxed">
+                              Connecting Neon Postgres, mapping pages, and logging booking continuity specs...
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </>
                   )}
                 </motion.form>

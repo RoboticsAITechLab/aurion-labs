@@ -3,9 +3,10 @@
 import Link from "next/link";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 import Container from "@/components/common/container";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionWrapper from "@/components/common/section-wrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -72,49 +73,25 @@ export default function HeroSection() {
           </div>
 
           <div className="lg:col-span-5 relative">
-            <motion.div initial={{ opacity: 0, y: 18, scale: 0.995 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.8, delay: 0.12 }} className="rounded-3xl border border-slate-100 bg-white p-6 shadow-[0_40px_120px_-60px_rgba(2,6,23,0.08)]">
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-white/70 to-slate-50 p-6">
-                <div className="absolute -right-12 -top-10 h-40 w-40 rotate-12 rounded-xl bg-gradient-to-br from-sky-50 to-white/30 opacity-70 blur-sm" />
-
-                <div className="grid gap-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-slate-700">Growth system preview</p>
-                      <p className="text-xs text-slate-500">website, booking, and WhatsApp flow</p>
-                    </div>
-                    <div className="hidden items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 sm:flex">Business Front Door</div>
-                  </div>
-
-                  <div className="mt-2 grid gap-3">
-                    <div className="rounded-xl bg-white/60 p-3 ring-1 ring-slate-100">
-                      <div className="h-2 w-28 rounded-full bg-slate-200" />
-                      <div className="mt-4 grid grid-cols-6 gap-2">
-                        {[60, 48, 68, 54, 42, 58].map((h, i) => (
-                          <motion.div key={i} className="rounded-t-2xl bg-gradient-to-t from-slate-200 to-sky-400/20" style={{ height: h }} animate={{ y: [0, -6, 0] }} transition={{ duration: 6 + i, repeat: Infinity, ease: 'easeInOut' }} />
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <div className="flex-1 rounded-xl bg-white/60 p-3 ring-1 ring-slate-100">
-                        <div className="h-2 w-20 rounded-full bg-slate-200" />
-                        <div className="mt-3 grid gap-2">
-                          <div className="h-3 w-3/4 rounded-full bg-slate-100" />
-                          <div className="h-3 w-1/2 rounded-full bg-slate-100" />
-                        </div>
-                      </div>
-                      <div className="w-32 rounded-xl bg-slate-950 p-3 text-white">
-                        <div className="h-2 w-16 rounded-full bg-white/20" />
-                        <div className="mt-3 h-2 w-24 rounded-full bg-white/10" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="absolute -left-8 -bottom-12 hidden transform-gpu sm:block">
-              <div className="h-36 w-44 rounded-2xl bg-white/6 backdrop-blur-md border border-white/6 shadow-md" />
+            <motion.div initial={{ opacity: 0, y: 18, scale: 0.995 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.8, delay: 0.12 }}>
+              <OperationalVisual
+                eyebrow="Business front door"
+                title="Calm interface, clear routing, cleaner handoff."
+                subtitle="A premium system layer that shows how visitors move from interest to booking without visual noise or operational confusion."
+                statusLabel="Live flow"
+                status="Website → WhatsApp → Booking"
+                steps={[
+                  "Visitor lands on a clear offer and sees the next action immediately.",
+                  "The mobile path stays short so inquiries do not stall on smaller screens.",
+                  "Staff receive a cleaner lead handoff with fewer back-and-forth steps.",
+                ]}
+                highlights={[
+                  { label: "Primary action", value: "Book a call" },
+                  { label: "Fallback route", value: "WhatsApp inquiry" },
+                  { label: "Response target", value: "24-48 hrs" },
+                ]}
+                className="shadow-[0_40px_120px_-60px_rgba(2,6,23,0.10)]"
+              />
             </motion.div>
           </div>
         </div>

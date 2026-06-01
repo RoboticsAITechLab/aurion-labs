@@ -20,21 +20,21 @@ const footerLinks = [
 
 export default function Footer() {
 	return (
-		<footer className="border-t border-slate-200 bg-white">
+		<footer className="border-t border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,1))]">
 			<Container>
-				<div className="grid gap-10 py-12 lg:grid-cols-[1.4fr_1fr_1fr] lg:py-14">
+				<div className="grid gap-10 py-12 lg:grid-cols-[1.4fr_1fr_1fr] lg:py-16">
 					<div>
 						<Link href="/" className="text-base font-semibold tracking-tight text-slate-950">
 							Aurion Labs
 						</Link>
-						<p className="mt-4 max-w-md text-sm leading-6 text-slate-600">
+						<p className="mt-4 max-w-md text-sm leading-7 text-slate-600">
 							We help local businesses get more leads, bookings, and faster responses with clear websites, booking flows and WhatsApp handoffs.
 						</p>
 						<div className="mt-6 flex flex-col gap-3 sm:flex-row">
-							<Button asChild size="sm" className="rounded-full px-4">
+							<Button asChild size="sm" className="rounded-full px-4 shadow-sm">
 								<Link href="/contact?source=footer">Book Consultation</Link>
 							</Button>
-							<Button asChild variant="outline" size="sm" className="rounded-full border-slate-200 px-4 text-slate-700">
+							<Button asChild variant="outline" size="sm" className="rounded-full border-slate-200 px-4 text-slate-700 shadow-sm">
 								<Link href={whatsappHref}>WhatsApp Inquiry</Link>
 							</Button>
 						</div>

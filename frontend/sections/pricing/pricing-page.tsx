@@ -6,6 +6,7 @@ import { ArrowUpRight, Globe, Mail, Server, ShieldCheck, CheckCircle2 } from "lu
 
 import Container from "@/components/common/container";
 import ProofStrip from "@/components/common/proof-strip";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionWrapper from "@/components/common/section-wrapper";
 import SectionHeading from "@/components/common/section-heading";
 import Footer from "@/components/layout/footer";
@@ -72,31 +73,23 @@ function OperationalSupportLayer() {
     <SectionWrapper className="pt-8 pb-12">
       <Container>
         <div className="mx-auto max-w-6xl">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-12 shadow-sm">
-            <div className="grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-center">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Operational Support Layer</p>
-                <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950">Hosting, monitoring, and maintenance built into the system.</h2>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">Good pricing includes the support required to keep the website stable, visible, and easy to run.</p>
-              </div>
-
-              <div className="flex items-start justify-end">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-700">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span>Hosting</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Monitoring</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Maintenance</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <OperationalVisual
+            eyebrow="Operational support layer"
+            title="Hosting, monitoring, and maintenance stay visible in the system."
+            subtitle="Pricing becomes easier to trust when the support behind the site is explained as part of the operating model, not as a hidden extra."
+            statusLabel="Support"
+            status="Post-launch continuity"
+            steps={[
+              "Hosting and SSL keep the site stable and available.",
+              "Monitoring and maintenance keep the interface readable over time.",
+              "Updates and backups protect the system after launch.",
+            ]}
+            highlights={[
+              { label: "Hosting", value: "Deployment ready" },
+              { label: "Monitoring", value: "Uptime checks" },
+              { label: "Maintenance", value: "Edit support" },
+            ]}
+          />
         </div>
       </Container>
     </SectionWrapper>

@@ -1,0 +1,37 @@
+[
+  {
+    "page": "/",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\quick-screenshots\\home_desktop_1779716567826.png",
+    "success": true
+  },
+  {
+    "page": "/services",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\quick-screenshots\\_services_desktop_1779716571750.png",
+    "success": true
+  },
+  {
+    "page": "/industries",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\quick-screenshots\\_industries_desktop_1779716574623.png",
+    "success": true
+  },
+  {
+    "page": "/portfolio",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\quick-screenshots\\_portfolio_desktop_1779716577670.png",
+    "success": true
+  },
+  {
+    "page": "/pricing",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\quick-screenshots\\_pricing_desktop_1779716580390.png",
+    "success": true
+  },
+  {
+    "page": "/about",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\quick-screenshots\\_about_desktop_1779716583223.png",
+    "success": true
+  },
+  {
+    "page": "/contact",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\quick-screenshots\\_contact_desktop_1779716585864.png",
+    "success": true
+  }
+]

@@ -6,36 +6,61 @@ import { MapPinned, Users, Smartphone, Sparkles, CalendarClock, Server, ArrowUpR
 
 import Container from "@/components/common/container";
 import ProofStrip from "@/components/common/proof-strip";
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionWrapper from "@/components/common/section-wrapper";
 import SectionHeading from "@/components/common/section-heading";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
+import Box from "@/components/ui/box";
 
 function Hero() {
   return (
     <SectionWrapper contained={false} className="relative overflow-hidden pt-28 pb-28 sm:pt-32 sm:pb-32 lg:pt-40 lg:pb-44" role="region" aria-labelledby="about-hero-title">
       <Container>
-        <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">ABOUT</p>
-            <h1 id="about-hero-title" className="mx-auto mt-8 max-w-3xl text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-[4.2rem]">
-              We build websites and systems that help local businesses grow.
-            </h1>
-            <p className="mx-auto mt-8 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-xl">
-              Aurion Labs focuses on the practical side of digital growth: clearer websites, stronger booking flows, better WhatsApp handoff, and simpler operational systems.
-            </p>
+        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">ABOUT</p>
+              <h1 id="about-hero-title" className="mt-8 text-balance text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl lg:text-[4.2rem]">
+                We build websites and systems that help local businesses grow.
+              </h1>
+              <p className="mt-8 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg lg:text-xl">
+                Aurion Labs focuses on the practical side of digital growth: clearer websites, stronger booking flows, better WhatsApp handoff, and simpler operational systems.
+              </p>
 
-            <div className="mt-12 flex items-center justify-center gap-4">
-              <Button asChild size="lg" className="rounded-full px-6">
-                <Link href="#approach" aria-label="Review Operational Approach">
-                  See Our Approach
-                  <ArrowUpRight className="size-4" aria-hidden="true" />
-                </Link>
-              </Button>
+              <div className="mt-12 flex flex-wrap items-center gap-4">
+                <Button asChild size="lg" className="rounded-full px-6">
+                  <Link href="#approach" aria-label="Review Operational Approach">
+                    See Our Approach
+                    <ArrowUpRight className="size-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+                <div className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 shadow-sm">Direct communication, senior-led delivery</div>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.08 }} viewport={{ once: true }}>
+            <OperationalVisual
+              eyebrow="About the work"
+              title="Operational websites built for clarity and follow-through."
+              subtitle="The focus is not visual noise. The focus is clearer customer movement, easier staff handoff, and a more reliable growth system."
+              statusLabel="Delivery model"
+              status="Strategy → Build → Support"
+              steps={[
+                "We map the offer, the customer decision path, and the handoff before writing the interface.",
+                "We shape the pages around mobile behavior so the experience stays readable on smaller screens.",
+                "We keep support in view so the site stays useful after launch, not just at handoff.",
+              ]}
+              highlights={[
+                { label: "Focus", value: "Local growth" },
+                { label: "Style", value: "Enterprise calm" },
+                { label: "Support", value: "Post-launch" },
+              ]}
+            />
+          </motion.div>
+        </div>
       </Container>
     </SectionWrapper>
   );
@@ -46,16 +71,23 @@ function OperationalPhilosophy() {
     <SectionWrapper role="region" aria-labelledby="operational-philosophy-title">
       <Container>
         <div className="mx-auto max-w-6xl">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-12 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Operational Philosophy</p>
-            <h2 id="operational-philosophy-title" className="mt-6 text-3xl font-semibold text-slate-900">Clarity · Conversion · Reliability</h2>
-            <p className="mt-4 text-base text-slate-600">Interfaces should help people understand the offer, take action faster, and stay easy for the business to run.</p>
-            <div className="mt-8 grid gap-6 sm:grid-cols-3 lg:grid-cols-3">
-              <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">Clarity</motion.div>
-              <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.04 }} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">Structure</motion.div>
-              <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.08 }} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">Movement</motion.div>
-            </div>
-          </div>
+          <OperationalVisual
+            eyebrow="Operational philosophy"
+            title="Clarity, conversion, and reliability stay in the same frame."
+            subtitle="Interfaces should help people understand the offer, take action faster, and stay easy for the business to run."
+            statusLabel="Principles"
+            status="Clarity · Structure · Movement"
+            steps={[
+              "Clarity keeps the offer readable before the customer has to think too hard.",
+              "Structure keeps the flow stable as the site grows or expands into new services.",
+              "Movement keeps action paths obvious on desktop and mobile without adding clutter.",
+            ]}
+            highlights={[
+              { label: "Clarity", value: "Message first" },
+              { label: "Structure", value: "Operational" },
+              { label: "Movement", value: "Lower friction" },
+            ]}
+          />
         </div>
       </Container>
     </SectionWrapper>
@@ -103,12 +135,14 @@ function WhatWeFocusOn() {
           {cards.map((c, i) => {
             const Icon = c.icon;
             return (
-              <motion.article key={c.title} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: i * 0.04 }} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" role="article" aria-labelledby={`focus-${i}`}>
-                <div className="inline-flex items-center justify-center rounded-2xl bg-slate-50 p-3" aria-hidden="true">
+              <motion.article key={c.title} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: i * 0.04 }} role="article" aria-labelledby={`focus-${i}`}>
+                <Box className="p-6" variant="card">
+                  <div className="inline-flex items-center justify-center rounded-2xl bg-slate-50 p-3" aria-hidden="true">
                   <Icon className="size-5 text-slate-700" aria-hidden="true" />
                 </div>
-                <h4 id={`focus-${i}`} className="mt-4 font-semibold text-slate-900">{c.title}</h4>
-                <p className="mt-3 text-sm text-slate-600">{c.text}</p>
+                  <h4 id={`focus-${i}`} className="mt-4 font-semibold text-slate-900">{c.title}</h4>
+                  <p className="mt-3 text-sm text-slate-600">{c.text}</p>
+                </Box>
               </motion.article>
             );
           })}
@@ -122,17 +156,26 @@ function FounderAndAfterLaunch() {
   return (
     <SectionWrapper className="pt-6 pb-6">
       <Container>
-        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-2">
+        <div className="mx-auto max-w-6xl">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Founder Credibility</p>
-            <h3 className="mt-4 text-2xl font-semibold text-slate-950">Senior-led delivery with direct communication.</h3>
-            <p className="mt-4 text-sm leading-7 text-slate-600">Projects are handled like business infrastructure, not a creative experiment. The work stays focused on clarity, conversion, and supportability.</p>
-          </div>
+            <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Founder Credibility</p>
+                <h3 className="mt-4 text-2xl font-semibold text-slate-950">Senior-led delivery with direct communication.</h3>
+                <p className="mt-4 text-sm leading-7 text-slate-600">Projects are handled like business infrastructure, not a creative experiment. The work stays focused on clarity, conversion, and supportability.</p>
+              </div>
 
-          <div className="rounded-[2rem] border border-slate-200 bg-slate-950 p-8 text-white shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">What Happens After Launch</p>
-            <h3 className="mt-4 text-2xl font-semibold">Monitoring, updates, and operational continuity.</h3>
-            <p className="mt-4 text-sm leading-7 text-slate-300">The relationship does not end at handoff. Support can continue through updates, maintenance, content changes, and workflow refinement.</p>
+              <Box className="rounded-[1.8rem]" variant="card">
+                <div className="bg-slate-950 p-5 rounded-[1.4rem] text-white">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">What Happens After Launch</p>
+                  <div className="mt-5 space-y-3 text-sm text-slate-200">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Monitoring and uptime checks</div>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Updates and content changes</div>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Workflow refinement and support</div>
+                  </div>
+                </div>
+              </Box>
+            </div>
           </div>
         </div>
       </Container>

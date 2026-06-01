@@ -1,0 +1,338 @@
+[
+  {
+    "page": "/services",
+    "viewport": "desktop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\desktop\\services_desktop_2026-05-25T13-46-26-151Z.png",
+    "success": true,
+    "durationMs": 6356,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/",
+    "viewport": "desktop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\desktop\\home_desktop_2026-05-25T13-46-26-153Z.png",
+    "success": true,
+    "durationMs": 6363,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/portfolio",
+    "viewport": "desktop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\desktop\\portfolio_desktop_2026-05-25T13-46-32-473Z.png",
+    "success": true,
+    "durationMs": 5627,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/industries",
+    "viewport": "desktop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\desktop\\industries_desktop_2026-05-25T13-46-32-457Z.png",
+    "success": true,
+    "durationMs": 5634,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/about",
+    "viewport": "desktop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\desktop\\about_desktop_2026-05-25T13-46-38-185Z.png",
+    "success": true,
+    "durationMs": 5243,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/pricing",
+    "viewport": "desktop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\desktop\\pricing_desktop_2026-05-25T13-46-38-293Z.png",
+    "success": true,
+    "durationMs": 5233,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/contact",
+    "viewport": "desktop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\desktop\\contact_desktop_2026-05-25T13-46-43-481Z.png",
+    "success": true,
+    "durationMs": 4083,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/services",
+    "viewport": "laptop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\laptop\\services_laptop_2026-05-25T13-46-47-604Z.png",
+    "success": true,
+    "durationMs": 5724,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/",
+    "viewport": "laptop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\laptop\\home_laptop_2026-05-25T13-46-47-605Z.png",
+    "success": true,
+    "durationMs": 5737,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/portfolio",
+    "viewport": "laptop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\laptop\\portfolio_laptop_2026-05-25T13-46-53-331Z.png",
+    "success": true,
+    "durationMs": 5170,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/industries",
+    "viewport": "laptop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\laptop\\industries_laptop_2026-05-25T13-46-53-327Z.png",
+    "success": true,
+    "durationMs": 5181,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/about",
+    "viewport": "laptop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\laptop\\about_laptop_2026-05-25T13-46-58-586Z.png",
+    "success": true,
+    "durationMs": 4781,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/pricing",
+    "viewport": "laptop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\laptop\\pricing_laptop_2026-05-25T13-46-58-585Z.png",
+    "success": true,
+    "durationMs": 4789,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/contact",
+    "viewport": "laptop",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\laptop\\contact_laptop_2026-05-25T13-47-03-221Z.png",
+    "success": true,
+    "durationMs": 3684,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/services",
+    "viewport": "tablet",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\tablet\\services_tablet_2026-05-25T13-47-07-517Z.png",
+    "success": true,
+    "durationMs": 5587,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/",
+    "viewport": "tablet",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\tablet\\home_tablet_2026-05-25T13-47-07-406Z.png",
+    "success": true,
+    "durationMs": 5608,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/portfolio",
+    "viewport": "tablet",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\tablet\\portfolio_tablet_2026-05-25T13-47-13-172Z.png",
+    "success": true,
+    "durationMs": 4843,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/industries",
+    "viewport": "tablet",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\tablet\\industries_tablet_2026-05-25T13-47-13-179Z.png",
+    "success": true,
+    "durationMs": 4851,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/pricing",
+    "viewport": "tablet",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\tablet\\pricing_tablet_2026-05-25T13-47-17-594Z.png",
+    "success": true,
+    "durationMs": 4179,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/about",
+    "viewport": "tablet",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\tablet\\about_tablet_2026-05-25T13-47-17-720Z.png",
+    "success": true,
+    "durationMs": 4169,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/contact",
+    "viewport": "tablet",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\tablet\\contact_tablet_2026-05-25T13-47-21-842Z.png",
+    "success": true,
+    "durationMs": 3616,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/services",
+    "viewport": "mobile",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\mobile\\services_mobile_2026-05-25T13-47-25-646Z.png",
+    "success": true,
+    "durationMs": 6122,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/",
+    "viewport": "mobile",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\mobile\\home_mobile_2026-05-25T13-47-25-649Z.png",
+    "success": true,
+    "durationMs": 6138,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/portfolio",
+    "viewport": "mobile",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\mobile\\portfolio_mobile_2026-05-25T13-47-31-847Z.png",
+    "success": true,
+    "durationMs": 6336,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/industries",
+    "viewport": "mobile",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\mobile\\industries_mobile_2026-05-25T13-47-31-846Z.png",
+    "success": true,
+    "durationMs": 6348,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/about",
+    "viewport": "mobile",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\mobile\\about_mobile_2026-05-25T13-47-38-293Z.png",
+    "success": true,
+    "durationMs": 4916,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/pricing",
+    "viewport": "mobile",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\mobile\\pricing_mobile_2026-05-25T13-47-38-292Z.png",
+    "success": true,
+    "durationMs": 4925,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  },
+  {
+    "page": "/contact",
+    "viewport": "mobile",
+    "path": "C:\\Users\\Ankit\\Desktop\\AurionLabs\\frontend\\scripts\\capture\\screenshots\\mobile\\contact_mobile_2026-05-25T13-47-43-057Z.png",
+    "success": true,
+    "durationMs": 3812,
+    "consoleMessages": [
+      "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "log: [HMR] connected"
+    ],
+    "failedRequests": []
+  }
+]

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import OperationalVisual from "@/components/common/operational-visual";
 import SectionHeading from "@/components/common/section-heading";
 import SectionWrapper from "@/components/common/section-wrapper";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,26 @@ export default function ProcessSection() {
   return (
     <SectionWrapper id="process" density="compact">
       <SectionHeading eyebrow="How we work" title="Discover, Build, Operate" subtitle="A focused, repeatable process so launches are predictable and support is clear." />
+
+      <div className="mt-10">
+        <OperationalVisual
+          eyebrow="Delivery process"
+          title="A smaller number of clearer steps keeps the engagement operationally clean."
+          subtitle="The process is designed to reduce ambiguity, keep approvals simple, and make support after launch feel like part of the plan."
+          statusLabel="Flow"
+          status="Discover → Build → Operate"
+          steps={[
+            "Discover: align on the business goal and the customer path.",
+            "Build: shape the site, booking flow, and WhatsApp handoff.",
+            "Operate: keep the site stable with monitoring, updates, and support.",
+          ]}
+          highlights={[
+            { label: "1", value: "Discover" },
+            { label: "2", value: "Build" },
+            { label: "3", value: "Operate" },
+          ]}
+        />
+      </div>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-3">
         <div className="rounded-2xl border border-slate-200 bg-white p-6">

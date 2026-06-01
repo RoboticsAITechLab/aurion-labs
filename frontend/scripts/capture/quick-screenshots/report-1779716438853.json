@@ -1,0 +1,37 @@
+[
+  {
+    "page": "/",
+    "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3001/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3001/\", waiting until \"networkidle\"\u001b[22m\n",
+    "success": false
+  },
+  {
+    "page": "/services",
+    "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3001/services\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3001/services\", waiting until \"networkidle\"\u001b[22m\n",
+    "success": false
+  },
+  {
+    "page": "/industries",
+    "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3001/industries\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3001/industries\", waiting until \"networkidle\"\u001b[22m\n",
+    "success": false
+  },
+  {
+    "page": "/portfolio",
+    "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3001/portfolio\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3001/portfolio\", waiting until \"networkidle\"\u001b[22m\n",
+    "success": false
+  },
+  {
+    "page": "/pricing",
+    "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3001/pricing\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3001/pricing\", waiting until \"networkidle\"\u001b[22m\n",
+    "success": false
+  },
+  {
+    "page": "/about",
+    "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3001/about\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3001/about\", waiting until \"networkidle\"\u001b[22m\n",
+    "success": false
+  },
+  {
+    "page": "/contact",
+    "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3001/contact\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3001/contact\", waiting until \"networkidle\"\u001b[22m\n",
+    "success": false
+  }
+]

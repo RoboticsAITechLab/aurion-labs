@@ -7,9 +7,9 @@ type SectionWrapperProps = React.ComponentProps<"section"> & {
 };
 
 const densityClasses = {
-  compact: "py-14 sm:py-18 lg:py-20",
-  default: "py-24 sm:py-28 lg:py-36",
-  relaxed: "py-28 sm:py-32 lg:py-40",
+  compact: "py-12 sm:py-16 lg:py-16",
+  default: "py-20 sm:py-24 lg:py-28",
+  relaxed: "py-24 sm:py-28 lg:py-32",
 } as const;
 
 export default function SectionWrapper({ className, children, contained = true, density = "default", ...props }: SectionWrapperProps) {
@@ -19,3 +19,4 @@ export default function SectionWrapper({ className, children, contained = true, 
     </section>
   );
 }
+
