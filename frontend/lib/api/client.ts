@@ -18,7 +18,7 @@ type ApiRequestOptions = RequestInit & {
 };
 
 function getBaseUrl() {
-	return (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:9000").replace(/\/$/, "");
+	return (process.env.NEXT_PUBLIC_API_BASE_URL || "https://aurion-labs.onrender.com").replace(/\/$/, "");
 }
 
 export async function apiRequest<T>(path: string, options: ApiRequestOptions = {}): Promise<T> {
