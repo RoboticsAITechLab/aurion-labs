@@ -51,7 +51,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		return () => {
 			isMounted = false;
 		};
-	}, [beginSessionRefresh, bootstrapGuest, completeAuth, handleSessionError, setLoading]);
+		// This effect only needs to run once when the application mounts to bootstrap the guest/user session.
+		// Using an empty dependency array avoids any infinite rendering/state update loops.
+	}, []);
 
 	useEffect(() => {
 		if (status === "authenticated" && pendingIntent) {
