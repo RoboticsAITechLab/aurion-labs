@@ -59,6 +59,27 @@ interface Inquiry {
 
 const SUPPORT_OPTIONS = ["Monthly Maintenance", "Quarterly Support", "Half-Yearly Support", "Yearly Operational Support"];
 
+const BUDGET_RANGES = [
+  "Under ₹5,000",
+  "₹5,000–₹10,000",
+  "₹10,000–₹20,000",
+  "₹20,000+",
+  "Not Decided"
+];
+
+const WEBSITE_PLATFORMS = [
+  "WordPress",
+  "Wix",
+  "Wix Studio",
+  "Hostinger Website Builder",
+  "Shopify",
+  "Webflow",
+  "Framer",
+  "Squarespace",
+  "Custom Coded Website",
+  "Not Sure (Recommend Best Option)"
+];
+
 function calculateEstimate(inquiry: Inquiry) {
   const pagesScore = (inquiry.pages?.length ?? 0) * 1.0;
   const featuresScore = (inquiry.features?.length ?? 0) * 1.6;
@@ -70,26 +91,32 @@ function calculateEstimate(inquiry: Inquiry) {
   const websiteScore = websiteFlags.includes("No website") ? 1.2 : websiteFlags.length * 0.6;
   const customScore = inquiry.customRequests && inquiry.customRequests.length > 20 ? 2.4 : 0;
 
-  const total = pagesScore + featuresScore + infraScore + supportScore + businessTypesScore + goalsScore + websiteScore + customScore;
+  // Align calculation weights with new contact form parameters
+  const websitePlatformsScore = (inquiry.websitePlatforms?.length ?? 0) * 0.7;
+  const pagesRequiredScore = (inquiry.requiredPages?.length ?? 0) * 0.8;
+  const domainHostingScore = (inquiry.needDomain ? 0.5 : 0) + (inquiry.needHosting ? 0.8 : 0);
+  const businessPresenceScore = (inquiry.googleBusinessProfile ? 0.4 : 0) + (inquiry.instagramBusinessPage ? 0.4 : 0) + (inquiry.facebookBusinessPage ? 0.4 : 0);
+
+  const total = pagesScore + featuresScore + infraScore + supportScore + businessTypesScore + goalsScore + websiteScore + customScore + websitePlatformsScore + pagesRequiredScore + domainHostingScore + businessPresenceScore;
 
   let label = "Foundational";
   let range = "₹4K ─ ₹12K";
   let bgClass = "from-sky-500 to-indigo-600";
   let badgeClass = "text-sky-600 bg-sky-50 border-sky-100 dark:border-sky-200/20";
   
-  if (total >= 6 && total < 12) {
+  if (total >= 10 && total < 22) {
     label = "Operational";
     range = "₹15K ─ ₹60K+";
     bgClass = "from-indigo-500 to-violet-600";
     badgeClass = "text-indigo-600 bg-indigo-50 border-indigo-100 dark:border-indigo-200/20";
-  } else if (total >= 12) {
+  } else if (total >= 22) {
     label = "Scalable";
     range = "Consultation Based";
     bgClass = "from-emerald-500 to-teal-600";
     badgeClass = "text-emerald-600 bg-emerald-50 border-emerald-100 dark:border-emerald-200/20";
   }
 
-  const meter = Math.min(100, Math.round((total / 18) * 100));
+  const meter = Math.min(100, Math.round((total / 30) * 100));
 
   return { total, label, range, meter, bgClass, badgeClass };
 }
@@ -103,6 +130,8 @@ export default function AdminInquiriesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBusinessType, setSelectedBusinessType] = useState<string>("All");
   const [selectedGoal, setSelectedGoal] = useState<string>("All");
+  const [selectedBudget, setSelectedBudget] = useState<string>("All");
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("All");
   
   // Modal/Detail states
   const [expandedInquiryId, setExpandedInquiryId] = useState<string | null>(null);
@@ -150,10 +179,12 @@ export default function AdminInquiriesPage() {
       (item.businessName && item.businessName.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (item.customRequests && item.customRequests.toLowerCase().includes(searchTerm.toLowerCase()));
       
-    const matchesType = selectedBusinessType === "All" || item.businessType.includes(selectedBusinessType);
-    const matchesGoal = selectedGoal === "All" || item.operationalGoal.includes(selectedGoal);
+    const matchesType = selectedBusinessType === "All" || (item.businessType || []).includes(selectedBusinessType);
+    const matchesGoal = selectedGoal === "All" || (item.operationalGoal || []).includes(selectedGoal);
+    const matchesBudget = selectedBudget === "All" || item.budgetRange === selectedBudget;
+    const matchesPlatform = selectedPlatform === "All" || (item.websitePlatforms || []).includes(selectedPlatform);
     
-    return matchesSearch && matchesType && matchesGoal;
+    return matchesSearch && matchesType && matchesGoal && matchesBudget && matchesPlatform;
   });
 
   const stats = {
@@ -256,7 +287,7 @@ export default function AdminInquiriesPage() {
                 <span>Search & Filter Configurations</span>
               </div>
               
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-5">
                 {/* Search Bar */}
                 <div className="relative">
                   <Search className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -296,6 +327,38 @@ export default function AdminInquiriesPage() {
                     {goalsList.map((goal) => (
                       <option key={goal} value={goal}>
                         {goal === "All" ? "All Goals" : goal}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Budget Range Filter */}
+                <div className="flex flex-col gap-1.5">
+                  <select
+                    value={selectedBudget}
+                    onChange={(e) => setSelectedBudget(e.target.value)}
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm outline-none focus:border-indigo-500"
+                  >
+                    <option value="All">All Budgets</option>
+                    {BUDGET_RANGES.map((b) => (
+                      <option key={b} value={b}>
+                        {b}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Platform Filter */}
+                <div className="flex flex-col gap-1.5">
+                  <select
+                    value={selectedPlatform}
+                    onChange={(e) => setSelectedPlatform(e.target.value)}
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm outline-none focus:border-indigo-500"
+                  >
+                    <option value="All">All Platforms</option>
+                    {WEBSITE_PLATFORMS.map((plat) => (
+                      <option key={plat} value={plat}>
+                        {plat}
                       </option>
                     ))}
                   </select>
@@ -344,7 +407,13 @@ export default function AdminInquiriesPage() {
                   </p>
                   {inquiries.length > 0 && (
                     <Button 
-                      onClick={() => { setSearchTerm(""); setSelectedBusinessType("All"); setSelectedGoal("All"); }}
+                      onClick={() => { 
+                        setSearchTerm(""); 
+                        setSelectedBusinessType("All"); 
+                        setSelectedGoal("All"); 
+                        setSelectedBudget("All"); 
+                        setSelectedPlatform("All"); 
+                      }}
                       className="mt-6 rounded-full px-6"
                     >
                       Clear Filters
@@ -438,21 +507,31 @@ export default function AdminInquiriesPage() {
 
                             {/* Tags preview */}
                             <div className="mt-4 flex flex-wrap gap-2">
-                              {inquiry.businessType.map((bt) => (
+                              {(inquiry.businessType || []).map((bt) => (
                                 <span key={bt} className="rounded-lg bg-sky-50 px-2 py-0.5 text-xs font-medium text-sky-700 border border-sky-100">
                                   {bt}
                                 </span>
                               ))}
-                              {inquiry.operationalGoal.map((g) => (
+                              {(inquiry.operationalGoal || []).map((g) => (
                                 <span key={g} className="rounded-lg bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700 border border-indigo-100">
                                   {g}
                                 </span>
                               ))}
-                              {inquiry.currentWebsite.map((cw) => (
+                              {(inquiry.currentWebsite || []).map((cw) => (
                                 <span key={cw} className="rounded-lg bg-violet-50 px-2 py-0.5 text-xs font-medium text-violet-700 border border-violet-100">
                                   {cw}
                                 </span>
                               ))}
+                              {inquiry.budgetRange && (
+                                <span className="rounded-lg bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700 border border-amber-100 border-amber-100">
+                                  Budget: {inquiry.budgetRange}
+                                </span>
+                              )}
+                              {inquiry.primaryGoal && (
+                                <span className="rounded-lg bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 border border-emerald-100 border-emerald-100">
+                                  Goal: {inquiry.primaryGoal}
+                                </span>
+                              )}
                             </div>
                           </div>
 
