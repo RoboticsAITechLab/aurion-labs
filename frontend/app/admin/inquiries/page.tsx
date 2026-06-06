@@ -140,8 +140,7 @@ const statusStyles: Record<string, string> = {
   ARCHIVED: "text-slate-600 bg-slate-50 border-slate-100 dark:border-slate-200/20",
 };
 
-function generateWhatsAppLink(inquiry: Inquiry) {
-  const name = inquiry.name;
+function getWhatsAppMessageText(inquiry: Inquiry): string {
   const bizName = inquiry.businessName ? ` for *${inquiry.businessName}*` : "";
   const platforms = inquiry.websitePlatforms && inquiry.websitePlatforms.length > 0
     ? inquiry.websitePlatforms.join(", ")
@@ -152,26 +151,24 @@ function generateWhatsAppLink(inquiry: Inquiry) {
     ? inquiry.requiredPages.join(", ")
     : "Not specified";
 
-  const message = `Hello *${name}*,
+  return "Hello from *Aurion Labs*! 👋\n\n" +
+    `We have reviewed your project scoping configuration${bizName}.\n\n` +
+    "Here is a summary of the details you submitted:\n" +
+    "━━━━━━━━━━━━━━━━━━━━━\n" +
+    "📋 *Project Details*:\n" +
+    `• *Platform Preference:* ${platforms}\n` +
+    `• *Estimated Budget:* ${budget}\n` +
+    `• *Primary Objective:* ${goal}\n` +
+    `• *Requested Pages:* ${pages}\n` +
+    "━━━━━━━━━━━━━━━━━━━━━\n\n" +
+    "To help us prepare the best proposal and timeline for your project, let's schedule a quick 10-minute consultation call.\n\n" +
+    "Could you please let us know your availability for this week?\n\n" +
+    "Best regards,\n" +
+    "*Aurion Labs Team*";
+}
 
-This is the team at *Aurion Labs*. We have received and reviewed your project scoping configuration${bizName}.
-
-Here is a summary of the details you submitted:
-━━━━━━━━━━━━━━━━━━━━━
-📋 *Project Details:*
-• *Platform Preference:* ${platforms}
-• *Estimated Budget:* ${budget}
-• *Primary Objective:* ${goal}
-• *Requested Pages:* ${pages}
-━━━━━━━━━━━━━━━━━━━━━
-
-To help us prepare the best proposal and timeline for your project, let's schedule a quick 10-minute consultation call. 
-
-Could you please let us know your availability for this week?
-
-Best regards,
-*Aurion Labs Team*`;
-
+function generateWhatsAppLink(inquiry: Inquiry) {
+  const message = getWhatsAppMessageText(inquiry);
   // Clean the phone number to leave only digits
   const cleanPhone = inquiry.phone?.replace(/[^0-9]/g, "") || "";
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
@@ -823,13 +820,6 @@ export default function AdminInquiriesPage() {
                                           <Mail className="mr-2 h-4 w-4" /> Email Client
                                         </a>
                                       </Button>
-                                      {inquiry.phone && (
-                                        <Button asChild variant="outline" size="sm" className="w-full rounded-xl">
-                                          <a href={generateWhatsAppLink(inquiry)} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                                            <ExternalLink className="mr-2 h-4 w-4" /> WhatsApp Scoping Followup
-                                          </a>
-                                        </Button>
-                                      )}
                                     </div>
                                   </div>
 
@@ -969,6 +959,57 @@ export default function AdminInquiriesPage() {
                                       <p className="text-sm leading-6 text-slate-700 bg-slate-50/80 rounded-xl p-4 border border-slate-100 whitespace-pre-wrap">
                                         {inquiry.customRequests}
                                       </p>
+                                    </div>
+                                  )}
+
+                                  {/* WhatsApp Scoping Followup Chat Simulator */}
+                                  {inquiry.phone && (
+                                    <div className="md:col-span-2 lg:col-span-3 rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm flex flex-col">
+                                      {/* Header */}
+                                      <div className="bg-[#075e54] text-white px-4 py-3 flex items-center justify-between select-none">
+                                        <div className="flex items-center gap-3">
+                                          <div className="h-9 w-9 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-800 font-extrabold text-xs shadow-sm">
+                                            AL
+                                          </div>
+                                          <div>
+                                            <p className="text-sm font-semibold leading-tight">Aurion Labs Team</p>
+                                            <span className="text-[10px] text-emerald-200 flex items-center gap-1">
+                                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Online
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div className="text-[10px] bg-emerald-800/80 border border-emerald-700 px-2.5 py-0.5 rounded-full text-emerald-100 font-semibold uppercase tracking-wider">
+                                          Business Account
+                                        </div>
+                                      </div>
+
+                                      {/* Chat Body */}
+                                      <div className="p-5 bg-[#efeae2] relative min-h-[160px] flex flex-col justify-end">
+                                        {/* Message bubble */}
+                                        <div className="self-start max-w-[85%] bg-[#d9fdd3] text-slate-800 rounded-2xl rounded-tl-none p-4 shadow-sm text-sm border border-[#e1f7da] relative">
+                                          {/* Chat bubble tail */}
+                                          <div className="absolute top-0 -left-1.5 w-0 h-0 border-t-[8px] border-t-[#d9fdd3] border-r-[8px] border-r-transparent border-b-[8px] border-b-transparent" />
+                                          <div className="space-y-1.5 whitespace-pre-wrap leading-relaxed font-sans text-xs sm:text-sm text-slate-800">
+                                            {getWhatsAppMessageText(inquiry)}
+                                          </div>
+                                          <div className="mt-2 flex items-center justify-end gap-1 text-[9px] text-slate-400">
+                                            <span>{new Date(inquiry.createdAt).toLocaleTimeString("en-IN", { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                                            <span className="text-sky-500 font-bold">✓✓</span>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      {/* Action Bar */}
+                                      <div className="bg-slate-50 px-4 py-3 flex flex-col sm:flex-row gap-3 items-center justify-between border-t border-slate-100">
+                                        <p className="text-xs text-slate-500">
+                                          Review the generated template above. Clicking below opens WhatsApp with this pre-filled message.
+                                        </p>
+                                        <Button asChild size="sm" className="rounded-xl bg-[#25d366] hover:bg-[#20ba5a] text-white font-semibold shadow-sm px-5 transition-colors">
+                                          <a href={generateWhatsAppLink(inquiry)} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                                            <ExternalLink className="mr-2 h-4 w-4" /> Send via WhatsApp
+                                          </a>
+                                        </Button>
+                                      </div>
                                     </div>
                                   )}
                                 </div>
