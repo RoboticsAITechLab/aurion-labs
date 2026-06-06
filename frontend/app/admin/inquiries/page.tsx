@@ -44,6 +44,17 @@ interface Inquiry {
   support: string;
   customRequests?: string;
   createdAt: string;
+  
+  // Extended fields
+  websitePlatforms?: string[];
+  budgetRange?: string;
+  needDomain?: boolean;
+  needHosting?: boolean;
+  googleBusinessProfile?: boolean;
+  instagramBusinessPage?: boolean;
+  facebookBusinessPage?: boolean;
+  primaryGoal?: string;
+  requiredPages?: string[];
 }
 
 const SUPPORT_OPTIONS = ["Monthly Maintenance", "Quarterly Support", "Half-Yearly Support", "Yearly Operational Support"];
@@ -542,6 +553,92 @@ export default function AdminInquiriesPage() {
                                             <ExternalLink className="mr-2 h-4 w-4" /> WhatsApp Client
                                           </a>
                                         </Button>
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  {/* Section 4: Specifications & Budget */}
+                                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                                    <div className="flex items-center gap-2 font-semibold text-slate-800 mb-3 border-b border-slate-100 pb-2">
+                                      <Briefcase className="h-4.5 w-4.5 text-sky-600" />
+                                      <span>Website Specs & Budget</span>
+                                    </div>
+                                    <div className="space-y-3 text-sm text-slate-600">
+                                      <div>
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Target Platforms</p>
+                                        <p className="text-sm font-medium text-slate-800">
+                                          {inquiry.websitePlatforms && inquiry.websitePlatforms.length > 0
+                                            ? inquiry.websitePlatforms.join(", ")
+                                            : "None specified"}
+                                        </p>
+                                      </div>
+                                      <div>
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Budget Range</p>
+                                        <p className="text-sm font-medium text-slate-800">{inquiry.budgetRange || "Not specified"}</p>
+                                      </div>
+                                      <div>
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Primary Website Goal</p>
+                                        <p className="text-sm font-medium text-slate-800">{inquiry.primaryGoal || "Not specified"}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Section 5: Setup & Business Presence */}
+                                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                                    <div className="flex items-center gap-2 font-semibold text-slate-800 mb-3 border-b border-slate-100 pb-2">
+                                      <SlidersHorizontal className="h-4.5 w-4.5 text-indigo-600" />
+                                      <span>Setup & Presence</span>
+                                    </div>
+                                    <div className="space-y-2.5 text-xs text-slate-600">
+                                      <div className="flex items-center justify-between">
+                                        <span>Need Domain?</span>
+                                        <span className={`rounded-md px-2 py-0.5 font-semibold ${inquiry.needDomain ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-slate-100 text-slate-600"}`}>
+                                          {inquiry.needDomain ? "Yes" : "No"}
+                                        </span>
+                                      </div>
+                                      <div className="flex items-center justify-between">
+                                        <span>Need Hosting?</span>
+                                        <span className={`rounded-md px-2 py-0.5 font-semibold ${inquiry.needHosting ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-slate-100 text-slate-600"}`}>
+                                          {inquiry.needHosting ? "Yes" : "No"}
+                                        </span>
+                                      </div>
+                                      <div className="flex items-center justify-between">
+                                        <span>Google Profile?</span>
+                                        <span className={`rounded-md px-2 py-0.5 font-semibold ${inquiry.googleBusinessProfile ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-slate-100 text-slate-600"}`}>
+                                          {inquiry.googleBusinessProfile ? "Yes" : "No"}
+                                        </span>
+                                      </div>
+                                      <div className="flex items-center justify-between">
+                                        <span>Instagram Page?</span>
+                                        <span className={`rounded-md px-2 py-0.5 font-semibold ${inquiry.instagramBusinessPage ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-slate-100 text-slate-600"}`}>
+                                          {inquiry.instagramBusinessPage ? "Yes" : "No"}
+                                        </span>
+                                      </div>
+                                      <div className="flex items-center justify-between">
+                                        <span>Facebook Page?</span>
+                                        <span className={`rounded-md px-2 py-0.5 font-semibold ${inquiry.facebookBusinessPage ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-slate-100 text-slate-600"}`}>
+                                          {inquiry.facebookBusinessPage ? "Yes" : "No"}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Section 6: Required Pages */}
+                                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                                    <div className="flex items-center gap-2 font-semibold text-slate-800 mb-3 border-b border-slate-100 pb-2">
+                                      <Layers className="h-4.5 w-4.5 text-violet-600" />
+                                      <span>Required Pages ({inquiry.requiredPages?.length ?? 0})</span>
+                                    </div>
+                                    <div className="space-y-1.5 text-sm text-slate-600">
+                                      {inquiry.requiredPages && inquiry.requiredPages.length > 0 ? (
+                                        inquiry.requiredPages.map((rp) => (
+                                          <div key={rp} className="flex items-center gap-2">
+                                            <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+                                            <span>{rp}</span>
+                                          </div>
+                                        ))
+                                      ) : (
+                                        <p className="text-xs text-slate-400 italic">None specified.</p>
                                       )}
                                     </div>
                                   </div>
