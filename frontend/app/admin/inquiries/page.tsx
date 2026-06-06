@@ -152,17 +152,29 @@ function generateWhatsAppLink(inquiry: Inquiry) {
     ? inquiry.requiredPages.join(", ")
     : "Not specified";
 
-  const message = `Hi *${name}*, thank you for reaching out to Aurion Labs! 👋
+  const message = `Hello *${name}*,
 
-We have reviewed your scoping configuration${bizName}:
-• *Website Platforms:* ${platforms}
-• *Budget Range:* ${budget}
-• *Primary Goal:* ${goal}
-• *Target Pages:* ${pages}
+This is the team at *Aurion Labs*. We have received and reviewed your project scoping configuration${bizName}.
 
-Let's schedule a brief consultation call to discuss your project in detail. Please let us know what time works best for you!`;
+Here is a summary of the details you submitted:
+━━━━━━━━━━━━━━━━━━━━━
+📋 *Project Details:*
+• *Platform Preference:* ${platforms}
+• *Estimated Budget:* ${budget}
+• *Primary Objective:* ${goal}
+• *Requested Pages:* ${pages}
+━━━━━━━━━━━━━━━━━━━━━
 
-  return `https://wa.me/${inquiry.phone?.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`;
+To help us prepare the best proposal and timeline for your project, let's schedule a quick 10-minute consultation call. 
+
+Could you please let us know your availability for this week?
+
+Best regards,
+*Aurion Labs Team*`;
+
+  // Clean the phone number to leave only digits
+  const cleanPhone = inquiry.phone?.replace(/[^0-9]/g, "") || "";
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
 
 export default function AdminInquiriesPage() {
