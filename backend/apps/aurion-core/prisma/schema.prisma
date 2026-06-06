@@ -43,4 +43,6 @@ model ContactInquiry {
   facebookBusinessPage  Boolean?
   primaryGoal           String?
   requiredPages         String[]
+  status                String   @default("NEW")
+  notes                 String?
 }

@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Delete, Param, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Patch, Delete, Param, UsePipes, ValidationPipe } from '@nestjs/common';
 import { InquiriesService } from './inquiries.service';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
+import { UpdateInquiryDto } from './dto/update-inquiry.dto';
 
 @Controller('inquiries')
 export class InquiriesController {
@@ -15,6 +16,12 @@ export class InquiriesController {
   @Get()
   async findAll() {
     return this.inquiriesService.findAll();
+  }
+
+  @Patch(':id')
+  @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
+  async update(@Param('id') id: string, @Body() body: UpdateInquiryDto) {
+    return this.inquiriesService.update(id, body);
   }
 
   @Delete(':id')

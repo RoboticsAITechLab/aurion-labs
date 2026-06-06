@@ -2,6 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import type { ContactInquiry } from '@prisma/client';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
+import { UpdateInquiryDto } from './dto/update-inquiry.dto';
 
 @Injectable()
 export class InquiriesService {
@@ -63,6 +64,13 @@ export class InquiriesService {
   async findAll(): Promise<ContactInquiry[]> {
     return this.prisma.contactInquiry.findMany({
       orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async update(id: string, data: UpdateInquiryDto): Promise<ContactInquiry> {
+    return this.prisma.contactInquiry.update({
+      where: { id },
+      data,
     });
   }
 

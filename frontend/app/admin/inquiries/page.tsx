@@ -55,6 +55,8 @@ interface Inquiry {
   facebookBusinessPage?: boolean;
   primaryGoal?: string;
   requiredPages?: string[];
+  status?: string;
+  notes?: string;
 }
 
 const SUPPORT_OPTIONS = ["Monthly Maintenance", "Quarterly Support", "Half-Yearly Support", "Yearly Operational Support"];
@@ -78,6 +80,15 @@ const WEBSITE_PLATFORMS = [
   "Squarespace",
   "Custom Coded Website",
   "Not Sure (Recommend Best Option)"
+];
+
+const PRIMARY_GOALS = [
+  "Lead Generation",
+  "Appointment Booking",
+  "Online Store",
+  "Portfolio",
+  "Information Website",
+  "Internal Business Tool"
 ];
 
 function calculateEstimate(inquiry: Inquiry) {
@@ -121,6 +132,39 @@ function calculateEstimate(inquiry: Inquiry) {
   return { total, label, range, meter, bgClass, badgeClass };
 }
 
+const statusStyles: Record<string, string> = {
+  NEW: "text-blue-600 bg-blue-50 border-blue-100 dark:border-blue-200/20",
+  REVIEWED: "text-amber-600 bg-amber-50 border-amber-100 dark:border-amber-200/20",
+  CONTACTED: "text-purple-600 bg-purple-50 border-purple-100 dark:border-purple-200/20",
+  CONVERTED: "text-emerald-600 bg-emerald-50 border-emerald-100 dark:border-emerald-200/20",
+  ARCHIVED: "text-slate-600 bg-slate-50 border-slate-100 dark:border-slate-200/20",
+};
+
+function generateWhatsAppLink(inquiry: Inquiry) {
+  const name = inquiry.name;
+  const bizName = inquiry.businessName ? ` for *${inquiry.businessName}*` : "";
+  const platforms = inquiry.websitePlatforms && inquiry.websitePlatforms.length > 0
+    ? inquiry.websitePlatforms.join(", ")
+    : "Not specified";
+  const budget = inquiry.budgetRange || "Not decided";
+  const goal = inquiry.primaryGoal || "Not specified";
+  const pages = inquiry.requiredPages && inquiry.requiredPages.length > 0
+    ? inquiry.requiredPages.join(", ")
+    : "Not specified";
+
+  const message = `Hi *${name}*, thank you for reaching out to Aurion Labs! 👋
+
+We have reviewed your scoping configuration${bizName}:
+• *Website Platforms:* ${platforms}
+• *Budget Range:* ${budget}
+• *Primary Goal:* ${goal}
+• *Target Pages:* ${pages}
+
+Let's schedule a brief consultation call to discuss your project in detail. Please let us know what time works best for you!`;
+
+  return `https://wa.me/${inquiry.phone?.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`;
+}
+
 export default function AdminInquiriesPage() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -135,6 +179,47 @@ export default function AdminInquiriesPage() {
   
   // Modal/Detail states
   const [expandedInquiryId, setExpandedInquiryId] = useState<string | null>(null);
+
+  // CRM Action States
+  const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
+  const [localNotes, setLocalNotes] = useState<Record<string, string>>({});
+  const [savingNotesId, setSavingNotesId] = useState<string | null>(null);
+
+  async function handleStatusChange(inquiryId: string, newStatus: string) {
+    setUpdatingStatus(inquiryId);
+    try {
+      await apiRequest(`/inquiries/${inquiryId}`, {
+        method: "PATCH",
+        json: { status: newStatus }
+      });
+      setInquiries((prev) =>
+        prev.map((inq) => (inq.id === inquiryId ? { ...inq, status: newStatus } : inq))
+      );
+    } catch (err: any) {
+      alert(err?.message || "Failed to update status.");
+    } finally {
+      setUpdatingStatus(null);
+    }
+  }
+
+  async function handleSaveNotes(inquiryId: string) {
+    const noteContent = localNotes[inquiryId] ?? "";
+    setSavingNotesId(inquiryId);
+    try {
+      await apiRequest(`/inquiries/${inquiryId}`, {
+        method: "PATCH",
+        json: { notes: noteContent }
+      });
+      setInquiries((prev) =>
+        prev.map((inq) => (inq.id === inquiryId ? { ...inq, notes: noteContent } : inq))
+      );
+      alert("Internal notes updated successfully! 🚀");
+    } catch (err: any) {
+      alert(err?.message || "Failed to update internal notes.");
+    } finally {
+      setSavingNotesId(null);
+    }
+  }
 
   useEffect(() => {
     fetchInquiries();
@@ -279,6 +364,100 @@ export default function AdminInquiriesPage() {
                 <p className="mt-1 text-xs text-slate-500">High complexity consultations</p>
               </motion.div>
             </div>
+
+            {/* Visual Scoping Analytics Section */}
+            {(() => {
+              const total = filteredInquiries.length;
+              const platformCounts: Record<string, number> = {};
+              const budgetCounts: Record<string, number> = {};
+              const goalCounts: Record<string, number> = {};
+
+              filteredInquiries.forEach((inq) => {
+                (inq.websitePlatforms || []).forEach((plat) => {
+                  platformCounts[plat] = (platformCounts[plat] || 0) + 1;
+                });
+                const b = inq.budgetRange || "Not Decided";
+                budgetCounts[b] = (budgetCounts[b] || 0) + 1;
+                const g = inq.primaryGoal || "Not Specified";
+                goalCounts[g] = (goalCounts[g] || 0) + 1;
+              });
+
+              return (
+                <div className="mt-6 grid gap-6 lg:grid-cols-3">
+                  {/* Website Platforms Chart */}
+                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
+                      <Globe className="h-4.5 w-4.5 text-sky-600" /> Target Website Platforms
+                    </p>
+                    <div className="space-y-3">
+                      {WEBSITE_PLATFORMS.slice(0, 4).map((plat) => {
+                        const count = platformCounts[plat] || 0;
+                        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                        return (
+                          <div key={plat} className="space-y-1">
+                            <div className="flex justify-between text-xs font-medium text-slate-700">
+                              <span>{plat}</span>
+                              <span className="text-slate-500">{count} ({pct}%)</span>
+                            </div>
+                            <div className="h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                              <div className="h-1.5 rounded-full bg-sky-500" style={{ width: `${pct}%` }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Budget Ranges Chart */}
+                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
+                      <Briefcase className="h-4.5 w-4.5 text-indigo-600" /> Budget Distributions
+                    </p>
+                    <div className="space-y-3">
+                      {BUDGET_RANGES.map((b) => {
+                        const count = budgetCounts[b] || 0;
+                        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                        return (
+                          <div key={b} className="space-y-1">
+                            <div className="flex justify-between text-xs font-medium text-slate-700">
+                              <span>{b}</span>
+                              <span className="text-slate-500">{count} ({pct}%)</span>
+                            </div>
+                            <div className="h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                              <div className="h-1.5 rounded-full bg-indigo-500" style={{ width: `${pct}%` }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Primary Goals Chart */}
+                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
+                      <Layers className="h-4.5 w-4.5 text-violet-600" /> Primary Goals
+                    </p>
+                    <div className="space-y-3">
+                      {PRIMARY_GOALS.slice(0, 4).map((g) => {
+                        const count = goalCounts[g] || 0;
+                        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                        return (
+                          <div key={g} className="space-y-1">
+                            <div className="flex justify-between text-xs font-medium text-slate-700">
+                              <span>{g}</span>
+                              <span className="text-slate-500">{count} ({pct}%)</span>
+                            </div>
+                            <div className="h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                              <div className="h-1.5 rounded-full bg-violet-500" style={{ width: `${pct}%` }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Filters */}
             <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -478,10 +657,15 @@ export default function AdminInquiriesPage() {
                               {/* Right Info: Live Estimate Recalculation */}
                               <div className="flex items-center gap-4">
                                 <div className="text-right">
-                                  <span className={`inline-block rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider ${est.badgeClass}`}>
-                                    {est.label} Tier
-                                  </span>
-                                  <p className="mt-1.5 text-sm font-semibold text-slate-800">{est.range}</p>
+                                  <div className="flex items-center gap-2 justify-end mb-1">
+                                    <span className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${statusStyles[inquiry.status || 'NEW']}`}>
+                                      {inquiry.status || 'NEW'}
+                                    </span>
+                                    <span className={`inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${est.badgeClass}`}>
+                                      {est.label}
+                                    </span>
+                                  </div>
+                                  <p className="text-sm font-semibold text-slate-800">{est.range}</p>
                                 </div>
                                 
                                 <Button 
@@ -543,7 +727,8 @@ export default function AdminInquiriesPage() {
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="border-t border-slate-100 bg-slate-50/50"
+                                onClick={(e) => e.stopPropagation()}
+                                className="border-t border-slate-100 bg-slate-50/50 cursor-default"
                               >
                                 <div className="p-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                                   {/* Section 1: Pages Scoped */}
@@ -628,8 +813,8 @@ export default function AdminInquiriesPage() {
                                       </Button>
                                       {inquiry.phone && (
                                         <Button asChild variant="outline" size="sm" className="w-full rounded-xl">
-                                          <a href={`https://wa.me/${inquiry.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                                            <ExternalLink className="mr-2 h-4 w-4" /> WhatsApp Client
+                                          <a href={generateWhatsAppLink(inquiry)} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                                            <ExternalLink className="mr-2 h-4 w-4" /> WhatsApp Scoping Followup
                                           </a>
                                         </Button>
                                       )}
@@ -719,6 +904,49 @@ export default function AdminInquiriesPage() {
                                       ) : (
                                         <p className="text-xs text-slate-400 italic">None specified.</p>
                                       )}
+                                    </div>
+                                  </div>
+
+                                  {/* Section 7: Mini CRM Status Dropdown & Notes Editor */}
+                                  <div className="md:col-span-2 lg:col-span-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm grid gap-5 sm:grid-cols-2">
+                                    <div>
+                                      <label className="text-sm font-semibold text-slate-800 mb-2 block">Inquiry Status (CRM Stage)</label>
+                                      <select
+                                        value={inquiry.status || "NEW"}
+                                        onChange={(e) => handleStatusChange(inquiry.id, e.target.value)}
+                                        disabled={updatingStatus === inquiry.id}
+                                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 shadow-sm outline-none focus:border-indigo-500 disabled:opacity-60"
+                                      >
+                                        <option value="NEW">New Lead</option>
+                                        <option value="REVIEWED">Reviewed / Under Scoping</option>
+                                        <option value="CONTACTED">Contacted Client</option>
+                                        <option value="CONVERTED">Converted Project</option>
+                                        <option value="ARCHIVED">Archived / Closed</option>
+                                      </select>
+                                      {updatingStatus === inquiry.id && <p className="mt-1.5 text-xs text-indigo-600 animate-pulse">Updating status...</p>}
+                                    </div>
+
+                                    <div>
+                                      <label className="text-sm font-semibold text-slate-800 mb-2 block">Internal Scoping Notes</label>
+                                      <textarea
+                                        value={localNotes[inquiry.id] !== undefined ? localNotes[inquiry.id] : (inquiry.notes || "")}
+                                        onChange={(e) => setLocalNotes({ ...localNotes, [inquiry.id]: e.target.value })}
+                                        placeholder="Add private project scope notes, call logs, or developer instructions here..."
+                                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3 text-sm text-slate-700 shadow-sm outline-none focus:border-indigo-500 focus:bg-white min-h-[80px]"
+                                      />
+                                      <div className="mt-2 text-right">
+                                        <Button
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleSaveNotes(inquiry.id);
+                                          }}
+                                          disabled={savingNotesId === inquiry.id}
+                                          size="sm"
+                                          className="rounded-xl px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs transition-colors"
+                                        >
+                                          {savingNotesId === inquiry.id ? "Saving..." : "Save Note"}
+                                        </Button>
+                                      </div>
                                     </div>
                                   </div>
 
