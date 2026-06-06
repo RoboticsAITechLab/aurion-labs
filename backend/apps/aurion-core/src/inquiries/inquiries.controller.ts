@@ -24,8 +24,14 @@ export class InquiriesController {
     return this.inquiriesService.update(id, body);
   }
 
+  @Get(':id/proposal')
+  async getProposal(@Param('id') id: string) {
+    return this.inquiriesService.generateProposal(id);
+  }
+
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return this.inquiriesService.delete(id);
   }
 }
+

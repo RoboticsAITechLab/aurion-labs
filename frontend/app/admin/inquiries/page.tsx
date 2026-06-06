@@ -10,6 +10,8 @@ import {
   Phone, 
   Globe, 
   CheckSquare, 
+  Check,
+  AlertCircle,
   Cpu, 
   LifeBuoy, 
   Search, 
@@ -57,6 +59,11 @@ interface Inquiry {
   requiredPages?: string[];
   status?: string;
   notes?: string;
+  adjustedSetupFee?: string;
+  adjustedMonthlyFee?: string;
+  clientSetupOffer?: string;
+  clientMonthlyOffer?: string;
+  clientMessage?: string;
 }
 
 const SUPPORT_OPTIONS = ["Monthly Maintenance", "Quarterly Support", "Half-Yearly Support", "Yearly Operational Support"];
@@ -127,6 +134,13 @@ function calculateEstimate(inquiry: Inquiry) {
     badgeClass = "text-emerald-600 bg-emerald-50 border-emerald-100 dark:border-emerald-200/20";
   }
 
+  if (inquiry.adjustedSetupFee || inquiry.adjustedMonthlyFee) {
+    label = "Adjusted";
+    range = `${inquiry.adjustedSetupFee || '—'} / ${inquiry.adjustedMonthlyFee || '—'}`;
+    badgeClass = "text-violet-700 bg-violet-50 border-violet-100 dark:border-violet-200/20";
+    bgClass = "from-violet-500 to-violet-600";
+  }
+
   const meter = Math.min(100, Math.round((total / 30) * 100));
 
   return { total, label, range, meter, bgClass, badgeClass };
@@ -193,6 +207,63 @@ export default function AdminInquiriesPage() {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
   const [localNotes, setLocalNotes] = useState<Record<string, string>>({});
   const [savingNotesId, setSavingNotesId] = useState<string | null>(null);
+
+  const [localSetupFees, setLocalSetupFees] = useState<Record<string, string>>({});
+  const [localMonthlyFees, setLocalMonthlyFees] = useState<Record<string, string>>({});
+  const [savingPricingId, setSavingPricingId] = useState<string | null>(null);
+
+  async function handleSavePricing(inquiryId: string) {
+    const setupFee = localSetupFees[inquiryId] ?? "";
+    const monthlyFee = localMonthlyFees[inquiryId] ?? "";
+    setSavingPricingId(inquiryId);
+    try {
+      await apiRequest(`/inquiries/${inquiryId}`, {
+        method: "PATCH",
+        json: { 
+          adjustedSetupFee: setupFee || null, 
+          adjustedMonthlyFee: monthlyFee || null 
+        }
+      });
+      setInquiries((prev) =>
+        prev.map((inq) => (inq.id === inquiryId ? { ...inq, adjustedSetupFee: setupFee || undefined, adjustedMonthlyFee: monthlyFee || undefined } : inq))
+      );
+      alert("Custom pricing overrides saved successfully! 💰");
+    } catch (err: any) {
+      alert(err?.message || "Failed to update pricing overrides.");
+    } finally {
+      setSavingPricingId(null);
+    }
+  }
+
+  async function handleAcceptCounter(inquiryId: string, setup: string, monthly: string) {
+    if (!confirm("Are you sure you want to accept the client's proposed pricing? This will set active prices to the counter offer and mark the project as Converted.")) return;
+    try {
+      await apiRequest(`/inquiries/${inquiryId}`, {
+        method: "PATCH",
+        json: { 
+          adjustedSetupFee: setup || null, 
+          adjustedMonthlyFee: monthly || null,
+          clientSetupOffer: null,
+          clientMonthlyOffer: null,
+          status: "CONVERTED",
+          notes: `[SYSTEM ALERT]: Admin accepted client's counter offer! Setup: ${setup}, Monthly: ${monthly}. 🎉`
+        }
+      });
+      setInquiries((prev) =>
+        prev.map((inq) => (inq.id === inquiryId ? { 
+          ...inq, 
+          adjustedSetupFee: setup || undefined, 
+          adjustedMonthlyFee: monthly || undefined,
+          clientSetupOffer: undefined,
+          clientMonthlyOffer: undefined,
+          status: "CONVERTED"
+        } : inq))
+      );
+      alert("Counter offer accepted successfully! 🚀 Status updated to CONVERTED.");
+    } catch (err: any) {
+      alert(err?.message || "Failed to accept counter offer.");
+    }
+  }
 
   async function handleStatusChange(inquiryId: string, newStatus: string) {
     setUpdatingStatus(inquiryId);
@@ -740,6 +811,57 @@ export default function AdminInquiriesPage() {
                                 className="border-t border-slate-100 bg-slate-50/50 cursor-default"
                               >
                                 <div className="p-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                  {/* Visual Approval Banner if client approved online */}
+                                  {inquiry.status === "CONVERTED" && (
+                                    <div className="md:col-span-2 lg:col-span-3 bg-emerald-50 border border-emerald-200/80 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between shadow-sm gap-4">
+                                      <div className="flex items-center gap-3 text-left">
+                                        <div className="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 shrink-0">
+                                          <Check className="h-5 w-5 stroke-[2.5]" />
+                                        </div>
+                                        <div>
+                                          <p className="text-sm font-bold text-slate-900">Proposal Approved Online!</p>
+                                          <p className="text-xs text-slate-600">Client has confirmed and accepted this quote and project scope details.</p>
+                                        </div>
+                                      </div>
+                                      <span className="text-[10px] bg-emerald-600 text-white font-bold uppercase tracking-wider px-3 py-1 rounded-full shrink-0">
+                                        Client Confirmed
+                                      </span>
+                                    </div>
+                                  )}
+
+                                  {/* Visual Counter Offer Banner if client submitted custom rates */}
+                                  {(inquiry.clientSetupOffer || inquiry.clientMonthlyOffer) && (
+                                    <div className="md:col-span-2 lg:col-span-3 bg-amber-50 border border-amber-200/80 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between shadow-sm gap-4">
+                                      <div className="flex items-center gap-3 text-left">
+                                        <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
+                                          <AlertCircle className="h-5 w-5" />
+                                        </div>
+                                        <div>
+                                          <p className="text-sm font-bold text-slate-900">Client Counter Offer Received!</p>
+                                          <p className="text-xs text-slate-600">
+                                            Proposed Setup: <strong className="text-slate-900">{inquiry.clientSetupOffer || '—'}</strong> | 
+                                            Proposed Monthly: <strong className="text-slate-900">{inquiry.clientMonthlyOffer || '—'}</strong>
+                                          </p>
+                                          {inquiry.clientMessage && (
+                                            <p className="text-xs text-slate-500 italic mt-1 bg-white/60 rounded px-2.5 py-1 border border-amber-100">
+                                              Client Message: "{inquiry.clientMessage}"
+                                            </p>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <Button 
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleAcceptCounter(inquiry.id, inquiry.clientSetupOffer || "", inquiry.clientMonthlyOffer || "");
+                                        }}
+                                        size="sm"
+                                        className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs py-2 px-4 h-9 shrink-0"
+                                      >
+                                        Accept Counter Offer
+                                      </Button>
+                                    </div>
+                                  )}
+
                                   {/* Section 1: Pages Scoped */}
                                   <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                                     <div className="flex items-center gap-2 font-semibold text-slate-800 mb-3 border-b border-slate-100 pb-2">
@@ -909,8 +1031,43 @@ export default function AdminInquiriesPage() {
                                     </div>
                                   </div>
 
-                                  {/* Section 7: Mini CRM Status Dropdown & Notes Editor */}
-                                  <div className="md:col-span-2 lg:col-span-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm grid gap-5 sm:grid-cols-2">
+                                  {/* Section 6.5: Proposal Link Generator */}
+                                  <div className="md:col-span-2 lg:col-span-3 rounded-2xl border border-indigo-100 bg-indigo-50/20 p-6 shadow-sm border-dashed flex flex-col sm:flex-row items-center justify-between gap-6">
+                                    <div className="space-y-1 text-center sm:text-left">
+                                      <h5 className="font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2">
+                                        <Sparkles className="h-4.5 w-4.5 text-indigo-600 animate-pulse" />
+                                        Shareable Client Proposal Link
+                                      </h5>
+                                      <p className="text-sm text-slate-600">
+                                        Generate a premium interactive proposal configured around this scoping. Ready to send to the client.
+                                      </p>
+                                    </div>
+
+                                    <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-center">
+                                      <Button 
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          const link = `${window.location.origin}/proposal?id=${inquiry.id}`;
+                                          navigator.clipboard.writeText(link);
+                                          alert("Client Proposal Link Copied to Clipboard! 🚀");
+                                        }}
+                                        variant="outline" 
+                                        className="rounded-xl bg-white border-slate-200 text-slate-700 shadow-sm text-xs py-2 px-4 h-9"
+                                      >
+                                        Copy Client Link
+                                      </Button>
+                                      
+                                      <Button asChild size="sm" className="rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold py-2 px-4 h-9">
+                                        <a href={`/proposal?id=${inquiry.id}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                                          View Live Proposal <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                                        </a>
+                                      </Button>
+                                    </div>
+                                  </div>
+
+                                  {/* Section 7: Mini CRM Status Dropdown, Pricing Adjustments & Notes Editor */}
+                                  <div className="md:col-span-2 lg:col-span-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm grid gap-5 md:grid-cols-3">
+                                    {/* CRM Status */}
                                     <div>
                                       <label className="text-sm font-semibold text-slate-800 mb-2 block">Inquiry Status (CRM Stage)</label>
                                       <select
@@ -928,13 +1085,56 @@ export default function AdminInquiriesPage() {
                                       {updatingStatus === inquiry.id && <p className="mt-1.5 text-xs text-indigo-600 animate-pulse">Updating status...</p>}
                                     </div>
 
+                                    {/* Price Override Form */}
+                                    <div>
+                                      <label className="text-sm font-semibold text-slate-800 mb-2 block">Custom Pricing Adjustments</label>
+                                      <div className="space-y-3">
+                                        <div>
+                                          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1">Adjusted Setup Fee</span>
+                                          <input 
+                                            type="text" 
+                                            placeholder="e.g. ₹15,000"
+                                            value={localSetupFees[inquiry.id] !== undefined ? localSetupFees[inquiry.id] : (inquiry.adjustedSetupFee || "")}
+                                            onChange={(e) => setLocalSetupFees({ ...localSetupFees, [inquiry.id]: e.target.value })}
+                                            className="w-full rounded-xl border border-slate-200 px-3 py-1.5 text-sm outline-none focus:border-indigo-500 bg-slate-50/50 focus:bg-white"
+                                            onClick={(e) => e.stopPropagation()}
+                                          />
+                                        </div>
+                                        <div>
+                                          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1">Adjusted Monthly Fee</span>
+                                          <input 
+                                            type="text" 
+                                            placeholder="e.g. ₹1,499/mo"
+                                            value={localMonthlyFees[inquiry.id] !== undefined ? localMonthlyFees[inquiry.id] : (inquiry.adjustedMonthlyFee || "")}
+                                            onChange={(e) => setLocalMonthlyFees({ ...localMonthlyFees, [inquiry.id]: e.target.value })}
+                                            className="w-full rounded-xl border border-slate-200 px-3 py-1.5 text-sm outline-none focus:border-indigo-500 bg-slate-50/50 focus:bg-white"
+                                            onClick={(e) => e.stopPropagation()}
+                                          />
+                                        </div>
+                                        <div className="text-right">
+                                          <Button
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              handleSavePricing(inquiry.id);
+                                            }}
+                                            disabled={savingPricingId === inquiry.id}
+                                            size="sm"
+                                            className="rounded-xl px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs transition-colors"
+                                          >
+                                            {savingPricingId === inquiry.id ? "Saving..." : "Save Prices"}
+                                          </Button>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Notes Area */}
                                     <div>
                                       <label className="text-sm font-semibold text-slate-800 mb-2 block">Internal Scoping Notes</label>
                                       <textarea
                                         value={localNotes[inquiry.id] !== undefined ? localNotes[inquiry.id] : (inquiry.notes || "")}
                                         onChange={(e) => setLocalNotes({ ...localNotes, [inquiry.id]: e.target.value })}
                                         placeholder="Add private project scope notes, call logs, or developer instructions here..."
-                                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3 text-sm text-slate-700 shadow-sm outline-none focus:border-indigo-500 focus:bg-white min-h-[80px]"
+                                        className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3 text-sm text-slate-700 shadow-sm outline-none focus:border-indigo-500 focus:bg-white min-h-[92px]"
                                       />
                                       <div className="mt-2 text-right">
                                         <Button

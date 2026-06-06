@@ -11,4 +11,24 @@ export class UpdateInquiryDto {
   @IsString()
   @IsOptional()
   notes?: string;
+
+  @IsString()
+  @IsOptional()
+  adjustedSetupFee?: string;
+
+  @IsString()
+  @IsOptional()
+  adjustedMonthlyFee?: string;
+
+  @IsString()
+  @IsOptional()
+  clientSetupOffer?: string;
+
+  @IsString()
+  @IsOptional()
+  clientMonthlyOffer?: string;
+
+  @IsString()
+  @IsOptional()
+  clientMessage?: string;
 }
