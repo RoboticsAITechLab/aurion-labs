@@ -35,6 +35,17 @@ type FormValues = {
   infrastructure: string[];
   support: string;
   customRequests?: string;
+
+  // New Fields
+  websitePlatforms?: string[];
+  budgetRange?: string;
+  needDomain?: boolean;
+  needHosting?: boolean;
+  googleBusinessProfile?: boolean;
+  instagramBusinessPage?: boolean;
+  facebookBusinessPage?: boolean;
+  primaryGoal?: string;
+  requiredPages?: string[];
 };
 
 const schema = z.object({
@@ -50,6 +61,17 @@ const schema = z.object({
   infrastructure: z.array(z.string()),
   support: z.string(),
   customRequests: z.string().optional(),
+
+  // New Fields
+  websitePlatforms: z.array(z.string()).optional(),
+  budgetRange: z.string().optional(),
+  needDomain: z.boolean().optional(),
+  needHosting: z.boolean().optional(),
+  googleBusinessProfile: z.boolean().optional(),
+  instagramBusinessPage: z.boolean().optional(),
+  facebookBusinessPage: z.boolean().optional(),
+  primaryGoal: z.string().optional(),
+  requiredPages: z.array(z.string()).optional(),
 });
 
 const PAGE_OPTIONS = ["Homepage", "About Page", "Services Page", "Contact Page", "Gallery / Portfolio", "Blog System", "Multi-Service Layout"];
@@ -59,6 +81,51 @@ const BUSINESS_TYPES = ["Clinic", "Gym", "Restaurant", "Salon", "Coaching", "Loc
 const GOAL_OPTIONS = ["Lead Generation", "Booking / Scheduling", "Brand Presence", "Operational Workflow"];
 const WEBSITE_OPTIONS = ["No website", "Existing website", "Redesign required", "Partial rebuild needed"];
 const SUPPORT_OPTIONS = ["Monthly Maintenance", "Quarterly Support", "Half-Yearly Support", "Yearly Operational Support"];
+
+// New Section Preset Options
+const WEBSITE_PLATFORMS = [
+  "WordPress",
+  "Wix",
+  "Wix Studio",
+  "Hostinger Website Builder",
+  "Shopify",
+  "Webflow",
+  "Framer",
+  "Squarespace",
+  "Custom Coded Website",
+  "Not Sure (Recommend Best Option)"
+];
+
+const BUDGET_RANGES = [
+  "Under ₹5,000",
+  "₹5,000–₹10,000",
+  "₹10,000–₹20,000",
+  "₹20,000+",
+  "Not Decided"
+];
+
+const PRIMARY_GOALS = [
+  "Lead Generation",
+  "Appointment Booking",
+  "Online Store",
+  "Portfolio",
+  "Information Website",
+  "Internal Business Tool"
+];
+
+const REQUIRED_PAGES_OPTIONS = [
+  "Home",
+  "About",
+  "Services",
+  "Contact",
+  "Gallery",
+  "Portfolio",
+  "Pricing",
+  "Testimonials",
+  "Blog",
+  "FAQ",
+  "Custom"
+];
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -72,7 +139,28 @@ export default function ContactPage() {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { pages: ["Homepage", "Contact Page"], features: [], infrastructure: [], support: SUPPORT_OPTIONS[0], businessType: [], operationalGoal: [], currentWebsite: ["No website"] } });
+  } = useForm<FormValues>({ 
+    resolver: zodResolver(schema), 
+    defaultValues: { 
+      pages: ["Homepage", "Contact Page"], 
+      features: [], 
+      infrastructure: [], 
+      support: SUPPORT_OPTIONS[0], 
+      businessType: [], 
+      operationalGoal: [], 
+      currentWebsite: ["No website"],
+      // New Default Values
+      websitePlatforms: [],
+      budgetRange: "Not Decided",
+      needDomain: false,
+      needHosting: false,
+      googleBusinessProfile: false,
+      instagramBusinessPage: false,
+      facebookBusinessPage: false,
+      primaryGoal: "Lead Generation",
+      requiredPages: ["Home", "Contact"]
+    } 
+  });
 
   const watched = watch();
 
@@ -87,22 +175,34 @@ export default function ContactPage() {
     const websiteScore = websiteFlags.includes("No website") ? 1.2 : websiteFlags.length * 0.6;
     const customScore = watched.customRequests && watched.customRequests.length > 20 ? 2.4 : 0;
 
-    const total = pagesScore + featuresScore + infraScore + supportScore + businessTypesScore + goalsScore + websiteScore + customScore;
+    // Incorporate new fields into estimate complexity
+    const websitePlatformsScore = (watched.websitePlatforms?.length ?? 0) * 0.7;
+    const pagesRequiredScore = (watched.requiredPages?.length ?? 0) * 0.8;
+    const domainHostingScore = (watched.needDomain ? 0.5 : 0) + (watched.needHosting ? 0.8 : 0);
+    const businessPresenceScore = (watched.googleBusinessProfile ? 0.4 : 0) + (watched.instagramBusinessPage ? 0.4 : 0) + (watched.facebookBusinessPage ? 0.4 : 0);
+
+    const total = pagesScore + featuresScore + infraScore + supportScore + businessTypesScore + goalsScore + websiteScore + customScore + websitePlatformsScore + pagesRequiredScore + domainHostingScore + businessPresenceScore;
 
     let label = "Foundational";
     let range = "₹4K ─ ₹12K";
-    if (total >= 6 && total < 12) {
+    if (total >= 10 && total < 22) {
       label = "Operational";
       range = "₹15K ─ ₹60K+";
-    } else if (total >= 12) {
+    } else if (total >= 22) {
       label = "Scalable";
       range = "Consultation Based";
     }
 
-    const meter = Math.min(100, Math.round((total / 18) * 100));
+    const meter = Math.min(100, Math.round((total / 30) * 100));
 
     return { total, label, range, meter };
-  }, [watched.pages, watched.features, watched.infrastructure, watched.support, watched.customRequests, watched.businessType, watched.operationalGoal, watched.currentWebsite]);
+  }, [
+    watched.pages, watched.features, watched.infrastructure, watched.support, 
+    watched.customRequests, watched.businessType, watched.operationalGoal, 
+    watched.currentWebsite, watched.websitePlatforms, watched.requiredPages,
+    watched.needDomain, watched.needHosting, watched.googleBusinessProfile,
+    watched.instagramBusinessPage, watched.facebookBusinessPage
+  ]);
 
   const continueToScope = handleSubmit(() => {
     setStep(2);
@@ -120,10 +220,31 @@ export default function ContactPage() {
   async function onSubmit(data: FormValues) {
     setSubmitting(true);
     setError(null);
+
+    // Map to the exact specification request payload contract
+    const payload = {
+      fullName: data.name,
+      businessName: data.businessName || "",
+      email: data.email,
+      phone: data.phone || "",
+      businessType: data.businessType?.[0] || "",
+      websitePlatforms: data.websitePlatforms || [],
+      budgetRange: data.budgetRange || "Not Decided",
+      needDomain: !!data.needDomain,
+      needHosting: !!data.needHosting,
+      googleBusinessProfile: !!data.googleBusinessProfile,
+      instagramBusinessPage: !!data.instagramBusinessPage,
+      facebookBusinessPage: !!data.facebookBusinessPage,
+      primaryGoal: data.primaryGoal || "Lead Generation",
+      requiredPages: data.requiredPages || [],
+      features: data.features || [],
+      customRequirements: data.customRequests || ""
+    };
+
     try {
       await apiRequest("/inquiries", {
         method: "POST",
-        json: data,
+        json: payload,
       });
       setSubmitted(true);
     } catch (err: any) {
@@ -368,9 +489,210 @@ export default function ContactPage() {
                         </div>
                       </div>
 
+                      <div className="mt-6 grid gap-6 sm:grid-cols-3">
+                        <div>
+                          <label className="text-sm font-medium text-slate-700">Website Platform</label>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {WEBSITE_PLATFORMS.map((plat) => {
+                              const selected = (watched.websitePlatforms || []).includes(plat);
+                              return (
+                                <motion.button
+                                  key={plat}
+                                  type="button"
+                                  onClick={() => {
+                                    const current = Array.isArray(watched.websitePlatforms) ? watched.websitePlatforms : [];
+                                    if (current.includes(plat)) {
+                                      setValue("websitePlatforms", current.filter((x: string) => x !== plat));
+                                    } else {
+                                      setValue("websitePlatforms", [...current, plat]);
+                                    }
+                                  }}
+                                  whileHover={{ y: -2 }}
+                                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                  className={`inline-flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs shadow-sm transform-gpu transition-all ${
+                                    selected
+                                      ? "bg-slate-900 text-white shadow-md ring-1 ring-sky-400"
+                                      : "bg-white text-slate-700 border border-slate-100"
+                                  }`}
+                                >
+                                  <span className={`inline-block h-2 w-2 rounded-full ${selected ? "bg-sky-400" : "bg-slate-200"}`} />
+                                  <span>{plat}</span>
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-sm font-medium text-slate-700">Budget Range</label>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {BUDGET_RANGES.map((r) => {
+                              const selected = watched.budgetRange === r;
+                              return (
+                                <motion.button
+                                  key={r}
+                                  type="button"
+                                  onClick={() => setValue("budgetRange", r)}
+                                  whileHover={{ y: -2 }}
+                                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                  className={`inline-flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs shadow-sm transform-gpu transition-all ${
+                                    selected
+                                      ? "bg-slate-900 text-white shadow-md ring-1 ring-sky-400"
+                                      : "bg-white text-slate-700 border border-slate-100"
+                                  }`}
+                                >
+                                  <span className={`inline-block h-2 w-2 rounded-full ${selected ? "bg-indigo-400" : "bg-slate-200"}`} />
+                                  <span>{r}</span>
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-sm font-medium text-slate-700">Primary Website Goal</label>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {PRIMARY_GOALS.map((g) => {
+                              const selected = watched.primaryGoal === g;
+                              return (
+                                <motion.button
+                                  key={g}
+                                  type="button"
+                                  onClick={() => setValue("primaryGoal", g)}
+                                  whileHover={{ y: -2 }}
+                                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                  className={`inline-flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs shadow-sm transform-gpu transition-all ${
+                                    selected
+                                      ? "bg-slate-900 text-white shadow-md ring-1 ring-sky-400"
+                                      : "bg-white text-slate-700 border border-slate-100"
+                                  }`}
+                                >
+                                  <span className={`inline-block h-2 w-2 rounded-full ${selected ? "bg-violet-400" : "bg-slate-200"}`} />
+                                  <span>{g}</span>
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+
                       <Separator className="my-6" />
 
                       <div className="grid gap-6 lg:grid-cols-2">
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Domain & Hosting</p>
+                          <div className="mt-4 space-y-3">
+                            <div className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+                              <span className="text-sm font-medium text-slate-700">Need a Custom Domain?</span>
+                              <div className="flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("needDomain", true)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${watched.needDomain ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("needDomain", false)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${!watched.needDomain ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+                              <span className="text-sm font-medium text-slate-700">Need Hosting?</span>
+                              <div className="flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("needHosting", true)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${watched.needHosting ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("needHosting", false)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${!watched.needHosting ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Business Presence</p>
+                          <div className="mt-4 space-y-3">
+                            <div className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-3 shadow-sm">
+                              <span className="text-sm font-medium text-slate-700">Google Business Profile?</span>
+                              <div className="flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("googleBusinessProfile", true)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${watched.googleBusinessProfile ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("googleBusinessProfile", false)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${!watched.googleBusinessProfile ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-3 shadow-sm">
+                              <span className="text-sm font-medium text-slate-700">Instagram Business Page?</span>
+                              <div className="flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("instagramBusinessPage", true)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${watched.instagramBusinessPage ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("instagramBusinessPage", false)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${!watched.instagramBusinessPage ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-3 shadow-sm">
+                              <span className="text-sm font-medium text-slate-700">Facebook Business Page?</span>
+                              <div className="flex gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("facebookBusinessPage", true)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${watched.facebookBusinessPage ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setValue("facebookBusinessPage", false)}
+                                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${!watched.facebookBusinessPage ? "bg-slate-900 text-white shadow-md" : "bg-slate-50 text-slate-600 border border-slate-200/60"}`}
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <Separator className="my-6" />
+
+                      <div className="grid gap-6 lg:grid-cols-3">
                         <div>
                           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Website Structure</p>
                           <div className="mt-4 grid gap-3">
@@ -378,6 +700,18 @@ export default function ContactPage() {
                               <label key={p} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
                                 <input type="checkbox" value={p} {...register("pages")} className="h-4 w-4" />
                                 <span className="text-sm text-slate-700">{p}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Required Pages</p>
+                          <div className="mt-4 grid gap-3">
+                            {REQUIRED_PAGES_OPTIONS.map((rp) => (
+                              <label key={rp} className="flex items-center gap-3 rounded-lg border border-slate-100 px-4 py-3">
+                                <input type="checkbox" value={rp} {...register("requiredPages")} className="h-4 w-4" />
+                                <span className="text-sm text-slate-700">{rp}</span>
                               </label>
                             ))}
                           </div>

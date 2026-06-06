@@ -19,19 +19,28 @@ model User {
 }
 
 model ContactInquiry {
-  id                String   @id @default(uuid())
-  name              String
-  businessName      String?
-  email             String
-  phone             String?
-  businessType      String[]
-  operationalGoal   String[]
-  currentWebsite    String[]
-  pages             String[]
-  features          String[]
-  infrastructure    String[]
-  support           String
-  customRequests    String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                    String   @id @default(uuid())
+  name                  String
+  businessName          String?
+  email                 String
+  phone                 String?
+  businessType          String[]
+  operationalGoal       String[]
+  currentWebsite        String[]
+  pages                 String[]
+  features              String[]
+  infrastructure        String[]
+  support               String
+  customRequests        String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  websitePlatforms      String[]
+  budgetRange           String?
+  needDomain            Boolean?
+  needHosting           Boolean?
+  googleBusinessProfile Boolean?
+  instagramBusinessPage Boolean?
+  facebookBusinessPage  Boolean?
+  primaryGoal           String?
+  requiredPages         String[]
 }
