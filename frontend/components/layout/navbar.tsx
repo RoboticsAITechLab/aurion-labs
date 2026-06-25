@@ -34,9 +34,8 @@ export default function Navbar() {
 			<Container>
 				<nav className="flex flex-col gap-3 py-3 lg:h-22 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:py-0">
 					<div className="flex items-center justify-between gap-3">
-						<Link href="/" className="flex items-center gap-2 text-base font-semibold tracking-tight text-slate-950">
-							<img src="/logo.svg" alt="Aurion Labs" className="h-6 w-6 object-contain" />
-							Aurion Labs
+						<Link href="/" className="flex items-center text-slate-950">
+							<img src="/logo.svg" alt="Aurion Labs" className="h-16 w-auto object-contain" />
 						</Link>
 
 						<div className="flex items-center gap-2 lg:hidden">
@@ -49,9 +48,8 @@ export default function Navbar() {
 								</SheetTrigger>
 								<SheetContent side="right" className="border-slate-200 bg-white/96 px-5 backdrop-blur-xl sm:px-6">
 									<SheetHeader className="p-0">
-										<SheetTitle className="flex items-center gap-2 text-left text-lg font-semibold tracking-tight">
-											<img src="/logo.svg" alt="Aurion Labs" className="h-6 w-6 object-contain" />
-											Aurion Labs
+										<SheetTitle className="text-left text-lg font-semibold tracking-tight">
+											<img src="/logo.svg" alt="Aurion Labs" className="h-16 w-auto object-contain" />
 										</SheetTitle>
 									</SheetHeader>
 									<div className="mt-6 flex flex-col gap-3">

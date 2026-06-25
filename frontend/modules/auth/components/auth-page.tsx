@@ -81,9 +81,8 @@ export default function AuthPage({ mode, intent, resetToken, destination, compac
 		<div className="min-h-[100dvh] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.05),transparent_42%),linear-gradient(180deg,rgba(248,250,252,1),rgba(255,255,255,1))] px-3 py-3 sm:px-4 sm:py-4 lg:px-8 lg:py-10">
 			<div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:gap-4">
 				<div className="flex items-center justify-between gap-3">
-					<Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-950">
-						<img src="/logo.svg" alt="Aurion Labs" className="h-5 w-5 object-contain" />
-						Aurion Labs
+					<Link href="/" className="inline-flex items-center text-slate-950">
+						<img src="/logo.svg" alt="Aurion Labs" className="h-14 w-auto object-contain" />
 					</Link>
 					<div className="flex items-center gap-2">
 						<Badge variant="outline" className="border-slate-200 bg-white text-slate-600">Guest-first</Badge>
