@@ -16,10 +16,33 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://aurionlabs.in"),
 	title: "Aurion Labs | Websites, Booking, and Growth Systems",
 	description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
 	icons: {
 		icon: "/icon.svg",
+	},
+	openGraph: {
+		title: "Aurion Labs | Websites, Booking, and Growth Systems",
+		description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
+		url: "https://aurionlabs.in",
+		siteName: "Aurion Labs",
+		images: [
+			{
+				url: "/logo.svg",
+				width: 1254,
+				height: 1254,
+				alt: "Aurion Labs Logo",
+			},
+		],
+		locale: "en_US",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Aurion Labs | Websites, Booking, and Growth Systems",
+		description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
+		images: ["/logo.svg"],
 	},
 };
 
