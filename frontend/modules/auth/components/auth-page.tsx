@@ -82,7 +82,7 @@ export default function AuthPage({ mode, intent, resetToken, destination, compac
 			<div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:gap-4">
 				<div className="flex items-center justify-between gap-3">
 					<Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-950">
-						<span className="inline-flex size-2 rounded-full bg-blue-600" />
+						<img src="/logo.svg" alt="Aurion Labs" className="h-5 w-5 object-contain" />
 						Aurion Labs
 					</Link>
 					<div className="flex items-center gap-2">

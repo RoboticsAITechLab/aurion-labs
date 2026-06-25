@@ -16,8 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aurion Labs | Websites, Booking, and Growth Systems",
-  description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
+	title: "Aurion Labs | Websites, Booking, and Growth Systems",
+	description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
+	icons: {
+		icon: "/logo.svg",
+	},
 };
 
 export default function RootLayout({

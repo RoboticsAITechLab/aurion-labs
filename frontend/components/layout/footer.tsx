@@ -24,7 +24,8 @@ export default function Footer() {
 			<Container>
 				<div className="grid gap-10 py-12 lg:grid-cols-[1.4fr_1fr_1fr] lg:py-16">
 					<div>
-						<Link href="/" className="text-base font-semibold tracking-tight text-slate-950">
+						<Link href="/" className="flex items-center gap-2 text-base font-semibold tracking-tight text-slate-950">
+							<img src="/logo.svg" alt="Aurion Labs" className="h-6 w-6 object-contain" />
 							Aurion Labs
 						</Link>
 						<p className="mt-4 max-w-md text-sm leading-7 text-slate-600">
