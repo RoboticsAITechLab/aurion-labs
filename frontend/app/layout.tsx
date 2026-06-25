@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://aurionlabs.in"),
+	metadataBase: new URL("https://aurion-labs.vercel.app/"),
 	title: "Aurion Labs | Websites, Booking, and Growth Systems",
 	description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
 	icons: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: "Aurion Labs | Websites, Booking, and Growth Systems",
 		description: "Aurion Labs builds modern business websites, WhatsApp-ready lead flows, booking systems, and lightweight operational systems for local businesses.",
-		url: "https://aurionlabs.in",
+		url: "https://aurion-labs.vercel.app",
 		siteName: "Aurion Labs",
 		images: [
 			{
